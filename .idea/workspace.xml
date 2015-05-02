@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7c5b5725-d31d-4e03-a56b-33b0617c3f91" name="Default" comment="">
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\app.css" afterPath="$PROJECT_DIR$/assets/css/app.css" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\font.css" afterPath="$PROJECT_DIR$/assets/css/font.css" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.arrow.less" afterPath="$PROJECT_DIR$/assets/css/less/app.arrow.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.butterbar.less" afterPath="$PROJECT_DIR$/assets/css/less/app.butterbar.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.buttons.less" afterPath="$PROJECT_DIR$/assets/css/less/app.buttons.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.colors.less" afterPath="$PROJECT_DIR$/assets/css/less/app.colors.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.components.less" afterPath="$PROJECT_DIR$/assets/css/less/app.components.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.item.less" afterPath="$PROJECT_DIR$/assets/css/less/app.item.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.layout.boxed.less" afterPath="$PROJECT_DIR$/assets/css/less/app.layout.boxed.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.layout.less" afterPath="$PROJECT_DIR$/assets/css/less/app.layout.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.less" afterPath="$PROJECT_DIR$/assets/css/less/app.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.mixins.less" afterPath="$PROJECT_DIR$/assets/css/less/app.mixins.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.nav.dock.less" afterPath="$PROJECT_DIR$/assets/css/less/app.nav.dock.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.nav.less" afterPath="$PROJECT_DIR$/assets/css/less/app.nav.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.nav.offscreen.less" afterPath="$PROJECT_DIR$/assets/css/less/app.nav.offscreen.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.ng.less" afterPath="$PROJECT_DIR$/assets/css/less/app.ng.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.plugin.less" afterPath="$PROJECT_DIR$/assets/css/less/app.plugin.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.reset.less" afterPath="$PROJECT_DIR$/assets/css/less/app.reset.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.utilities.less" afterPath="$PROJECT_DIR$/assets/css/less/app.utilities.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.variables.less" afterPath="$PROJECT_DIR$/assets/css/less/app.variables.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\css\less\app.widgets.less" afterPath="$PROJECT_DIR$/assets/css/less/app.widgets.less" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\fonts\sourcesanspro\sourcesanspro-bold.woff" afterPath="$PROJECT_DIR$/assets/fonts/sourcesanspro/sourcesanspro-bold.woff" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\fonts\sourcesanspro\sourcesanspro-light.woff" afterPath="$PROJECT_DIR$/assets/fonts/sourcesanspro/sourcesanspro-light.woff" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\fonts\sourcesanspro\sourcesanspro.woff" afterPath="$PROJECT_DIR$/assets/fonts/sourcesanspro/sourcesanspro.woff" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a0.jpg" afterPath="$PROJECT_DIR$/assets/img/a0.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a1.jpg" afterPath="$PROJECT_DIR$/assets/img/a1.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a10.jpg" afterPath="$PROJECT_DIR$/assets/img/a10.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a2.jpg" afterPath="$PROJECT_DIR$/assets/img/a2.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a3.jpg" afterPath="$PROJECT_DIR$/assets/img/a3.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a4.jpg" afterPath="$PROJECT_DIR$/assets/img/a4.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a5.jpg" afterPath="$PROJECT_DIR$/assets/img/a5.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a6.jpg" afterPath="$PROJECT_DIR$/assets/img/a6.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a7.jpg" afterPath="$PROJECT_DIR$/assets/img/a7.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a8.jpg" afterPath="$PROJECT_DIR$/assets/img/a8.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\a9.jpg" afterPath="$PROJECT_DIR$/assets/img/a9.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b0.jpg" afterPath="$PROJECT_DIR$/assets/img/b0.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b1.jpg" afterPath="$PROJECT_DIR$/assets/img/b1.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b10.jpg" afterPath="$PROJECT_DIR$/assets/img/b10.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b11.jpg" afterPath="$PROJECT_DIR$/assets/img/b11.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b12.jpg" afterPath="$PROJECT_DIR$/assets/img/b12.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b13.jpg" afterPath="$PROJECT_DIR$/assets/img/b13.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b14.jpg" afterPath="$PROJECT_DIR$/assets/img/b14.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b15.jpg" afterPath="$PROJECT_DIR$/assets/img/b15.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b16.jpg" afterPath="$PROJECT_DIR$/assets/img/b16.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b17.jpg" afterPath="$PROJECT_DIR$/assets/img/b17.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b18.jpg" afterPath="$PROJECT_DIR$/assets/img/b18.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b19.jpg" afterPath="$PROJECT_DIR$/assets/img/b19.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b2.jpg" afterPath="$PROJECT_DIR$/assets/img/b2.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b20.jpg" afterPath="$PROJECT_DIR$/assets/img/b20.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b3.jpg" afterPath="$PROJECT_DIR$/assets/img/b3.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b4.jpg" afterPath="$PROJECT_DIR$/assets/img/b4.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b5.jpg" afterPath="$PROJECT_DIR$/assets/img/b5.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b6.jpg" afterPath="$PROJECT_DIR$/assets/img/b6.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b7.jpg" afterPath="$PROJECT_DIR$/assets/img/b7.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b8.jpg" afterPath="$PROJECT_DIR$/assets/img/b8.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\b9.jpg" afterPath="$PROJECT_DIR$/assets/img/b9.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\bg.jpg" afterPath="$PROJECT_DIR$/assets/img/bg.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c0.jpg" afterPath="$PROJECT_DIR$/assets/img/c0.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c1.jpg" afterPath="$PROJECT_DIR$/assets/img/c1.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c2.jpg" afterPath="$PROJECT_DIR$/assets/img/c2.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c3.jpg" afterPath="$PROJECT_DIR$/assets/img/c3.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c4.jpg" afterPath="$PROJECT_DIR$/assets/img/c4.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c5.jpg" afterPath="$PROJECT_DIR$/assets/img/c5.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c6.jpg" afterPath="$PROJECT_DIR$/assets/img/c6.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c7.jpg" afterPath="$PROJECT_DIR$/assets/img/c7.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c8.jpg" afterPath="$PROJECT_DIR$/assets/img/c8.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\c9.jpg" afterPath="$PROJECT_DIR$/assets/img/c9.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\logo.png" afterPath="$PROJECT_DIR$/assets/img/logo.png" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\img\p0.jpg" afterPath="$PROJECT_DIR$/assets/img/p0.jpg" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app.js" afterPath="$PROJECT_DIR$/assets/js/app.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\calendar\calendar.js" afterPath="$PROJECT_DIR$/assets/js/app/calendar/calendar.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\contact\contact.js" afterPath="$PROJECT_DIR$/assets/js/app/contact/contact.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\contact\contacts.json" afterPath="$PROJECT_DIR$/assets/js/app/contact/contacts.json" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\mail\mail-service.js" afterPath="$PROJECT_DIR$/assets/js/app/mail/mail-service.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\mail\mail.js" afterPath="$PROJECT_DIR$/assets/js/app/mail/mail.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\mail\mails.json" afterPath="$PROJECT_DIR$/assets/js/app/mail/mails.json" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\map\load-google-maps.js" afterPath="$PROJECT_DIR$/assets/js/app/map/load-google-maps.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\map\map.js" afterPath="$PROJECT_DIR$/assets/js/app/map/map.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\map\ui-map.js" afterPath="$PROJECT_DIR$/assets/js/app/map/ui-map.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\music\ctrl.js" afterPath="$PROJECT_DIR$/assets/js/app/music/ctrl.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\music\theme.css" afterPath="$PROJECT_DIR$/assets/js/app/music/theme.css" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\music\videogular.css" afterPath="$PROJECT_DIR$/assets/js/app/music/videogular.css" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\note\note.js" afterPath="$PROJECT_DIR$/assets/js/app/note/note.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\note\notes.json" afterPath="$PROJECT_DIR$/assets/js/app/note/notes.json" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\todo\todo.js" afterPath="$PROJECT_DIR$/assets/js/app/todo/todo.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\weather\angular-skycons.js" afterPath="$PROJECT_DIR$/assets/js/app/weather/angular-skycons.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\weather\ctrl.js" afterPath="$PROJECT_DIR$/assets/js/app/weather/ctrl.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\app\weather\skycons.js" afterPath="$PROJECT_DIR$/assets/js/app/weather/skycons.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\config.js" afterPath="$PROJECT_DIR$/assets/js/config.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\config.lazyload.js" afterPath="$PROJECT_DIR$/assets/js/config.lazyload.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\config.router.js" afterPath="$PROJECT_DIR$/assets/js/config.router.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\bootstrap.js" afterPath="$PROJECT_DIR$/assets/js/controllers/bootstrap.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\chart.js" afterPath="$PROJECT_DIR$/assets/js/controllers/chart.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\editor.js" afterPath="$PROJECT_DIR$/assets/js/controllers/editor.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\file-upload.js" afterPath="$PROJECT_DIR$/assets/js/controllers/file-upload.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\form.js" afterPath="$PROJECT_DIR$/assets/js/controllers/form.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\grid.js" afterPath="$PROJECT_DIR$/assets/js/controllers/grid.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\imgcrop.js" afterPath="$PROJECT_DIR$/assets/js/controllers/imgcrop.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\largeLoad.json" afterPath="$PROJECT_DIR$/assets/js/controllers/largeLoad.json" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\scroll.js" afterPath="$PROJECT_DIR$/assets/js/controllers/scroll.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\select.js" afterPath="$PROJECT_DIR$/assets/js/controllers/select.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\signin.js" afterPath="$PROJECT_DIR$/assets/js/controllers/signin.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\signup.js" afterPath="$PROJECT_DIR$/assets/js/controllers/signup.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\slider.js" afterPath="$PROJECT_DIR$/assets/js/controllers/slider.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\tab.js" afterPath="$PROJECT_DIR$/assets/js/controllers/tab.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\table.js" afterPath="$PROJECT_DIR$/assets/js/controllers/table.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\toaster.js" afterPath="$PROJECT_DIR$/assets/js/controllers/toaster.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\tree.js" afterPath="$PROJECT_DIR$/assets/js/controllers/tree.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\uigrid.js" afterPath="$PROJECT_DIR$/assets/js/controllers/uigrid.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\upload.php" afterPath="$PROJECT_DIR$/assets/js/controllers/upload.php" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\vectormap.js" afterPath="$PROJECT_DIR$/assets/js/controllers/vectormap.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\controllers\xeditable.js" afterPath="$PROJECT_DIR$/assets/js/controllers/xeditable.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\setnganimate.js" afterPath="$PROJECT_DIR$/assets/js/directives/setnganimate.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\ui-butterbar.js" afterPath="$PROJECT_DIR$/assets/js/directives/ui-butterbar.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\ui-focus.js" afterPath="$PROJECT_DIR$/assets/js/directives/ui-focus.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\ui-fullscreen.js" afterPath="$PROJECT_DIR$/assets/js/directives/ui-fullscreen.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\ui-jq.js" afterPath="$PROJECT_DIR$/assets/js/directives/ui-jq.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\ui-module.js" afterPath="$PROJECT_DIR$/assets/js/directives/ui-module.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\ui-nav.js" afterPath="$PROJECT_DIR$/assets/js/directives/ui-nav.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\ui-scroll.js" afterPath="$PROJECT_DIR$/assets/js/directives/ui-scroll.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\ui-shift.js" afterPath="$PROJECT_DIR$/assets/js/directives/ui-shift.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\directives\ui-toggleclass.js" afterPath="$PROJECT_DIR$/assets/js/directives/ui-toggleclass.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\filters\fromNow.js" afterPath="$PROJECT_DIR$/assets/js/filters/fromNow.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\main.js" afterPath="$PROJECT_DIR$/assets/js/main.js" />
+      <change type="MOVED" beforePath="C:\Users\LENOVO\Documents\GitHub\shopfly\js\services\ui-load.js" afterPath="$PROJECT_DIR$/assets/js/services/ui-load.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.min.html" afterPath="$PROJECT_DIR$/index.min.html" />
+    </list>
+    <ignored path="shopfly.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="shopfly" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.58419245">
+              <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+  </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shopfly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shopfly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="shopfly" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="FullScreen" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\LENOVO\Documents\GitHub\shopfly\assets" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <method />
+    </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="JsTestDriver-test-runner" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="cucumber.js" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" value="" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7c5b5725-d31d-4e03-a56b-33b0617c3f91" name="Default" comment="" />
+      <created>1430580280282</created>
+      <option name="number" value="Default" />
+      <updated>1430580280282</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="false" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16837482" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/assets/css/less/app.less">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.67291665">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.58419245">
+          <caret line="20" column="27" selection-start-line="20" selection-start-column="27" selection-end-line="20" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
