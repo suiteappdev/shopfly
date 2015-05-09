@@ -1,8 +1,4 @@
 'use strict';
-
-/**
- * Config for the router
- */
 angular.module('app')
   .run(
     [          '$rootScope', '$state', '$stateParams',
@@ -16,10 +12,10 @@ angular.module('app')
     [          '$stateProvider', '$urlRouterProvider', 'JQ_CONFIG', 
       function ($stateProvider,   $urlRouterProvider, JQ_CONFIG) {
           
-          $urlRouterProvider
-              .otherwise('/app/dashboard-v1');
+          $urlRouterProvider.otherwise('/app/dashboard-v1');
+
           $stateProvider
-              .state('app', {
+            .state('app', {
                   abstract: true,
                   url: '/app',
                   templateUrl: 'tpl/app.html'
@@ -30,7 +26,7 @@ angular.module('app')
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
-                        return $ocLazyLoad.load(['js/controllers/chart.js']);
+                        return $ocLazyLoad.load(['assets/js/controllers/chart.js']);
                     }]
                   }
               })
@@ -40,7 +36,7 @@ angular.module('app')
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
-                        return $ocLazyLoad.load(['js/controllers/chart.js']);
+                        return $ocLazyLoad.load(['assets/js/controllers/chart.js']);
                     }]
                   }
               })
@@ -78,7 +74,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad){
-                          return uiLoad.load('js/controllers/scroll.js');
+                          return uiLoad.load('assets/js/controllers/scroll.js');
                       }]
                   }
               })
@@ -98,7 +94,7 @@ angular.module('app')
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('angularBootstrapNavTree').then(
                               function(){
-                                 return $ocLazyLoad.load('js/controllers/tree.js');
+                                 return $ocLazyLoad.load('assets/js/controllers/tree.js');
                               }
                           );
                         }
@@ -113,7 +109,7 @@ angular.module('app')
                         function( $ocLazyLoad){
                           return $ocLazyLoad.load('toaster').then(
                               function(){
-                                 return $ocLazyLoad.load('js/controllers/toaster.js');
+                                 return $ocLazyLoad.load('assets/js/controllers/toaster.js');
                               }
                           );
                       }]
@@ -125,7 +121,7 @@ angular.module('app')
                   resolve: {
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad){
-                          return $ocLazyLoad.load('js/controllers/vectormap.js');
+                          return $ocLazyLoad.load('assets/js/controllers/vectormap.js');
                       }]
                   }
               })
@@ -136,9 +132,9 @@ angular.module('app')
                       deps: ['uiLoad',
                         function( uiLoad ){
                           return uiLoad.load( [
-                            'js/app/map/load-google-maps.js',
-                            'js/app/map/ui-map.js',
-                            'js/app/map/map.js'] ).then(
+                            'assets/js/app/map/load-google-maps.js',
+                            'assets/js/app/map/ui-map.js',
+                            'assets/js/app/map/map.js'] ).then(
                               function(){
                                 return loadGoogleMaps(); 
                               }
@@ -152,7 +148,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad){
-                          return uiLoad.load('js/controllers/chart.js');
+                          return uiLoad.load('assets/js/controllers/chart.js');
                       }]
                   }
               })
@@ -181,7 +177,7 @@ angular.module('app')
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('ngGrid').then(
                               function(){
-                                  return $ocLazyLoad.load('js/controllers/grid.js');
+                                  return $ocLazyLoad.load('assets/js/controllers/grid.js');
                               }
                           );
                       }]
@@ -195,7 +191,7 @@ angular.module('app')
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('ui.grid').then(
                               function(){
-                                  return $ocLazyLoad.load('js/controllers/uigrid.js');
+                                  return $ocLazyLoad.load('assets/js/controllers/uigrid.js');
                               }
                           );
                       }]
@@ -210,7 +206,7 @@ angular.module('app')
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('xeditable').then(
                               function(){
-                                  return $ocLazyLoad.load('js/controllers/xeditable.js');
+                                  return $ocLazyLoad.load('assets/js/controllers/xeditable.js');
                               }
                           );
                       }]
@@ -224,7 +220,7 @@ angular.module('app')
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('smart-table').then(
                               function(){
-                                  return $ocLazyLoad.load('js/controllers/table.js');
+                                  return $ocLazyLoad.load('assets/js/controllers/table.js');
                               }
                           );
                       }]
@@ -237,7 +233,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load('js/controllers/form.js');
+                          return uiLoad.load('assets/js/controllers/form.js');
                       }]
                   }
               })
@@ -250,7 +246,7 @@ angular.module('app')
                           return uiLoad.load( JQ_CONFIG.daterangepicker )
                           .then(
                               function(){
-                                return uiLoad.load('js/controllers/form.components.js');
+                                return uiLoad.load('assets/js/controllers/form.components.js');
                               }
                           ).then(
                               function(){
@@ -281,7 +277,7 @@ angular.module('app')
                         function( $ocLazyLoad){
                           return $ocLazyLoad.load('angularFileUpload').then(
                               function(){
-                                 return $ocLazyLoad.load('js/controllers/file-upload.js');
+                                 return $ocLazyLoad.load('assets/js/controllers/file-upload.js');
                               }
                           );
                       }]
@@ -295,7 +291,7 @@ angular.module('app')
                         function( $ocLazyLoad){
                           return $ocLazyLoad.load('ngImgCrop').then(
                               function(){
-                                 return $ocLazyLoad.load('js/controllers/imgcrop.js');
+                                 return $ocLazyLoad.load('assets/js/controllers/imgcrop.js');
                               }
                           );
                       }]
@@ -310,7 +306,7 @@ angular.module('app')
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('ui.select').then(
                               function(){
-                                  return $ocLazyLoad.load('js/controllers/select.js');
+                                  return $ocLazyLoad.load('assets/js/controllers/select.js');
                               }
                           );
                       }]
@@ -325,7 +321,7 @@ angular.module('app')
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('vr.directives.slider').then(
                               function(){
-                                  return $ocLazyLoad.load('js/controllers/slider.js');
+                                  return $ocLazyLoad.load('assets/js/controllers/slider.js');
                               }
                           );
                       }]
@@ -340,7 +336,7 @@ angular.module('app')
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('textAngular').then(
                               function(){
-                                  return $ocLazyLoad.load('js/controllers/editor.js');
+                                  return $ocLazyLoad.load('assets/js/controllers/editor.js');
                               }
                           );
                       }]
@@ -355,7 +351,7 @@ angular.module('app')
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('xeditable').then(
                               function(){
-                                  return $ocLazyLoad.load('js/controllers/xeditable.js');
+                                  return $ocLazyLoad.load('assets/js/controllers/xeditable.js');
                               }
                           );
                       }]
@@ -405,7 +401,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['js/controllers/signin.js'] );
+                          return uiLoad.load( ['assets/js/controllers/signin.js'] );
                       }]
                   }
               })
@@ -415,7 +411,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['js/controllers/signup.js'] );
+                          return uiLoad.load( ['assets/js/controllers/signup.js'] );
                       }]
                   }
               })
@@ -437,7 +433,7 @@ angular.module('app')
                       deps: ['$ocLazyLoad', 'uiLoad',
                         function( $ocLazyLoad, uiLoad ){
                           return uiLoad.load(
-                            JQ_CONFIG.fullcalendar.concat('js/app/calendar/calendar.js')
+                            JQ_CONFIG.fullcalendar.concat('assets/js/app/calendar/calendar.js')
                           ).then(
                             function(){
                               return $ocLazyLoad.load('ui.calendar');
@@ -456,8 +452,8 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['js/app/mail/mail.js',
-                                               'js/app/mail/mail-service.js',
+                          return uiLoad.load( ['assets/js/app/mail/mail.js',
+                                               'assets/js/app/mail/mail-service.js',
                                                JQ_CONFIG.moment] );
                       }]
                   }
@@ -493,7 +489,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['js/controllers/vectormap.js'] );
+                          return uiLoad.load( ['assets/js/controllers/vectormap.js'] );
                       }]
                   }
               })
@@ -521,7 +517,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['js/controllers/tab.js'] );
+                          return uiLoad.load( ['assets/js/controllers/tab.js'] );
                       }]
                   }
               })
@@ -536,7 +532,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['js/app/note/note.js',
+                          return uiLoad.load( ['assets/js/app/note/note.js',
                                                JQ_CONFIG.moment] );
                       }]
                   }
@@ -547,7 +543,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['js/app/contact/contact.js'] );
+                          return uiLoad.load( ['assets/js/app/contact/contact.js'] );
                       }]
                   }
               })
@@ -560,9 +556,9 @@ angular.module('app')
                           return $ocLazyLoad.load(
                               {
                                   name: 'angular-skycons',
-                                  files: ['js/app/weather/skycons.js',
-                                          'js/app/weather/angular-skycons.js',
-                                          'js/app/weather/ctrl.js',
+                                  files: ['assets/js/app/weather/skycons.js',
+                                          'assets/js/app/weather/angular-skycons.js',
+                                          'assets/js/app/weather/ctrl.js',
                                           JQ_CONFIG.moment ] 
                               }
                           );
@@ -575,7 +571,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['js/app/todo/todo.js',
+                          return uiLoad.load( ['assets/js/app/todo/todo.js',
                                                JQ_CONFIG.moment] );
                       }]
                   }
@@ -596,8 +592,8 @@ angular.module('app')
                             'com.2fdevs.videogular.plugins.overlayplay',
                             'com.2fdevs.videogular.plugins.poster',
                             'com.2fdevs.videogular.plugins.buffering',
-                            'js/app/music/ctrl.js', 
-                            'js/app/music/theme.css'
+                            'assets/js/app/music/ctrl.js', 
+                            'assets/js/app/music/theme.css'
                           ]);
                       }]
                   }
