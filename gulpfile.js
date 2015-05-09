@@ -13,14 +13,19 @@ var gulp 				= require('gulp'),
 
 /* Compresion de Js */
 gulp.task('js', function () {
-	return gulp.src('js/**/*.js')
+	return gulp.src('assets/js/**/*.js')
 	    .pipe(connect.reload());
 });
 
-/* Compresion de Css */
-gulp.task('css', function () {
-   	gulp.src('css/**/*.less')
+/* less parser */
+gulp.task('less', function () {
+   	gulp.src('assets/css/**/*.less')
       	.pipe(connect.reload());
+});
+
+gulp.task('css', function () {
+    gulp.src('assets/css/**/*.css')
+        .pipe(connect.reload());
 });
 
 // Recarga el navegador cuando hay cambios en el HTML
@@ -41,8 +46,8 @@ gulp.task('default', function() {
 
 /* Cambio de archivos */
 gulp.task('watch', function() {
-   	gulp.watch('css/**/*.css', ['css']),
-   	gulp.watch('js/**/*.js', ['js']),
+   	gulp.watch('assets/css/**/*.css', ['css']),
+   	gulp.watch('assets/js/**/*.js', ['js']),
    	gulp.watch(['*.html'], ['html']),
    	gulp.watch(['views/**/*.html'], ['views']);
 });
