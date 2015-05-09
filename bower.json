@@ -1,0 +1,6 @@
+{
+	"name" : "cyz-frontend",
+	"dependencies" : {
+	  "moment":"latest"
+	}
+}
