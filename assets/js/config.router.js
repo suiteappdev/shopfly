@@ -571,7 +571,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['assets/js/app/todo/todo.js',
+                          return uiLoad.load( ['../assets/js/app/todo/todo.js',
                                                JQ_CONFIG.moment] );
                       }]
                   }
