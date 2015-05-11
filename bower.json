@@ -58,7 +58,7 @@
     "jquery_appear": "~0.3.3",
     "jquery.easy-pie-chart": "~2.1.6",
     "jquery.sparkline": "~2.1.2",
-    "flot": "~0.8.3",
+    "flot": "https://github.com/flot/",
     "flot.tooltip": "~0.8.4",
     "flot.orderbars": "*",
     "bootstrap-daterangepicker": "~1.3.17",
@@ -74,6 +74,7 @@
     "angular-sanitize": "~1.3.11",
     "fullcalendar": "~2.2.6",
     "moment": "~2.8.3",
-    "jquery": "~2.1.3"
+    "jquery": "~2.1.3",
+    "flot": "*"
   }
 }

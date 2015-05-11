@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# object: http://ogp.me/ns/object# article: http://ogp.me/ns/article# profile: http://ogp.me/ns/profile#">
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    
+    
+    <title>Flot · GitHub</title>
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
+    <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-144.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144.png">
+    <meta property="fb:app_id" content="1401488693436528">
+
+      
+      <meta content="GitHub" property="og:site_name" /><meta content="profile" property="og:type" /><meta content="https://avatars1.githubusercontent.com/u/584619?v=3&amp;s=280" property="og:image" /><meta content="Flot" property="og:title" /><meta content="https://github.com/flot" property="og:url" /><meta content="flot" property="profile:username" />
+      <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
+    <meta name="browser-errors-url" content="https://api.github.com/_private/browser/errors">
+    <link rel="assets" href="https://assets-cdn.github.com/">
+    
+    <meta name="pjax-timeout" content="1000">
+    
+
+    <meta name="msapplication-TileImage" content="/windows-tile.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="selected-link" value="/flot" data-pjax-transient>
+      <meta name="google-analytics" content="UA-3769691-2">
+
+    <meta content="collector.githubapp.com" name="octolytics-host" /><meta content="collector-cdn.github.com" name="octolytics-script-host" /><meta content="github" name="octolytics-app-id" /><meta content="BA2B117F:02CB:1E16741B:55511B6A" name="octolytics-dimension-request_id" />
+    
+    <meta content="Rails, view, users#show" name="analytics-event" />
+    <meta class="js-ga-set" name="dimension1" content="Logged Out">
+    <meta class="js-ga-set" name="dimension2" content="Header v3">
+    <meta name="is-dotcom" content="true">
+    <meta name="hostname" content="github.com">
+    <meta name="user-login" content="">
+
+    
+    <link rel="icon" type="image/x-icon" href="https://assets-cdn.github.com/favicon.ico">
+
+
+    <meta content="authenticity_token" name="csrf-param" />
+<meta content="IM0LVfYFzFTDnNzPxbwQ0LhMBVrrSXv+kUxroeNtOXWPs4BnCQUozUytNtJH47Uen5n/jPK2xz7PHxBz0QCpWA==" name="csrf-token" />
+
+    <link href="https://assets-cdn.github.com/assets/github/index-b5ca8b516b3a2b11ff185cf0155d549e88d234933ea25dc2f400b8c772817299.css" media="all" rel="stylesheet" />
+    <link href="https://assets-cdn.github.com/assets/github2/index-26ca3159d96cf926f7d5e7912b781f0d01f4a04ea62184b2edeb65df519b6228.css" media="all" rel="stylesheet" />
+    
+    
+
+
+    <meta http-equiv="x-pjax-version" content="816bce14fdcf7a63b14a8a7d0dc75142">
+
+      <meta name="description" content="Build software better, together.">
+  </head>
+
+
+  <body class="logged_out  env-production   org">
+    <a href="#start-of-content" tabindex="1" class="accessibility-aid js-skip-to-content">Skip to content</a>
+    <div class="wrapper">
+      
+      
+      
+
+
+        
+        <div class="header header-logged-out" role="banner">
+  <div class="container clearfix">
+
+    <a class="header-logo-wordmark" href="https://github.com/" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
+      <span class="mega-octicon octicon-logo-github"></span>
+    </a>
+
+    <div class="header-actions" role="navigation">
+        <a class="btn btn-primary" href="/join" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">Sign up</a>
+      <a class="btn" href="/login?return_to=%2Fflot" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">Sign in</a>
+    </div>
+
+    <div class="site-search  js-site-search" role="search">
+      <form accept-charset="UTF-8" action="/search" class="js-site-search-form" data-global-search-url="/search" data-repo-search-url="" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+  <input type="text"
+    class=""
+    data-hotkey="s"
+    name="q"
+    placeholder="Search GitHub"
+    data-global-scope-placeholder="Search GitHub"
+    data-repo-scope-placeholder="Search"
+    tabindex="1"
+    autocapitalize="off">
+  <div class="scope-badge">This repository</div>
+</form>
+    </div>
+
+      <ul class="header-nav left" role="navigation">
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="/explore" data-ga-click="(Logged out) Header, go to explore, text:explore">Explore</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="/features" data-ga-click="(Logged out) Header, go to features, text:features">Features</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="https://enterprise.github.com/" data-ga-click="(Logged out) Header, go to enterprise, text:enterprise">Enterprise</a>
+          </li>
+          <li class="header-nav-item">
+            <a class="header-nav-link" href="/blog" data-ga-click="(Logged out) Header, go to blog, text:blog">Blog</a>
+          </li>
+      </ul>
+
+  </div>
+</div>
+
+
+
+      <div id="start-of-content" class="accessibility-aid"></div>
+        <div class="site clearfix" role="main">
+
+          <div id="site-container" class="context-loader-container" data-pjax-container>
+            
+
+            
+
+
+  <div itemscope itemtype="http://schema.org/Organization">
+
+    
+<header class="org-header">
+  <div class="container">
+
+    <div class="org-header-wrapper">
+      <img alt="@flot" class="avatar" data-user="584619" height="100" itemprop="image" src="https://avatars1.githubusercontent.com/u/584619?v=3&amp;s=200" width="100" />
+      <div class="org-header-info">
+        <h1 class="org-name">
+          <span class="js-username" data-name="flot">Flot</span>
+        </h1>
+          <ul class="org-header-meta has-blog">
+              <li class="meta-item">
+                <span class="octicon octicon-link"></span>
+                <a href="http://www.flotcharts.org" class="meta-link" itemprop="url" title="http://www.flotcharts.org">http://www.flotcharts.org</a>
+              </li>
+          </ul>
+    </div>
+  </div>
+</header><!-- /.org-header -->
+
+
+    <div class="container">
+      <div class="org-main">
+
+          <div class="subnav subnav-bordered subnav-flush org-toolbar">
+            <div class="subnav-search-context select-menu left js-menu-container js-select-menu">
+              <button class="btn select-menu-button js-menu-target" type="button" aria-haspopup="true">
+                Filters
+              </button>
+                <div class="select-menu-modal-holder js-menu-content js-navigation-container" id="repository-search-filters">
+                  <div class="select-menu-modal">
+                    <div class="select-menu-list">
+                      <div class="select-menu-item js-navigation-item js-repo-search-filter" data-filter="only:sources" data-negate="only:forks">
+                        <span class="select-menu-item-icon octicon octicon-code"></span>
+                        <div class="select-menu-item-text">
+                          Sources
+                        </div>
+                      </div>
+                      <div class="select-menu-item js-navigation-item js-repo-search-filter" data-filter="only:forks" data-negate="only:sources">
+                        <span class="select-menu-item-icon octicon octicon-repo-forked"></span>
+                        <div class="select-menu-item-text">
+                          Forks
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <form accept-charset="UTF-8" action="/flot" class="subnav-search left" data-results-container="org-repositories" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+              <div class="auto-search-group">
+                <input  class="subnav-search-input input-contrast auto-search-input js-repo-filter-field js-autosearch-field" type="text" name="query" value=""
+                  placeholder="Find a repository…"
+                  autocomplete="off"
+                  data-filter-dropdown="repository-search-filters"
+                  data-host="github.com"
+                  data-org="flot">
+                <span class="octicon octicon-search"></span>
+                <img class="spinner" src="https://assets-cdn.github.com/assets/spinners/octocat-spinner-32-e513294efa576953719e4e2de888dd9cf929b7d62ed8d05f25e731d02452ab6c.gif" alt="">
+              </div>
+</form>          </div>
+        <div class="org-repos repo-list context-loader-container" id="org-repositories" data-pjax-container>
+            
+<div class="context-loader large-format-loader">
+  <p><img alt="" height="64" src="https://assets-cdn.github.com/assets/spinners/octocat-spinner-128-338974454bb5c32803e82f601beb051d373744b024fe8742a76009700fd7e033.gif" width="64" /></p>
+  <p>Loading…</p>
+</div>
+
+
+  
+
+  <div class="repo-list-item public source" itemprop="owns" itemscope itemtype="http://schema.org/Code">
+    <div class="repo-list-stats">
+        <span itemprop="programmingLanguage">
+          JavaScript
+        </span>
+      <a class="repo-list-stat-item tooltipped tooltipped-s" href="/flot/flot/stargazers" aria-label="Stargazers">
+        <span class="octicon octicon-star"></span>
+        4,312
+      </a>
+      <a class="repo-list-stat-item tooltipped tooltipped-s" href="/flot/flot/network"  aria-label="Forks">
+        <span class="octicon octicon-git-branch"></span>
+        1,057
+      </a>
+    </div>
+
+    <h3 class="repo-list-name">
+      <a href="/flot/flot" itemprop="name codeRepository">
+        flot</a>
+    </h3>
+
+
+
+      <p class="repo-list-description" itemprop="description">
+        Attractive JavaScript charts for jQuery
+      </p>
+
+    <p class="repo-list-meta">
+        Updated <time datetime="2015-05-04T00:50:30Z" is="relative-time">May 4, 2015</time>
+    </p>
+
+    <div class="participation-graph">
+      <poll-include-fragment src="/flot/flot/graphs/participation?h=100&amp;w=640"></poll-include-fragment>
+    </div>
+  </div>
+
+  
+
+  <div class="repo-list-item public source" itemprop="owns" itemscope itemtype="http://schema.org/Code">
+    <div class="repo-list-stats">
+        <span itemprop="programmingLanguage">
+          CSS
+        </span>
+      <a class="repo-list-stat-item tooltipped tooltipped-s" href="/flot/flot.github.com/stargazers" aria-label="Stargazers">
+        <span class="octicon octicon-star"></span>
+        102
+      </a>
+      <a class="repo-list-stat-item tooltipped tooltipped-s" href="/flot/flot.github.com/network"  aria-label="Forks">
+        <span class="octicon octicon-git-branch"></span>
+        38
+      </a>
+    </div>
+
+    <h3 class="repo-list-name">
+      <a href="/flot/flot.github.com" itemprop="name codeRepository">
+        flot.github.com</a>
+    </h3>
+
+
+
+      <p class="repo-list-description" itemprop="description">
+        Github Pages hosted website for the Flot library.
+      </p>
+
+    <p class="repo-list-meta">
+        Updated <time datetime="2015-04-08T18:18:04Z" is="relative-time">Apr 8, 2015</time>
+    </p>
+
+    <div class="participation-graph">
+      <poll-include-fragment src="/flot/flot.github.com/graphs/participation?h=100&amp;w=640"></poll-include-fragment>
+    </div>
+  </div>
+
+  
+
+  <div class="repo-list-item public fork" itemprop="owns" itemscope itemtype="http://schema.org/Code">
+    <div class="repo-list-stats">
+        <span itemprop="programmingLanguage">
+          JavaScript
+        </span>
+      <a class="repo-list-stat-item tooltipped tooltipped-s" href="/flot/jquery-resize/stargazers" aria-label="Stargazers">
+        <span class="octicon octicon-star"></span>
+        0
+      </a>
+      <a class="repo-list-stat-item tooltipped tooltipped-s" href="/flot/jquery-resize/network"  aria-label="Forks">
+        <span class="octicon octicon-git-branch"></span>
+        107
+      </a>
+    </div>
+
+    <h3 class="repo-list-name">
+      <a href="/flot/jquery-resize" itemprop="name codeRepository">
+        jquery-resize</a>
+    </h3>
+
+      <p class="repo-list-info">
+        <span class="octicon octicon-repo-forked"></span>
+        forked from <a href="/edobry/jquery-resize">edobry/jquery-resize</a>
+      </p>
+
+
+      <p class="repo-list-description" itemprop="description">
+        A resize event for ALL your jQueries!
+      </p>
+
+    <p class="repo-list-meta">
+        Updated <time datetime="2014-04-20T00:47:42Z" is="relative-time">Apr 20, 2014</time>
+    </p>
+
+    <div class="participation-graph">
+      <poll-include-fragment src="/flot/jquery-resize/graphs/participation?h=100&amp;w=640"></poll-include-fragment>
+    </div>
+  </div>
+
+
+
+<div class="paginate-container" data-pjax>
+  
+</div>
+
+
+        </div>
+      </div>
+
+      <div class="org-sidebar">
+          <div class="org-module simple-box">
+            <h3 class="org-module-title ">
+              <a class="org-module-link" href="/orgs/flot/people">
+                <span class="org-stats">
+                  3
+                  <span class="octicon octicon-chevron-right"></span>
+                </span>
+                People
+              </a>
+            </h3>
+            <div class="member-avatar-group">
+                  <a href="/dnschnur" class="member-row">
+                    <img alt="@dnschnur" class="avatar" data-user="1678448" height="40" src="https://avatars0.githubusercontent.com/u/1678448?v=3&amp;s=80" width="40" />
+                    <strong class="member-name">dnschnur</strong>
+                    <span class="member-fullname">David Schnur</span>
+                  </a>
+                  <a href="/nschonni" class="member-row">
+                    <img alt="@nschonni" class="avatar" data-user="1297909" height="40" src="https://avatars0.githubusercontent.com/u/1297909?v=3&amp;s=80" width="40" />
+                    <strong class="member-name">nschonni</strong>
+                    <span class="member-fullname">Nick Schonning</span>
+                  </a>
+                  <a href="/OleLaursen" class="member-row">
+                    <img alt="@OleLaursen" class="avatar" data-user="220562" height="40" src="https://avatars2.githubusercontent.com/u/220562?v=3&amp;s=80" width="40" />
+                    <strong class="member-name">OleLaursen</strong>
+                    <span class="member-fullname">Ole Laursen</span>
+                  </a>
+            </div>
+          </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+          </div>
+          <div class="modal-backdrop"></div>
+        </div>
+    </div><!-- /.wrapper -->
+
+      <div class="container">
+  <div class="site-footer" role="contentinfo">
+    <ul class="site-footer-links right">
+        <li><a href="https://status.github.com/" data-ga-click="Footer, go to status, text:status">Status</a></li>
+      <li><a href="https://developer.github.com" data-ga-click="Footer, go to api, text:api">API</a></li>
+      <li><a href="https://training.github.com" data-ga-click="Footer, go to training, text:training">Training</a></li>
+      <li><a href="https://shop.github.com" data-ga-click="Footer, go to shop, text:shop">Shop</a></li>
+        <li><a href="https://github.com/blog" data-ga-click="Footer, go to blog, text:blog">Blog</a></li>
+        <li><a href="https://github.com/about" data-ga-click="Footer, go to about, text:about">About</a></li>
+
+    </ul>
+
+    <a href="https://github.com" aria-label="Homepage">
+      <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
+</a>
+    <ul class="site-footer-links">
+      <li>&copy; 2015 <span title="0.04129s from github-fe123-cp1-prd.iad.github.net">GitHub</span>, Inc.</li>
+        <li><a href="https://github.com/site/terms" data-ga-click="Footer, go to terms, text:terms">Terms</a></li>
+        <li><a href="https://github.com/site/privacy" data-ga-click="Footer, go to privacy, text:privacy">Privacy</a></li>
+        <li><a href="https://github.com/security" data-ga-click="Footer, go to security, text:security">Security</a></li>
+        <li><a href="https://github.com/contact" data-ga-click="Footer, go to contact, text:contact">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
+
+    <div class="fullscreen-overlay js-fullscreen-overlay" id="fullscreen_overlay">
+  <div class="fullscreen-container js-suggester-container">
+    <div class="textarea-wrap">
+      <textarea name="fullscreen-contents" id="fullscreen-contents" class="fullscreen-contents js-fullscreen-contents" placeholder=""></textarea>
+      <div class="suggester-container">
+        <div class="suggester fullscreen-suggester js-suggester js-navigation-container"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fullscreen-sidebar">
+    <a href="#" class="exit-fullscreen js-exit-fullscreen tooltipped tooltipped-w" aria-label="Exit Zen Mode">
+      <span class="mega-octicon octicon-screen-normal"></span>
+    </a>
+    <a href="#" class="theme-switcher js-theme-switcher tooltipped tooltipped-w"
+      aria-label="Switch themes">
+      <span class="octicon octicon-color-mode"></span>
+    </a>
+  </div>
+</div>
+
+
+
+    
+
+    <div id="ajax-error-message" class="flash flash-error">
+      <span class="octicon octicon-alert"></span>
+      <a href="#" class="octicon octicon-x flash-close js-ajax-error-dismiss" aria-label="Dismiss error"></a>
+      Something went wrong with that request. Please try again.
+    </div>
+
+
+      <script crossorigin="anonymous" src="https://assets-cdn.github.com/assets/frameworks-06533d99d3f0ca9115a0563dec4017e1bfad7758231e12b95a178cef2cdc3d4c.js"></script>
+      <script async="async" crossorigin="anonymous" src="https://assets-cdn.github.com/assets/github/index-8fcc27809ac43bcefa8b0389ae4f8e82f2c3a36ba74f3165d954e49031544c6d.js"></script>
+      
+      
+
+  </body>
+</html>
