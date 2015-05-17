@@ -14,7 +14,7 @@ angular.module('app')
                           '../bower_components/flot/jquery.flot.resize.js',
                           '../bower_components/flot.tooltip/js/jquery.flot.tooltip.js',
                           '../bower_components/flot.orderbars/js/jquery.flot.orderBars.js',
-                          '../bower_components/flot-spline/js/jquery.flot.spline.js'],
+                          '../bower_components/flot/jquery.flot.spline.js'],
       moment:         [   '../bower_components/moment/moment.js'],
       screenfull:     [   '../bower_components/screenfull/dist/screenfull.min.js'],
       slimScroll:     [   '../bower_components/slimscroll/jquery.slimscroll.min.js'],

@@ -362,10 +362,34 @@ angular.module('app')
                   url: '/page',
                   template: '<div ui-view class="fade-in-down"></div>'
               })
-              .state('app.page.profile', {
-                  url: '/profile',
-                  templateUrl: 'tpl/page_profile.html'
+              /* start shopFly pages */
+              .state('app.page.departamento', {
+                  url: '/departamento',
+                  templateUrl: 'tpl/pages/page_departamento.html',
+                  controller : 'departamentoController',
+                  resolve: {
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('ui.select').then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/departamentoController.js',
+                                      'assets/js/directives/country.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
               })
+              .state('app.page.ciudad', {
+                  url: '/ciudad',
+                  templateUrl: 'tpl/pages/page_ciudad.html'
+              })
+              .state('app.page.barrio', {
+                  url: '/ciudad',
+                  templateUrl: 'tpl/pages/page_barrio.html'
+              })
+              /* end shopFly pages */
               .state('app.page.post', {
                   url: '/post',
                   templateUrl: 'tpl/page_post.html'
@@ -532,7 +556,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['assets/js/app/note/note.js',
+                          return uiLoad.load( ['/assets/js/app/note/note.js',
                                                JQ_CONFIG.moment] );
                       }]
                   }
@@ -543,7 +567,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['assets/js/app/contact/contact.js'] );
+                          return uiLoad.load( ['/assets/js/app/contact/contact.js'] );
                       }]
                   }
               })
@@ -571,7 +595,7 @@ angular.module('app')
                   resolve: {
                       deps: ['uiLoad',
                         function( uiLoad ){
-                          return uiLoad.load( ['../assets/js/app/todo/todo.js',
+                          return uiLoad.load( ['/assets/js/app/todo/todo.js',
                                                JQ_CONFIG.moment] );
                       }]
                   }

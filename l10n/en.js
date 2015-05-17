@@ -63,6 +63,13 @@
       "YOUR_STUFF": "Your Stuff",
       "PROFILE" : "Profile",
       "DOCUMENTS" : "Documents"
+    },
+    "Configuracion" : {
+      "Configuracion": "Configuraciòn",
+      "Pais" : "Pais",
+      "Departamento" : "Departamento",
+      "Ciudad" : "Ciudad",
+      "Barrio" : "Barrio"
     }
   },
   "MILESTONE" : "Milestone",

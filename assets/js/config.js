@@ -19,7 +19,7 @@ var app = angular.module('app')
       suffix: '.js'
     });
     // Tell the module what language to use by default
-    $translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage('es');
     // Tell the module to store the language in the local storage
     $translateProvider.useLocalStorage();
   }]);

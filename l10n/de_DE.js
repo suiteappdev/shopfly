@@ -63,6 +63,13 @@
       "YOUR_STUFF": "Ihr Material",
       "PROFILE" : "Profil",
       "DOCUMENTS" : "Dokumente"
+    },
+    "Configuracion" : {
+      "Configuracion": "Configuraciòn",
+      "Pais" : "Pais",
+      "Departamento" : "Departamento",
+      "Ciudad" : "Ciudad",
+      "Barrio" : "Barrio"
     }
   },
   "MILESTONE" : "Meilenstein",

@@ -35,7 +35,7 @@ gulp.task('html', function() {
 });
 
 gulp.task('views', function() {
-    return gulp.src('views/**/*.html')
+    return gulp.src('tpl/**/*.html')
 	    .pipe(connect.reload());
 });
 
