@@ -1,6 +1,6 @@
 angular.module("app").directive("ngCountryField", function(){
 	
-	function ctrl($scope) {
+	function ctrl($scope, $window) {
         $scope.country = {};
         $scope.countries = [
 	        {name: 'Afghanistan', code: 'AF'},
@@ -250,7 +250,7 @@ angular.module("app").directive("ngCountryField", function(){
 	}
 
 	function link($scope, $element, $attrs){
-		console.log("scope", $scope);
+
 	}
 
 	return {

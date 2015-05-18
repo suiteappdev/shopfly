@@ -1,10 +1,18 @@
 angular.module("app").directive("ngLocation", function(){
-	function ctrl(){
-		$scope.paises = [];
-		$scope.departamentos = [];
+	function ctrl($rootScope, $scope, $window){
+		$scope.departamentos = $window.departamentos;
+		$scope.municipios = $window.municipios;
+
+		$rootScope.$watch('location.departamento', function(n, o){
+			$scope.$parent.departamento = n;
+		});
+
+		$rootScope.$watch('location.municipio', function(n, o){
+			$scope.$parent.municipio = n;
+		});
 	}
 
-	function link(){
+	function link($scope){
 
 	}
 
@@ -12,8 +20,12 @@ angular.module("app").directive("ngLocation", function(){
 		restrict : "EA",
 		controller : ctrl,
 		scope : {
-			ngLabel : "@",
-			ngPlaceholder : "@"
-		}
+			ngLabelDepartamento : "@",
+			ngLabelMunicipio : '@',
+			ngPlaceholderDepartamento : '@',
+			ngPlaceholderMunicipio  : '@',
+		},
+		templateUrl : "tpl/fields/location.html",
+		link : link
 	}
 });

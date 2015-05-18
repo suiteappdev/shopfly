@@ -4,7 +4,7 @@ angular.module('app')
     [          '$rootScope', '$state', '$stateParams',
       function ($rootScope,   $state,   $stateParams) {
           $rootScope.$state = $state;
-          $rootScope.$stateParams = $stateParams;        
+          $rootScope.$stateParams = $stateParams;
       }
     ]
   )
@@ -374,7 +374,8 @@ angular.module('app')
                               function(){
                                   return $ocLazyLoad.load([
                                       'assets/js/controllers/departamentoController.js',
-                                      'assets/js/directives/country.js'
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/location.js'
                                       ]);
                               }
                           );
