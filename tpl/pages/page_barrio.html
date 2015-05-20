@@ -1,16 +1,28 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Plataforma</h1>
 </div>
-<div class="wrapper-md" ng-controller="TodoCtrl">
+<div class="wrapper-md">
+<div class="row">
 <div class="row">
     <div class="col-sm-6">
       <div class="panel panel-default">
-        <div class="panel-heading font-bold">Formulario Barrios</div>
+        <div class="panel-heading font-bold">Barrios</div>
         <div class="panel-body">
           <form role="form" class="ng-pristine ng-valid">
+            <ng-gender ng-label="Genero" ng-placeholder="Seleccione el Genero"></ng-gender>
+            <ng-enterprise-status ng-label="Estado Empresa" ng-placeholder="Seleccione el Estado de la Empresa"></ng-enterprise-status>
+            <ng-marital-status ng-label="Estado Civil" ng-placeholder="Seleccione el Estado Civil"></ng-marital-status>
+            <ng-document ng-label="Documento" ng-placeholder="Seleccione el Tipo de Documento"></ng-document>
+            <ng-country-field ng-label="Pais" ng-placeholder="Elija el Pais" ng-disabled="true"></ng-country-field>
+            <ng-location
+                ng-placeholder-municipio="Seleccione la Ciudad" 
+                ng-label-departamento="Departamento" 
+                ng-label-municipio="Municipio" 
+                ng-placeholder-departamento="Seleccione el Departamento" >
+            </ng-location>
             <div class="form-group">
               <label>Barrio</label>
-              <input type="email" class="form-control" placeholder="Barrio">
+              <input type="text" class="form-control" placeholder="Barrio">
             </div>
             <button type="submit" class="btn btn-sm btn-primary">Crear</button>
           </form>
@@ -21,9 +33,9 @@
       <div class="panel panel-default">
         <div class="panel-heading font-bold">Lista de Barrios</div>
         <div class="panel-body">
-
         </div>
       </div>
     </div>
+  </div>
   </div>
 </div>

@@ -363,32 +363,71 @@ angular.module('app')
                   template: '<div ui-view class="fade-in-down"></div>'
               })
               /* start shopFly pages */
-              .state('app.page.departamento', {
-                  url: '/departamento',
-                  templateUrl: 'tpl/pages/page_departamento.html',
-                  controller : 'departamentoController',
-                  resolve: {
+              .state('app.page.barrio', {
+                  url: '/barrio',
+                  templateUrl: 'tpl/pages/page_barrio.html',
+                  controller : 'barrioController',
+                  resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
                           return $ocLazyLoad.load('ui.select').then(
                               function(){
                                   return $ocLazyLoad.load([
-                                      'assets/js/controllers/departamentoController.js',
+                                      'assets/js/controllers/barrioController.js',
                                       'assets/js/directives/country.js',
-                                      'assets/js/directives/location.js'
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/gender.js'
                                       ]);
                               }
                           );
                       }]
                   }
               })
-              .state('app.page.ciudad', {
-                  url: '/ciudad',
-                  templateUrl: 'tpl/pages/page_ciudad.html'
+              .state('app.page.perfil', {
+                  url: '/perfil',
+                  templateUrl: 'tpl/pages/page_perfil.html',
+                  controller : 'perfilController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('ui.select').then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/perfilController.js'
+                                      //'assets/js/directives/country.js',
+                                      //'assets/js/directives/document.js',
+                                      //'assets/js/directives/marital_status.js',
+                                      //'assets/js/directives/location.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
               })
-              .state('app.page.barrio', {
-                  url: '/ciudad',
-                  templateUrl: 'tpl/pages/page_barrio.html'
+              .state('app.page.empresa', {
+                  url: '/empresa',
+                  templateUrl: 'tpl/pages/page_empresa.html',
+                  controller : 'empresaController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('ui.select').then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/empresaController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/location.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
               })
               /* end shopFly pages */
               .state('app.page.post', {

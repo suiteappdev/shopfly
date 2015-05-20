@@ -1,6 +1,6 @@
 <div class="form-group">
   <label>{{ngLabel}}</label>
-    <ui-select ng-model="country.selected" theme="bootstrap">
+    <ui-select ng-model="country.selected" theme="bootstrap" ng-disabled="{{ngDisabled}}">
       <ui-select-match placeholder="{{ngPlaceholder}}">{{$select.selected.name}}</ui-select-match>
       <ui-select-choices group-by="'group'" repeat="country in countries | filter: $select.search">
         <span ng-bind-html="country.name | highlight: $select.search"></span>

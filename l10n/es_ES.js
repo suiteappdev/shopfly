@@ -66,10 +66,14 @@
     },
     "Configuracion" : {
       "Configuracion": "Configuraciòn",
-      "Pais" : "Pais",
-      "Departamento" : "Departamento",
-      "Ciudad" : "Ciudad",
-      "Barrio" : "Barrio"
+      "Barrio" : "Barrio",
+      "Banco" : "Banco",
+      "Perfil" : "Perfil",
+      "Iva" : "Iva",
+      "Retencion" : "Retenciòn"
+    },
+    "Empresa" : {
+      "Empresa": "Empresa"
     }
   },
   "MILESTONE" : "Meilenstein",

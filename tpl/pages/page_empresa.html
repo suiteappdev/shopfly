@@ -1,0 +1,83 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+</div>
+<div class="wrapper-md" ng-init="load()">
+<div class="row">
+<div class="row">
+    <div class="col-sm-6">
+        <form name="form-contact" class="form-validation">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <span class="h4">Empresa</span>
+            </div>
+            <div class="panel-body">
+                <div class="form-group pull-in clearfix">
+                  <div class="col-sm-8">
+                    <label>Nombre o Razòn Social</label>
+                    <input type="text" class="form-control" placeholder="Nombre o Razòn Social" ng-model="empresa.nombre" required >
+                  </div>
+                  <div class="col-sm-4">
+                    <ng-enterprise-status ng-label="Estado" ng-placeholder="Estado"></ng-enterprise-status>
+                  </div>
+                </div>
+                <div class="form-group pull-in clearfix">
+                  <div class="col-sm-4">
+                        <ng-document ng-label="Tipo de Documento" ng-placeholder="Tipo de Documento"></ng-document>
+                  </div>
+                  <div class="col-sm-8">
+                    <label>Numero de Documento</label>
+                        <input type="text" class="form-control" placeholder="Numero de Documento" ng-model="empresa.numero_documento" required >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Representante Legal</label>
+                  <input type="url" class="form-control" placeholder="Representante Legal" ng-model="empresa.representante_legal" required>
+                </div>
+                <div class="form-group pull-in clearfix">
+                    <div class="col-sm-4">
+                        <label>Telefono</label>
+                        <input type="text" class="form-control" placeholder="Telefono" ng-model="empresa.telefono" required >                    
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Celular</label>
+                        <input type="text" name="masked" ui-mask="(999) 999-9999" ng-model="aa" placeholder="(999) 999-9999" class="form-control m-b" ng-model="empresa.celular" required>                  
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Fax</label>
+                        <input type="text" class="form-control" placeholder="Fax" ng-model="empresa.fax" required >                    
+                    </div>
+                </div>
+                <div class="form-group pull-in clearfix">
+                    <div class="col-sm-6">
+                        <label>Direcciòn</label>
+                        <input type="text" class="form-control" placeholder="Direccion" ng-model="empresa.direccion" required >                    
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Email</label>
+                        <input type="text" class="form-control" placeholder="Email" ng-model="empresa.email" required >                    
+                    </div>
+                </div>
+                <div class="form-group pull-in clearfix">
+                    <div class="col-lg-12">
+                        <label>Sitio Web</label>
+                        <input type="text" class="form-control" placeholder="http://" ng-model="empresa.sitio_web" required >  
+                    </div>
+                </div>
+            </div>
+            <footer class="panel-footer text-right bg-light lter">
+              <button type="button" class="btn btn-warning">Cancelar</button>
+              <button type="button" class="btn btn-primary">Crear</button>
+            </footer>
+          </div>
+        </form>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de Empresas</div>
+        <div class="panel-body">
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+</div>
+<div class="wrapper-md" ng-init="load()">
+<div class="row">
+<div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Perfil</div>
+        <div class="panel-body">
+          <form role="form" class="ng-pristine ng-valid">
+            <div class="form-group">
+              <label>Perfil</label>
+              <input type="text" class="form-control" placeholder="Perfil" ng-model="perfil.name">
+            </div>
+            <button type="button" class="btn btn-sm btn-primary" ng-click="create()">Crear</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de perfiles</div>
+          <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Perfil</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="perfil in perfiles">
+                        <td>{{perfil}}</td>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-info">Editar</button>
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="del(perfil)">Borrar</button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

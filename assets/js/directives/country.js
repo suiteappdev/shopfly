@@ -258,7 +258,8 @@ angular.module("app").directive("ngCountryField", function(){
 		controller : ctrl,
 		scope : {
 			ngLabel : '@',
-			ngPlaceholder : '@'
+			ngPlaceholder : '@',
+			ngDisabled : '@' 
 		},
 		templateUrl : 'tpl/fields/country.html',
 		link : link
