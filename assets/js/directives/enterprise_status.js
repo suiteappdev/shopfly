@@ -3,7 +3,7 @@ angular.module("app").directive("ngEnterpriseStatus", function(){
 		$scope.enterprise_status = $window.enterprise_status;
 
 		$rootScope.$watch('enterprise_status', function(n, o){
-			$scope.$parent.enterprise_status = n;
+			$rootScope.enterprise_status = n;
 		});
 	}
 

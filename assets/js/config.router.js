@@ -362,7 +362,48 @@ angular.module('app')
                   url: '/page',
                   template: '<div ui-view class="fade-in-down"></div>'
               })
+
               /* start shopFly pages */
+              .state('app.page.dependencia', {
+                  url: '/dependencia',
+                  templateUrl: 'tpl/pages/page_dependencia.html',
+                  controller : 'dependenciaController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/dependenciaController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/gender.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.media', {
+                  url: '/media',
+                  templateUrl: 'tpl/util/media.html',
+                  controller : 'mediaController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('ngImgCrop').then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/mediaController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
               .state('app.page.barrio', {
                   url: '/barrio',
                   templateUrl: 'tpl/pages/page_barrio.html',
@@ -423,6 +464,41 @@ angular.module('app')
                                       'assets/js/directives/marital_status.js',
                                       'assets/js/directives/enterprise_status.js',
                                       'assets/js/directives/location.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.cliente', {
+                  url: '/cliente',
+                  templateUrl: 'tpl/pages/page_cliente.html',
+                  controller : 'clienteController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/clienteController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/gender.js',
+                                      'assets/js/directives/datepicker.js',
+                                      'assets/js/directives/education_level.js',
+                                      'assets/js/directives/regime.js',
+                                      'assets/js/directives/stratum.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/enterprise.js',
+                                      'assets/js/directives/branch.js',
+                                      'assets/js/directives/line_price.js',
+                                      'assets/js/directives/office.js',
+                                      'assets/js/directives/taxpayer_type.js',
+                                      'assets/js/directives/profile.js'
                                       ]);
                               }
                           );

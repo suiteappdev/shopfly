@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label>{{ngLabel}}</label>
+    <ui-select ng-model="$root.profile" theme="bootstrap" ng-disabled="{{ngDisabled}}">
+      <ui-select-match placeholder="{{ngPlaceholder}}">{{$root.profile.nombre}}</ui-select-match>
+      <ui-select-choices group-by="'group'" repeat="perfil in perfiles | filter: $select.search">
+        <span ng-bind-html="perfil.nombre | highlight: $select.search"></span>
+      </ui-select-choices>
+    </ui-select>
+</div>

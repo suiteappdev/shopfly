@@ -66,6 +66,7 @@
     },
     "Configuracion" : {
       "Configuracion": "Configuraciòn",
+      "Dependencia": "Dependencia",
       "Barrio" : "Barrio",
       "Banco" : "Banco",
       "Perfil" : "Perfil",

@@ -1,6 +1,6 @@
 (function() {
   var module,
-    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+    __indexOf = [].indexOf || function(item){ for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
 
   module = angular.module('angularBootstrapNavTree', []);
 
@@ -8,7 +8,7 @@
     '$timeout', function($timeout) {
       return {
         restrict: 'E',
-        template: "<ul class=\"nav nav-list nav-pills nav-stacked abn-tree\">\n  <li ng-repeat=\"row in tree_rows | filter:{visible:true} track by row.branch.uid\" ng-animate=\"'abn-tree-animate'\" ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'') + ' ' +row.classes.join(' ')\" class=\"abn-tree-row\"><a ng-click=\"user_clicks_branch(row.branch)\"><i ng-class=\"row.tree_icon\" ng-click=\"row.branch.expanded = !row.branch.expanded\" class=\"indented tree-icon\"> </i><span class=\"indented tree-label\">{{ row.label }} </span></a></li>\n</ul>",
+        template: "<ul class=\"nav nav-list nav-pills nav-stacked abn-tree\">\n  <li ng-repeat=\"row in tree_rows | filter:{visible:true}\" ng-animate=\"'abn-tree-animate'\" ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'') + ' ' +row.classes.join(' ')\" class=\"abn-tree-row\"><a ng-click=\"user_clicks_branch(row.branch)\"><i ng-class=\"row.tree_icon\" ng-click=\"row.branch.expanded = !row.branch.expanded\" class=\"indented tree-icon\"> </i><span class=\"indented tree-label\">{{  row.branch._id }} </span></a></li>\n</ul>",
         replace: true,
         scope: {
           treeData: '=',
@@ -23,31 +23,33 @@
             debugger;
             return void 0;
           };
-          if (attrs.iconExpand == null) {
-            attrs.iconExpand = 'icon-plus  glyphicon glyphicon-plus  fa fa-plus';
-          }
-          if (attrs.iconCollapse == null) {
-            attrs.iconCollapse = 'icon-minus glyphicon glyphicon-minus fa fa-minus';
-          }
-          if (attrs.iconLeaf == null) {
-            attrs.iconLeaf = 'icon-file  glyphicon glyphicon-file  fa fa-file';
-          }
-          if (attrs.expandLevel == null) {
-            attrs.expandLevel = '3';
-          }
-          expand_level = parseInt(attrs.expandLevel, 10);
-          if (!scope.treeData) {
-            alert('no treeData defined for the tree!');
-            return;
-          }
-          if (scope.treeData.length == null) {
-            if (treeData.label != null) {
-              scope.treeData = [treeData];
-            } else {
-              alert('treeData should be an array of root branches');
+
+            if (attrs.iconExpand == null) {
+              attrs.iconExpand = 'icon-plus  glyphicon glyphicon-plus  fa fa-plus';
+            }
+            if (attrs.iconCollapse == null) {
+              attrs.iconCollapse = 'icon-minus glyphicon glyphicon-minus fa fa-minus';
+            }
+            if (attrs.iconLeaf == null) {
+              attrs.iconLeaf = 'icon-file  glyphicon glyphicon-file  fa fa-file';
+            }
+            if (attrs.expandLevel == null) {
+              attrs.expandLevel = '3';
+            }
+            expand_level = parseInt(attrs.expandLevel, 10);
+            if (!scope.treeData) {
+              console.log("no data in tree");
               return;
             }
-          }
+            if (scope.treeData.length == null) {
+              if (treeData.label != null) {
+                scope.treeData = [treeData];
+              } else {
+                alert('treeData should be an array of root branches');
+                return;
+              }
+            }            
+
           for_each_branch = function(f) {
             var do_f, root_branch, _i, _len, _ref, _results;
             do_f = function(branch, level) {
@@ -63,6 +65,7 @@
                 return _results;
               }
             };
+            
             _ref = scope.treeData;
             _results = [];
             for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -468,6 +471,13 @@
                     return parent;
                   }
                 }
+              };
+              tree.remove_branch = function(b) {
+                   select_branch(b);
+                   parent = scope.treeControl.select_parent_branch();
+                   if(parent){
+                        parent.children.splice(parent.children.indexOf(b),1);
+                   }
               };
               return tree.select_prev_branch = function(b) {
                 var prev;

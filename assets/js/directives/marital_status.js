@@ -3,7 +3,9 @@ angular.module("app").directive("ngMaritalStatus", function(){
 		$scope.marital_status = $window.marital_status;
 
 		$rootScope.$watch('marital_status', function(n, o){
-			$scope.$parent.marital_status = n;
+			try{
+				$rootScope.marital_status = n;
+			}catch(e){}
 		});
 	}
 
@@ -14,6 +16,7 @@ angular.module("app").directive("ngMaritalStatus", function(){
 	return {
 		restrict : "EA",
 		controller : ctrl,
+		scope:true,
 		scope : {
 			ngLabel : "@",
 			ngPlaceholder : '@'

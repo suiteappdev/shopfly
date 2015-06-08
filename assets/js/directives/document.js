@@ -3,7 +3,11 @@ angular.module("app").directive("ngDocument", function(){
 		$scope.documents = $window.documents;
 
 		$rootScope.$watch('document', function(n, o){
-			$scope.$parent.documento = n;
+			try{
+				$scope.ngModel= n;
+			}catch(e){
+				
+			}
 		});
 	}
 
@@ -14,7 +18,9 @@ angular.module("app").directive("ngDocument", function(){
 	return {
 		restrict : "EA",
 		controller : ctrl,
+		scope : true,
 		scope : {
+			ngModel : "=ngModel",
 			ngLabel : "@",
 			ngPlaceholder : '@'
 		},

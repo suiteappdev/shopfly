@@ -59,6 +59,12 @@ angular.module('app')
           events: true,
           modules: [
               {
+                  name: 'jstree',
+                  files: [
+                      '../bower_components/jstree/dist/jstree.min.js'
+                  ]
+              },
+              {
                   name: 'ngGrid',
                   files: [
                       '../bower_components/ng-grid/build/ng-grid.min.js',

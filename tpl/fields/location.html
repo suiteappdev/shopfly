@@ -16,3 +16,13 @@
       </ui-select-choices>
     </ui-select>
 </div>
+<div class="form-group" ng-show="$root.location.municipio">
+  <label>{{ngLabelBarrio}}</label>
+    <ui-select ng-model="$root.location.barrio" theme="bootstrap">
+      <ui-select-match placeholder="{{ngPlaceholderBarrio}}">{{$select.selected.nombre}}</ui-select-match>
+      <ui-select-choices group-by="'group'" repeat="barrio in $root.barrios | filter: $select.search | filter: {code : $root.location.municipio.code} : true">
+        <span ng-bind-html="barrio.nombre | highlight: $select.search"></span>
+      </ui-select-choices>
+    </ui-select>
+    <a class="m-b-none pull-right">[+] agregar.</a>
+</div>

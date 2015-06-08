@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label>{{ngLabel}}</label>
+    <ui-select ng-model="$root.stratum" theme="bootstrap" ng-disabled="{{ngDisabled}}">
+      <ui-select-match placeholder="{{ngPlaceholder}}">{{$root.stratum}}</ui-select-match>
+      <ui-select-choices group-by="'group'" repeat="strat in stratum | filter: $select.search">
+        <span ng-bind-html="strat | highlight: $select.search"></span>
+      </ui-select-choices>
+    </ui-select>
+</div>

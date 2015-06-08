@@ -2,13 +2,13 @@ app.controller('AbnTestController', function($scope, $timeout) {
     var apple_selected, tree, treedata_avm, treedata_geography;
     $scope.my_tree_handler = function(branch) {
       var _ref;
-      $scope.output = "You selected: " + branch.label;
+      $scope.output = "You selected: " + branch._id;
       if ((_ref = branch.data) != null ? _ref.description : void 0) {
         return $scope.output += '(' + branch.data.description + ')';
       }
     };
     apple_selected = function(branch) {
-      return $scope.output = "APPLE! : " + branch.label;
+      return $scope.output = "APPLE! : " + branch._id;
     };
     treedata_avm = [
       {

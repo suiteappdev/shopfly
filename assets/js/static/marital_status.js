@@ -1,6 +1,6 @@
 window.marital_status = [
 	"Casad@",
 	"solter@",
-	"Divorciado@",
+	"Divorciad@",
 	"Union Libre"
 ]

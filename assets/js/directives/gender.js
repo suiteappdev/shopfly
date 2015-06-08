@@ -3,7 +3,11 @@ angular.module("app").directive("ngGender", function(){
 		$scope.gender = $window.gender;
 
 		$rootScope.$watch('gender', function(n, o){
-			$scope.$parent.gender = n;
+			try{
+				$rootScope.gender = n;
+			}catch(e){
+
+			}
 		});
 	}
 
@@ -13,6 +17,7 @@ angular.module("app").directive("ngGender", function(){
 
 	return {
 		restrict : "EA",
+		scope : true,
 		controller : ctrl,
 		scope : {
 			ngLabel : "@",
