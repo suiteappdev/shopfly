@@ -1,4 +1,4 @@
 window.client_status = [
-	"Activo",
-	"Inactivo"
+	{ name : "Activo", value : true},
+	{ name : "Inactivo", value : false}
 ]

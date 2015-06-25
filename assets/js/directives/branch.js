@@ -3,14 +3,6 @@ angular.module("app").directive("ngBranch", function(){
 		$API.Sucursal.List().then(function(data){
 			$scope.branches = data || [];
 		})
-
-		$rootScope.$watch('branch', function(n, o){
-			try{
-				$scope.ngModel = n;
-			}catch(e){
-
-			}
-		});
 	}
 
 	function link($scope){
@@ -20,9 +12,7 @@ angular.module("app").directive("ngBranch", function(){
 	return {
 		restrict : "EA",
 		controller : ctrl,
-		scope : true,
 		scope : {
-			ngModel : "=ngModel",
 			ngLabel : "@",
 			ngPlaceholder : '@'
 		},

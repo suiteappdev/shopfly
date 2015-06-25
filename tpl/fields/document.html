@@ -1,6 +1,6 @@
 <div class="form-group">
   <label>{{ngLabel}}</label>
-    <ui-select ng-model="$root.document" theme="bootstrap" ng-disabled="{{ngDisabled}}">
+    <ui-select ng-model="$root.document" name="document" theme="bootstrap" ng-disabled="{{ngDisabled}}" ng-required="{{ngRequired}}">
       <ui-select-match placeholder="{{ngPlaceholder}}">{{$select.selected}}</ui-select-match>
       <ui-select-choices group-by="'group'" repeat="document in documents | filter: $select.search">
         <span ng-bind-html="document | highlight: $select.search"></span>

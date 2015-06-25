@@ -1,7 +1,7 @@
 <div class="form-group">
   <label>{{ngLabel}}</label>
-    <ui-select ng-model="$root.branch" theme="bootstrap" ng-disabled="{{ngDisabled}}">
-      <ui-select-match placeholder="{{ngPlaceholder}}">{{$root.branch.nombre}}</ui-select-match>
+    <ui-select ng-model="selectedPhone" theme="bootstrap" ng-disabled="{{ngDisabled}}">
+      <ui-select-match placeholder="{{ngPlaceholder}}">{{selectedPhone}}</ui-select-match>
       <ui-select-choices group-by="'group'" repeat="branch in branches | filter: $select.search">
         <span ng-bind-html="branch.nombre | highlight: $select.search"></span>
       </ui-select-choices>

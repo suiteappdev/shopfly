@@ -49,18 +49,19 @@ angular.module('app').controller("dependenciaController", ["$scope","$http", '$m
 
 	}
 
-	$scope.delete = function(){
-		$http.delete("http://boruto:3000/docdependencia/" + $scope.selectedNode.node.id).success(function(data){
-			$rootScope.$broadcast('deleted_dependencia');
-        	toaster.pop("success","Eliminado", "se ha eliminado Correctamente");
-        	$scope.$close();
-		});   
-	}
-
 	$scope.Remove = function(){
       var modalInstance = $modal.open({
         templateUrl: 'confirm.html',
-        controller : 'dependenciaController'
+        scope : $scope,
+        controller : function($scope){
+        	$scope.ok = function(){
+				$http.delete("http://boruto:3000/docdependencia/" + $scope.selectedNode.node.id).success(function(data){
+					$rootScope.$broadcast('deleted_dependencia');
+		        	toaster.pop("success","Eliminado", "se ha eliminado Correctamente");
+		        	$scope.$close();
+				});         		
+        	}
+        }
       });
 	}
 }]);

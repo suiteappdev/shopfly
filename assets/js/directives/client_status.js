@@ -4,7 +4,7 @@ angular.module("app").directive("ngClientStatus", function(){
 
 		$rootScope.$watch('client_status', function(n, o){
 			try{
-				$scope.ngModel = n;
+				$rootScope.client_status = n;
 			}catch(e){
 
 			}
@@ -20,7 +20,6 @@ angular.module("app").directive("ngClientStatus", function(){
 		scope : true,
 		controller : ctrl,
 		scope : {
-			ngModel : "=ngModel",
 			ngLabel : "@",
 			ngPlaceholder : '@'
 		},

@@ -1,13 +1,7 @@
-angular.module("app").directive("ngDatePicker", function(){
+angular.module("app").directive("ngBirthday", function(){
 	function ctrl($rootScope, $scope, $window){
-		$scope.today = function() {
-	      	$scope.dt = new Date();
-	    };
-
-	    $scope.today();
-
 	    $scope.clear = function () {
-	      	$scope.dt = null;
+	      	$rootScope.birthday = null;
 	    };
 
 	    // Disable weekend selection
@@ -33,10 +27,6 @@ angular.module("app").directive("ngDatePicker", function(){
 	      	startingDay: 1,
 	      	class: 'datepicker'
 	    };
-
-		$rootScope.$watch('dt', function(n, o){
-			$scope.$parent.date = n;
-		});
 	}
 
 	function link($scope){
@@ -51,7 +41,7 @@ angular.module("app").directive("ngDatePicker", function(){
 			ngPlaceholder : '@',
 			ngFormat : "@"
 		},
-		templateUrl : "tpl/fields/datepicker.html",
+		templateUrl : "tpl/fields/birthday.html",
 		link : link
 	}
 });

@@ -1,0 +1,15 @@
+<div class="modal-body wrapper-lg">
+  <div class="row">
+      <h3 class="m-t-none m-b font-thin">Ediciòn de Banco</h3>
+      <form role="form" name="bancoEdit">
+        <div class="form-group">
+          <label>Banco</label>
+          <input type="text" class="form-control" ng-model="setBanco.nombre" placeholder="Banco" required>
+        </div>
+        <p class="pull-right">
+          <button type="submit" ng-disabled="!bancoEdit.$valid" class="btn btn-sm btn-primary" ng-click="$parent.ok()">OK</button>
+          <button type="submit" class="btn btn-sm btn-warning" ng-click="$parent.$close()">Cancel</button>
+        </p>
+      </form>
+  </div>
+</div>

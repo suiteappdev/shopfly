@@ -22,7 +22,6 @@ angular.module("app").directive("ngClientType", function(){
 		controller : ctrl,
 		scope : true,
 		scope : {
-			ngModel : "=ngModel",
 			ngLabel : "@",
 			ngPlaceholder : '@'
 		},

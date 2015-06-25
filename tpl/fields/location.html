@@ -9,20 +9,46 @@
 </div>
 <div class="form-group" ng-show="$root.location.departamento">
   <label>{{ngLabelMunicipio}}</label>
-    <ui-select ng-model="$root.location.municipio" theme="bootstrap">
+    <ui-select ng-model="$root.location.municipio" theme="bootstrap" on-select="select($item, $model)">
       <ui-select-match placeholder="{{ngPlaceholderMunicipio}}">{{$select.selected.name}}</ui-select-match>
       <ui-select-choices group-by="'group'" repeat="municipio in municipios | filter: $select.search | filter: {code_dpto : $root.location.departamento.code} : true">
         <span ng-bind-html="municipio.name | highlight: $select.search"></span>
       </ui-select-choices>
     </ui-select>
 </div>
-<div class="form-group" ng-show="$root.location.municipio">
+<div class="form-group"  ng-show="$root.location.municipio">
   <label>{{ngLabelBarrio}}</label>
-    <ui-select ng-model="$root.location.barrio" theme="bootstrap">
-      <ui-select-match placeholder="{{ngPlaceholderBarrio}}">{{$select.selected.nombre}}</ui-select-match>
-      <ui-select-choices group-by="'group'" repeat="barrio in $root.barrios | filter: $select.search | filter: {code : $root.location.municipio.code} : true">
-        <span ng-bind-html="barrio.nombre | highlight: $select.search"></span>
-      </ui-select-choices>
-    </ui-select>
-    <a class="m-b-none pull-right">[+] agregar.</a>
+    <div class="input-group">
+      <ui-select ng-model="$root.location.barrio" theme="bootstrap">
+        <ui-select-match placeholder="{{ngPlaceholderBarrio}}">{{$select.selected.nombre}}</ui-select-match>
+        <ui-select-choices group-by="'group'" repeat="barrio in $root.barrios | filter: $select.search | filter: {code : $root.location.municipio.code} : true">
+          <span ng-bind-html="barrio.nombre | highlight: $select.search"></span>
+        </ui-select-choices>
+      </ui-select>
+      <span class="input-group-btn">
+        <button ng-click="open()" class="btn btn-primary">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+      </span>
+    </div>
+</div>
+<div>
+  <script type="text/ng-template" id="barrio_quick.html">
+    <div class="modal-body wrapper-lg" ng-init="Load()">
+      <div class="row">
+          <h3 class="m-t-none m-b font-thin">Agregar Barrio</h3>
+          <p>Departamento:</p><strong>{{$parent.location.departamento.name}}</strong>
+          <form role="form" name="barrioForm" >
+              <div class="form-group">
+                <label>Barrio</label>
+                <input type="text" class="form-control" placeholder="Barrio" ng-model="$parent.barrio.nombre" required>
+              </div>
+              <p class="pull-right">
+                <button type="submit"  ng-disabled="!barrioForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>        
+                <button type="submit" class="btn btn-sm btn-warning" ng-click="$close()">Cancelar</button>        
+              </p>
+          </form>
+      </div>
+    </div>
+  </script>  
 </div>

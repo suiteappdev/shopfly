@@ -1,0 +1,96 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+</div>
+<div class="wrapper-md" ng-init="Load()">
+<div class="row">
+<div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Retenciones</div>
+        <div class="panel-body">
+          <form role="form" name="retencionForm">
+            <div class="col-lg-10">
+              <div class="form-group">
+                <label>Retencion</label>
+                <input type="text" class="form-control" placeholder="Retencion" ng-pattern="/^[a-zA-Z\s]+$/" name="nombre" ng-model="retencion.nombre" required/>
+              </div>              
+            </div>
+            <div class="col-lg-2">
+            <div class="form-group">
+              <label>Estado</label>
+              <div>
+                    <label class="i-switch m-t-xs m-r">
+                      <input type="checkbox" checked ng-model="retencion.estado">
+                      <i></i>
+                    </label>                    
+              </div>
+            </div>
+            </div>
+              <div class="col-lg-6">
+                  <div class="form-group">
+                    <label>Valor</label>
+                    <input type="text" class="form-control" placeholder="Valor" ng-pattern="/^-?\d*(\.\d+)?$/" name="valor" ng-model="retencion.valor" required/>
+                  </div>              
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Base</label>
+                  <input type="text" class="form-control" placeholder="Base" name="base" ng-pattern="/^[0-9]+$/" ng-model="retencion.base" required/>
+                </div>                 
+              </div>
+            <p class="pull-right">
+              <button type="submit" ng-disabled="!retencionForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de Retenciones</div>
+          <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Retencion</th>
+                      <th>Valor</th>
+                      <th>Base</th>
+                      <th>Estado</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="!retenciones" ><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="retenciones.length  > 0" ng-repeat="retencion in retenciones">
+                        <td>{{retencion.nombre}}</td>
+                        <td>{{retencion.valor}} <strong>%</strong></td>
+                        <td>{{retencion.base}}</td>
+                        <td>
+                          <div>
+                                <label class="i-switch m-t-xs m-r">
+                                  <input type="checkbox" checked ng-model="retencion.estado" ng-click="changeState(retencion)">
+                                  <i></i>
+                                </label>                    
+                          </div>
+                        </td>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(retencion)"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(retencion)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_retencion.html">
+  <div ng-include="'tpl/modals/editar_retencion.html'"></div>
+</script>    

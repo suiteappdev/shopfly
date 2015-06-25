@@ -6,15 +6,15 @@
 <div class="row">
     <div class="col-sm-6">
       <div class="panel panel-default">
-        <div class="panel-heading font-bold">Perfil</div>
+        <div class="panel-heading font-bold">Iva</div>
         <div class="panel-body">
-          <form role="form" name="perfilForm">
+          <form role="form" name="ivaForm">
             <div class="form-group">
-              <label>Perfil</label>
-              <input type="text" class="form-control"  ng-pattern="/^(\D)+$/" name="nombre" placeholder="Perfil" ng-model="perfil.nombre" required>
-              <span class="help-block" style="color:#ee3939;" ng-show="perfilForm.nombre.$dirty && perfilForm.nombre.$invalid"><i class="fa fa-exclamation-circle"></i> Solo se aceptan Letras.<br></span>
+              <label>Iva</label>
+              <input type="text" class="form-control"  ng-pattern="/^[0-9]+$/" name="iva" placeholder="Valor Iva" ng-model="iva.valor" required>
+              <span class="help-block animated bounceIn" style="color:#ee3939;" ng-show="ivaForm.iva.$dirty && ivaForm.iva.$invalid"><i class="fa fa-exclamation-circle"></i> Solo se aceptan numero.<br></span>
             </div>
-            <button type="button" ng-disabled="!perfilForm.$valid" class="btn btn-sm btn-primary" ng-click="create()">Crear</button>
+            <button type="button" ng-disabled="!ivaForm.$valid" class="btn btn-sm btn-primary" ng-click="create()">Crear</button>
           </form>
         </div>
       </div>
@@ -26,16 +26,16 @@
                 <table class="table table-striped b-t b-light">
                   <thead>
                     <tr>
-                      <th>Perfil</th>
+                      <th>Ivas</th>
                       <th class="pull-right">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="perfil in perfiles">
-                        <td>{{perfil.nombre}}</td>
+                    <tr ng-repeat="iva in ivas">
+                        <td>{{iva.valor}} %</td>
                         <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-                            <button type="submit" class="btn btn-sm btn-danger" ng-click="del(perfil)"><i class="fa fa-trash"></i></button>
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(iva)"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(iva)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>
@@ -50,6 +50,6 @@
 <script type="text/ng-template" id="confirm.html">
   <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
 </script>
-<script type="text/ng-template" id="editar_perfil.html">
-  <div ng-include="'tpl/modals/editar_perfil.html'"></div>
+<script type="text/ng-template" id="editar_iva.html">
+  <div ng-include="'tpl/modals/editar_iva.html'"></div>
 </script>    

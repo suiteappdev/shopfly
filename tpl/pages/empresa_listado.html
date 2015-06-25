@@ -1,0 +1,107 @@
+<div ng-init="Load()">
+  <div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3 inline">Lista de Empresas</h1>
+    <a sref="app.page.cliente" href="#/app/page/cliente" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nueva Empresa</a>
+    <ul class="breadcrumb">
+          <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
+          <li><a href="">Empresas</a></li>
+          <li class="active">Lista de Empresas</li>
+    </ul>
+  </div>
+  <div class="wrapper-xs">
+    <div class="panel panel-default">
+      <div class="row wrapper-sm">
+      <div class="pull-right">
+          <div class="col-lg-8">
+            
+          </div>
+          <div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label>Buscar Por:</label>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Cliente, Empresa, Razòn Social, Representante legal..." ng-model="cliente">
+                <span class="input-group-btn">
+                  <button class="btn btn-primary" type="button" ng-click="Search()" >Buscar!</button>
+                </span>
+              </div>
+          </div>
+          </div>        
+      </div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Nit</th>
+              <th>Direcciòn</th>
+              <th>Telefono</th>
+              <th style="width:30px;">Estado</th>
+              <th class="pull-right">Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr ng-show="empresas.length  == 0" ><td colspan="6" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+            <tr ng-repeat="empresa in empresas">
+              <td>{{empresa.nombre}}</td>
+              <td>{{empresa.nit}}</td>
+              <td>{{empresa.direccion}}</td>
+              <td><a href="" class="success" ng-click="showPhoneBookView(empresa.metadata.telefono)">{{empresa.metadata.telefono[0]}}</a></td>
+              <td>
+                <div>
+                      <label class="i-switch m-t-xs m-r">
+                        <input type="checkbox" checked ng-model="cliente.estado.value" ng-click="changeState(empresa)">
+                        <i></i>
+                      </label>                    
+                </div>
+              </td>
+              <td>
+                <div class="pull-right">
+                  <a sref="app.page.editar-empresa({id : empresa._id})" href="#/app/page/editar-empresa/{{empresa._id}}" class="btn btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>  
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<div>
+  <script type="text/ng-template" id="confirm.html">
+    <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+  </script>  
+</div>
+  <script type="text/ng-template" id="phoneBookView.html">
+    <div class="modal-body wrapper-lg">
+      <div class="row">
+          <h3 class="m-t-none m-b font-thin">Numeros Telefonicos</h3>
+          <p>Telefonos del cliente</strong></p>
+          <form role="form" >
+              <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Numero Telefonico</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="$parent.phoneCollection == 0"><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No existen numeros telefonicos</td></tr>
+                    <tr ng-show="$parent.phoneCollection.length > 0" ng-repeat="phone in $parent.phoneCollection">
+                      <td>{{phone}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="pull-right">
+                <button type="submit" class="btn btn-sm btn-warning" ng-click="$close()">Cerrar</button>        
+              </p>
+          </form>
+      </div>
+    </div>
+  </script>  
+
+

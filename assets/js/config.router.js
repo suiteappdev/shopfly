@@ -1,16 +1,44 @@
 'use strict';
-angular.module('app')
-  .run(
-    [          '$rootScope', '$state', '$stateParams',
-      function ($rootScope,   $state,   $stateParams) {
+angular.module('app').run(['$rootScope', '$state', '$stateParams', function($rootScope,   $state,   $stateParams) {
           $rootScope.$state = $state;
           $rootScope.$stateParams = $stateParams;
+          $rootScope.country = {code : "CO", name : "Colombia"};
+          
+          $rootScope.clearCustomFields = function(){
+            try{
+              delete $rootScope.client_type;
+              delete $rootScope.barrio;
+              delete $rootScope.client_status;
+              delete $rootScope.cropped;
+              delete $rootScope.departamento;
+              delete $rootScope.document;
+              delete $rootScope.regime;
+              delete $rootScope.gender;
+              delete $rootScope.line_price;
+              delete $rootScope.location;
+              delete $rootScope.municipio;
+              delete $rootScope.barrios;
+              delete $rootScope.marital_status;
+              delete $rootScope.municipio;
+              delete $rootScope.profile;
+              delete $rootScope.stratum;
+              delete $rootScope.taxpayer_type;     
+              delete $rootScope.enterprise;
+              delete $rootScope.office;
+              delete $rootScope.education_level;
+              delete $rootScope.birthday;
+              delete $rootScope.phoneBook;
+              delete $rootScope.faxBook;
+              delete $rootScope.cellularPhoneBook;
+              delete $rootScope.faxBookNumber;
+              delete $rootScope.cellularPhone;
+              delete $rootScope.phone;
+                       
+            }catch(e){}
+          }
       }
     ]
-  )
-  .config(
-    [          '$stateProvider', '$urlRouterProvider', 'JQ_CONFIG', 
-      function ($stateProvider,   $urlRouterProvider, JQ_CONFIG) {
+  ).config(['$stateProvider', '$urlRouterProvider', 'JQ_CONFIG', function($stateProvider,   $urlRouterProvider, JQ_CONFIG) {
           
           $urlRouterProvider.otherwise('/app/dashboard-v1');
 
@@ -411,7 +439,7 @@ angular.module('app')
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('ui.select').then(
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
                               function(){
                                   return $ocLazyLoad.load([
                                       'assets/js/controllers/barrioController.js',
@@ -427,6 +455,23 @@ angular.module('app')
                       }]
                   }
               })
+              .state('app.page.banco', {
+                  url: '/banco',
+                  templateUrl: 'tpl/pages/page_banco.html',
+                  controller : 'bancoController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/bancoController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
               .state('app.page.perfil', {
                   url: '/perfil',
                   templateUrl: 'tpl/pages/page_perfil.html',
@@ -434,7 +479,7 @@ angular.module('app')
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('ui.select').then(
+                          return $ocLazyLoad.load('toaster').then(
                               function(){
                                   return $ocLazyLoad.load([
                                       'assets/js/controllers/perfilController.js'
@@ -448,22 +493,83 @@ angular.module('app')
                       }]
                   }
               })
+              .state('app.page.iva', {
+                  url: '/iva',
+                  templateUrl: 'tpl/pages/page_iva.html',
+                  controller : 'ivaController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('toaster').then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/ivaController.js'
+                                      //'assets/js/directives/country.js',
+                                      //'assets/js/directives/document.js',
+                                      //'assets/js/directives/marital_status.js',
+                                      //'assets/js/directives/location.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.retencion', {
+                  url: '/retencion',
+                  templateUrl: 'tpl/pages/page_retencion.html',
+                  controller : 'retencionController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('toaster').then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/retencionController.js'
+                                      //'assets/js/directives/country.js',
+                                      //'assets/js/directives/document.js',
+                                      //'assets/js/directives/marital_status.js',
+                                      //'assets/js/directives/location.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
               .state('app.page.empresa', {
                   url: '/empresa',
-                  templateUrl: 'tpl/pages/page_empresa.html',
+                  templateUrl: 'tpl/pages/empresa_listado.html',
                   controller : 'empresaController',
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('ui.select').then(
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
                               function(){
                                   return $ocLazyLoad.load([
                                       'assets/js/controllers/empresaController.js',
                                       'assets/js/directives/country.js',
-                                      'assets/js/directives/document.js',
-                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/phoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.editar-empresa', {
+                  url: '/editar-empresa/:id',
+                  templateUrl: 'tpl/pages/editar_empresa.html',
+                  controller : 'empresaController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/empresaController.js',
+                                      'assets/js/directives/country.js',
                                       'assets/js/directives/enterprise_status.js',
-                                      'assets/js/directives/location.js'
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/phoneBook.js'
                                       ]);
                               }
                           );
@@ -477,7 +583,74 @@ angular.module('app')
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
-                          return $ocLazyLoad.load(['ui.select']).then(
+                          return $ocLazyLoad.load(['ui.select', 'ngImgCrop', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/clienteController.js',
+                                      'assets/js/controllers/barrioController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/gender.js',
+                                      'assets/js/directives/birthday.js',
+                                      'assets/js/directives/education_level.js',
+                                      'assets/js/directives/regime.js',
+                                      'assets/js/directives/stratum.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/enterprise.js',
+                                      'assets/js/directives/branch.js',
+                                      'assets/js/directives/line_price.js',
+                                      'assets/js/directives/office.js',
+                                      'assets/js/directives/taxpayer_type.js',
+                                      'assets/js/directives/profile.js',
+                                      'assets/js/directives/cropper.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/cellularPhoneBook.js',
+                                      'assets/js/directives/faxBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  },
+                  onExit: function($rootScope){
+                    $rootScope.clearCustomFields();
+                  }
+              })
+              .state('app.page.clientes', {
+                  url: '/clientes',
+                  templateUrl: 'tpl/pages/cliente_list.html',
+                  controller : 'clienteController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/clienteController.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/phoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  },
+                  onExit: function($rootScope){
+                    $rootScope.clearCustomFields();
+                  }
+              })
+              .state('app.page.editar-cliente', {
+                  url: '/editar-cliente/:id',
+                  templateUrl: 'tpl/pages/editar_cliente.html',
+                  controller : 'clienteController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'ngImgCrop', 'toaster']).then(
                               function(){
                                   return $ocLazyLoad.load([
                                       'assets/js/controllers/clienteController.js',
@@ -488,7 +661,7 @@ angular.module('app')
                                       'assets/js/directives/client_status.js',
                                       'assets/js/directives/location.js',
                                       'assets/js/directives/gender.js',
-                                      'assets/js/directives/datepicker.js',
+                                      'assets/js/directives/birthday.js',
                                       'assets/js/directives/education_level.js',
                                       'assets/js/directives/regime.js',
                                       'assets/js/directives/stratum.js',
@@ -498,11 +671,18 @@ angular.module('app')
                                       'assets/js/directives/line_price.js',
                                       'assets/js/directives/office.js',
                                       'assets/js/directives/taxpayer_type.js',
-                                      'assets/js/directives/profile.js'
+                                      'assets/js/directives/profile.js',
+                                      'assets/js/directives/cropper.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/cellularPhoneBook.js',
+                                      'assets/js/directives/faxBook.js'
                                       ]);
                               }
                           );
                       }]
+                  },
+                  onExit: function($rootScope){
+                    $rootScope.clearCustomFields();
                   }
               })
               /* end shopFly pages */

@@ -9,10 +9,19 @@ html {
 body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
+  height: 700px!important;
   -webkit-font-smoothing: antialiased;
   line-height: 1.42857143;
   color: #58666e;
   background-color: transparent;
+}
+
+.breadcrumb {
+  padding: 8px 0px;
+  margin-bottom: 0px!important;
+  list-style: none;
+  background-color: #f6f8f8!important;
+  border-radius: 4px;
 }
 
 *:focus {
@@ -485,8 +494,10 @@ a.list-group-item.hover {
 
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 8px 15px;
+  padding: 4px 15px;
+  padding-bottom: 4px;
   border-top: 1px solid #eaeff0;
+    line-height: 1.8!important;
 }
 
 .table > thead > tr > th {

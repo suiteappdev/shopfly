@@ -1,7 +1,7 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Plataforma</h1>
 </div>
-<div class="wrapper-md">
+<div class="wrapper-md" ng-init="Load()">
 <div class="row">
 <div class="row">
     <div class="col-sm-6">
@@ -9,10 +9,6 @@
         <div class="panel-heading font-bold">Barrios</div>
         <div class="panel-body">
           <form role="form" class="ng-pristine ng-valid">
-            <ng-gender ng-label="Genero" ng-placeholder="Seleccione el Genero"></ng-gender>
-            <ng-enterprise-status ng-label="Estado Empresa" ng-placeholder="Seleccione el Estado de la Empresa"></ng-enterprise-status>
-            <ng-marital-status ng-label="Estado Civil" ng-placeholder="Seleccione el Estado Civil"></ng-marital-status>
-            <ng-document ng-label="Documento" ng-placeholder="Seleccione el Tipo de Documento"></ng-document>
             <ng-country-field ng-label="Pais" ng-placeholder="Elija el Pais" ng-disabled="true"></ng-country-field>
             <ng-location
                 ng-placeholder-municipio="Seleccione la Ciudad" 
@@ -20,11 +16,6 @@
                 ng-label-municipio="Municipio" 
                 ng-placeholder-departamento="Seleccione el Departamento" >
             </ng-location>
-            <div class="form-group">
-              <label>Barrio</label>
-              <input type="text" class="form-control" placeholder="Barrio">
-            </div>
-            <button type="submit" class="btn btn-sm btn-primary">Crear</button>
           </form>
         </div>
       </div>
@@ -32,10 +23,36 @@
     <div class="col-sm-6">
       <div class="panel panel-default">
         <div class="panel-heading font-bold">Lista de Barrios</div>
-        <div class="panel-body">
-        </div>
+          <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Barrios</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="!barrios" ><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="barrios.length  > 0" ng-repeat="barrio in barrios">
+                        <td>{{barrio.nombre}}</td>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(barrio)"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(barrio)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
       </div>
     </div>
   </div>
   </div>
 </div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_barrio.html">
+  <div ng-include="'tpl/modals/editar_barrio.html'"></div>
+</script>    

@@ -1,7 +1,8 @@
 angular.module("app").directive("ngCountryField", function(){
-	
-	function ctrl($scope, $window) {
+	function ctrl($scope, $window, $rootScope) {
         $scope.country = {};
+        $scope.country.selected = $rootScope.country;
+
         $scope.countries = [
 	        {name: 'Afghanistan', code: 'AF'},
 	        {name: 'Åland Islands', code: 'AX'},
@@ -247,6 +248,10 @@ angular.module("app").directive("ngCountryField", function(){
 	        {name: 'Zambia', code: 'ZM'},
 	        {name: 'Zimbabwe', code: 'ZW'}
         ];
+
+        $scope.$watch('country.selected', function(n, o){
+        	$rootScope.country = n;
+        });
 	}
 
 	function link($scope, $element, $attrs){
@@ -259,7 +264,8 @@ angular.module("app").directive("ngCountryField", function(){
 		scope : {
 			ngLabel : '@',
 			ngPlaceholder : '@',
-			ngDisabled : '@' 
+			ngDisabled : '@' ,
+			ngDefault : '@'
 		},
 		templateUrl : 'tpl/fields/country.html',
 		link : link

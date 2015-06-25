@@ -1,0 +1,15 @@
+<div class="modal-body wrapper-lg">
+  <div class="row">
+      <h3 class="m-t-none m-b font-thin">Ediciòn de Barrios</h3>
+      <form role="form" name="barrioEdit">
+        <div class="form-group">
+          <label>Barrio</label>
+          <input type="text" class="form-control" ng-model="setBarrio.nombre" placeholder="Barrios" required>
+        </div>
+        <p class="pull-right">
+          <button type="submit" ng-disabled="!barrioEdit.$valid" class="btn btn-sm btn-primary" ng-click="$parent.ok()">OK</button>
+          <button type="submit" class="btn btn-sm btn-warning" ng-click="$parent.$close()">Cancel</button>
+        </p>
+      </form>
+  </div>
+</div>

@@ -1,35 +1,40 @@
 angular.module("app").directive("ngLocation", function(){
-	function ctrl($rootScope, $scope, $window, $API){
+	function ctrl($rootScope, $modal, $scope, $window, $API){
 		$scope.departamentos = $window.departamentos;
 		$scope.municipios = $window.municipios;
+		
+		$scope.open = function(){
+			var modalInstance = $modal.open({
+		        templateUrl: 'barrio_quick.html',
+		        size : 'sm',
+		        controller  : function($scope, $rootScope,toaster, $API){
+					$scope.Load = function(){
+					
+					}
 
-		$rootScope.$watch('location.departamento', function(n, o){
-			try{
-				$rootScope.departamento = n ;
-			}catch(e){
+					$scope.Create = function(){
+						$API.Barrio.Create({
+							code : $scope.location.municipio.code,
+							nombre : $scope.barrio.nombre
+						}).then(function(data){
+							if(data.status == 200){
+								toaster.pop("success","Barrio", "Barrio Agregado");
+								$rootScope.barrios.push(data.data);
+								$rootScope.location.barrio = data.data;
+								$scope.$close();
+							}
+						});
+					}
+		        }
+	      	});
 
-			}
-		});
+		}
 
-		$rootScope.$watch('location.municipio', function(n, o){
-			try{
-				$rootScope.municipio = n;
-			}catch(e){
-
-			}
-			
-			$API.Barrio.List().then(function(data){
-				$rootScope.barrios = data || [];
+		$scope.select = function(item, model){
+			$API.Barrio.BarrioByDepartamento(item.code).then(function(res){
+				$rootScope.barrios = res.data || [];
 			});
-		});
-
-		$rootScope.$watch('location.barrio', function(n, o){
-			try{
-				$rootScope.barrio = n;
-			}catch(e){
-
-			}
-		});
+		}	
 	}
 
 	function link($scope){

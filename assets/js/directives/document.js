@@ -1,14 +1,6 @@
 angular.module("app").directive("ngDocument", function(){
 	function ctrl($rootScope, $scope, $window){
 		$scope.documents = $window.documents;
-
-		$rootScope.$watch('document', function(n, o){
-			try{
-				$scope.ngModel= n;
-			}catch(e){
-				
-			}
-		});
 	}
 
 	function link($scope){
@@ -20,7 +12,8 @@ angular.module("app").directive("ngDocument", function(){
 		controller : ctrl,
 		scope : true,
 		scope : {
-			ngModel : "=ngModel",
+			ngForm : '@',
+			ngRequired : '@',
 			ngLabel : "@",
 			ngPlaceholder : '@'
 		},

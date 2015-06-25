@@ -15,6 +15,7 @@ angular.module("app").directive("ngEnterpriseStatus", function(){
 		restrict : "EA",
 		controller : ctrl,
 		scope : {
+			ngRequired : '@',
 			ngLabel : "@",
 			ngPlaceholder : '@'
 		},
