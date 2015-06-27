@@ -1,7 +1,7 @@
 <div ng-init="Load()">
   <div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3 inline">Lista de Empresas</h1>
-    <a sref="app.page.cliente" href="#/app/page/cliente" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nueva Empresa</a>
+    <a sref="app.page.empresa" href="#/app/page/empresa" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nueva Empresa</a>
     <ul class="breadcrumb">
           <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
           <li><a href="">Empresas</a></li>
@@ -17,15 +17,17 @@
           </div>
           <div>
           <div class="col-lg-4">
+          <form name="empresaBuscar">
             <div class="form-group">
               <label>Buscar Por:</label>
               <div class="input-group">
-                <input type="text" class="form-control" placeholder="Cliente, Empresa, Razòn Social, Representante legal..." ng-model="cliente">
+                <input type="text" class="form-control" placeholder="Cliente, Empresa, Razòn Social, Representante legal..." ng-model="empresaFilter" required>
                 <span class="input-group-btn">
-                  <button class="btn btn-primary" type="button" ng-click="Search()" >Buscar!</button>
+                  <button class="btn btn-primary" ng-disabled="!empresaBuscar.$valid" type="submit" ng-click="Search()" >Buscar!</button>
                 </span>
               </div>
-          </div>
+          </div>            
+          </form>
           </div>        
       </div>
         </div>
@@ -52,7 +54,7 @@
               <td>
                 <div>
                       <label class="i-switch m-t-xs m-r">
-                        <input type="checkbox" checked ng-model="cliente.estado.value" ng-click="changeState(empresa)">
+                        <input type="checkbox" checked ng-model="empresa.estado.value" ng-click="changeState(empresa)">
                         <i></i>
                       </label>                    
                 </div>

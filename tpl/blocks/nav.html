@@ -1,4 +1,4 @@
-<!-- list -->
+em<!-- list -->
 <ul class="nav">
   <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
     <span translate="aside.nav.HEADER">Menu</span>
@@ -103,16 +103,6 @@
           <span>Cliente</span>
         </a>
       </li>
-      <li ui-sref-active="active">
-        <a ui-sref="layout.fullwidth">
-          <span>Full width</span>
-        </a>
-      </li>
-      <li ui-sref-active="active">
-        <a ui-sref="layout.mobile">
-          <span>Mobile</span>
-        </a>
-      </li>      
     </ul>
   </li>
   <li ng-class="{active:$state.includes('app.ui')}">
@@ -430,6 +420,15 @@
         </a>
       </li>
       <li ui-sref-active="active">
+        <a ui-sref="app.page.indices">
+          <span translate="aside.nav.Configuracion.Indices">Indices</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.page.plantillas">
+          <span translate="aside.nav.Configuracion.Plantilla">Plantillas</span>
+        </a>
+      </li><li ui-sref-active="active">
         <a ui-sref="app.page.barrio">
           <span translate="aside.nav.Configuracion.Barrio">Barrio</span>
         </a>
@@ -468,7 +467,7 @@
     </a>
     <ul class="nav nav-sub dk">
       <li ui-sref-active="active">
-        <a ui-sref="app.page.empresa">
+        <a ui-sref="app.page.empresas">
           <span translate="aside.nav.Empresa.Empresa">Empresa</span>
         </a>
       </li>

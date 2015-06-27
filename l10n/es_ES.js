@@ -67,6 +67,8 @@
     "Configuracion" : {
       "Configuracion": "Configuraciòn",
       "Dependencia": "Dependencia",
+      "Indices": "Indices",
+      "Plantilla": "Plantilla",
       "Barrio" : "Barrio",
       "Banco" : "Banco",
       "Perfil" : "Perfil",

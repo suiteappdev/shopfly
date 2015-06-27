@@ -2,7 +2,7 @@
   <h1 class="m-n font-thin h3">Empresa - {{empresa.nombre}}</h1>
       <ul class="breadcrumb">
           <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
-          <li><a href="">EMpresa</a></li>
+          <li><a href="">Empresa</a></li>
           <li class="active">Editar Empresa</li>
     </ul>
 </div>
@@ -58,7 +58,7 @@
                 </div>
               </div>
               <div class="col-sm-3">
-              <ng-enterprise-status ng-label="Estado" ng-placeholder="Departamento"></ng-enterprise-status>
+              <ng-enterprise-status ng-label="Estado" ng-placeholder="Estado"></ng-enterprise-status>
               </div>
               <div class="col-sm-3">
                 <div class="form-group">
@@ -76,10 +76,20 @@
                 <div class="form-group">
                   <ng-phone-book></ng-phone-book>
                 </div>
-              </div>    
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <ng-fax-book></ng-fax-book>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <ng-cellular-book></ng-cellular-book>
+                </div>
+              </div>
             </div>
             <footer class="panel-footer text-right bg-light lter">
-              <a sref="app.page.clientes" href="#/app/page/clientes" type="button" class="btn btn-warning">Cancelar</a>
+              <a sref="app.page.empresas" href="#/app/page/empresas" type="button" class="btn btn-warning">Cancelar</a>
               <button type="button" class="btn btn-primary" ng-click="Update()">Actualizar</button>
             </footer>
           </div>

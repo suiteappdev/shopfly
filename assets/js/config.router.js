@@ -9,6 +9,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', function($roo
               delete $rootScope.client_type;
               delete $rootScope.barrio;
               delete $rootScope.client_status;
+              delete $rootScope.enterprise_status;
               delete $rootScope.cropped;
               delete $rootScope.departamento;
               delete $rootScope.document;
@@ -535,8 +536,42 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', function($roo
                       }]
                   }
               })
-              .state('app.page.empresa', {
-                  url: '/empresa',
+              .state('app.page.indices', {
+                  url: '/indices',
+                  templateUrl: 'tpl/pages/page_indice.html',
+                  controller : 'indiceController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/indiceController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.plantillas', {
+                  url: '/plantillas',
+                  templateUrl: 'tpl/pages/page_plantilla.html',
+                  controller : 'plantillaController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/plantillaController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.empresas', {
+                  url: '/empresas',
                   templateUrl: 'tpl/pages/empresa_listado.html',
                   controller : 'empresaController',
                   resolve:{
@@ -548,7 +583,8 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', function($roo
                                       'assets/js/controllers/empresaController.js',
                                       'assets/js/directives/country.js',
                                       'assets/js/directives/location.js',
-                                      'assets/js/directives/phoneBook.js'
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/cellularPhoneBook.js'
                                       ]);
                               }
                           );
@@ -569,7 +605,31 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', function($roo
                                       'assets/js/directives/country.js',
                                       'assets/js/directives/enterprise_status.js',
                                       'assets/js/directives/location.js',
-                                      'assets/js/directives/phoneBook.js'
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/faxBook.js',
+                                      'assets/js/directives/cellularPhoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.empresa', {
+                  url: '/empresa',
+                  templateUrl: 'tpl/pages/page_empresa.html',
+                  controller : 'empresaController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/empresaController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/faxBook.js'
                                       ]);
                               }
                           );
