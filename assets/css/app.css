@@ -53,6 +53,14 @@ label {
   font-weight: normal;
 }
 
+.d-b{
+    background-color: #434444 !important;
+}
+
+.w-c{
+  color : white !important;
+}
+
 small,
 .small {
   font-size: 13px;

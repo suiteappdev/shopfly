@@ -1,0 +1,31 @@
+<div class="modal-body wrapper-lg">
+  <div class="row">
+      <h3 class="m-t-none m-b font-thin">Documentar</h3>
+      <form role="form" name="documentarForm">
+      <div class="col-lg-12" ng-repeat="indice in setRuta.plantilla.indice">
+        <div class="form-group">
+          <label>{{indice.nombre}}</label>
+          
+          <input type="text" class="form-control" placeholder="{{indice.nombre}}" ng-pattern="/^[a-zA-Z\s]+$/" name="nombre" ng-model="setRetencion.nombre" required ng-if="indice.tipo == 'Texto'" />
+
+          <div ng-if="indice.tipo == 'Fecha'" >
+              <p class="input-group">
+                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="dt" is-open="$parent.$parent.$parent.opened" datepicker-options="dateOptions" close-text="Close" />
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+          </div>
+
+          <input type="text" class="form-control" placeholder="{{indice.nombre}}" ng-pattern="/^[a-zA-Z\s]+$/" name="nombre" ng-model="setRetencion.nombre" required ng-if="indice.tipo == 'Alpha'" />
+          
+          <input type="number" class="form-control" placeholder="{{indice.nombre}}" ng-pattern="/^[a-zA-Z\s]+$/" name="nombre" ng-model="setRetencion.nombre" required ng-if="indice.tipo == 'Numero'" />
+        </div>              
+      </div>
+        <p class="pull-right">
+          <button type="submit" ng-disabled="!documentarForm.$valid" class="btn btn-sm btn-primary" ng-click="ok()">Subir</button>
+          <button type="submit" ng-disabled="!documentarForm.$valid" class="btn btn-sm btn-warning" ng-click="$close()">Cancelar</button>
+        </p>
+      </form>
+  </div>
+</div>

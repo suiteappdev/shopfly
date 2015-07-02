@@ -257,11 +257,12 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
-                          return $ocLazyLoad.load(['angularFileUpload', 'toaster']).then(
+                          return $ocLazyLoad.load(['toaster', 'ui.select']).then(
                               function(){
                                  return $ocLazyLoad.load([
-                                  'assets/js/controllers/file-upload.js',
-                                  'assets/js/controllers/documentarController.js'
+                                  'assets/js/controllers/documentarController.js',
+                                  'assets/js/directives/file.js',
+                                  'assets/js/directives/path.js'
                                   ]);
                               }
                           );

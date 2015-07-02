@@ -4,6 +4,7 @@
   "dependencies": {
     "chokidar": "^1.0.3",
     "connect-history-api-fallback": "0.0.5",
+    "fs-extra": "^0.20.1",
     "gulp": "~3.8.11",
     "gulp-concat": "~2.5.2",
     "gulp-connect": "~2.2.0",
