@@ -152,10 +152,12 @@ ngJSTree.directive('jsTree', ['$http', "$rootScope", function($http, $rootScope)
       $(e).jstree("set_theme", "default"); 
       $(e).on('changed.jstree', function(e, data){
           s.selectedNode = data;
-          $rootScope.selectedNode = data;
           var path = data.instance.get_path(data.node, '/');
+
+          $rootScope.selectedNode = data;
+          $rootScope.selectedNode.path = path;
+
           s.$apply();
-          console.log('Selected: ' + path); 
       });
 
       treeDir.manageEvents(s, e, a);

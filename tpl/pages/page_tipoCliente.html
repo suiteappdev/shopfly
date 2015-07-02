@@ -1,0 +1,75 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+</div>
+<div class="wrapper-md" ng-init="Load()">
+<div class="row">
+<div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Nuevo Tipo de Cliente</div>
+        <div class="panel-body">
+          <form role="form" name="tipoClientesForm">
+          <div class="col-lg-10">
+          <div class="form-group">
+            <label>Descripciòn</label>
+            <input type="text" class="form-control" placeholder="Descripciòn" ng-model="tipoCliente.descripcion" required>
+          </div>           
+          </div>
+          <div class="col-lg-2">
+            <div class="form-group">
+              <label>Estado</label>
+                <label class="i-switch m-t-xs m-r">
+                  <input type="checkbox" checked ng-model="tipoCliente.estado" ng-init="tipoCliente.estado = true">
+                  <i></i>
+                </label>
+            </div>
+          </div>
+            <p class="pull-right">
+              <button type="submit" ng-disabled="!tipoClientesForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de Tipos de Clientes</div>
+          <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Descripciòn</th>
+                      <th>Estado</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="!tiposClientes" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="tiposClientes.length  > 0" ng-repeat="tipo in tiposClientes">
+                        <td>{{tipo.descripcion}}</td>
+                        <td>
+                        <label class="i-switch m-t-xs m-r">
+                            <input type="checkbox" checked ng-model="tipo.estado" ng-click="changeState(tipo)">
+                            <i></i>
+                        </label>
+                        </td>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(tipo)"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(tipo)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_tipoCliente.html">
+  <div ng-include="'tpl/modals/editar_tipoCliente.html'"></div>
+</script>    

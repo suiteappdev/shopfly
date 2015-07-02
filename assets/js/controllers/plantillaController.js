@@ -36,7 +36,7 @@ angular.module('app').controller("plantillaController", ["$scope","$rootScope", 
 		$scope.setPlantilla = angular.copy(plantilla);
 
 		var modalInstance = $modal.open({
-	        templateUrl: 'editar_plantilla.html',
+	        templateUrl: 'editar_ruta.html',
 	        size : 'md',
 	        scope : $scope,
 	        controller : function($scope){

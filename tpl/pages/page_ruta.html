@@ -1,0 +1,113 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+</div>
+<div class="wrapper-md" ng-init="Load()">
+<div class="row">
+<div class="row">
+    <div class="col-lg-5">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Rutas</div>
+        <div class="panel-body">
+          <form role="form" name="indiceForm">
+          <div class="col-lg-10">
+            <div class="form-group">
+              <label>Plantillas</label>
+                <ui-select ng-model="$parent.plantilla" theme="bootstrap">
+                  <ui-select-match placeholder="Plantillas">{{plantilla.nombre}}</ui-select-match>
+                  <ui-select-choices group-by="'group'" repeat="plantilla in plantillas | filter: $select.search">
+                    <span ng-bind-html="plantilla.nombre | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+            </div>            
+          </div>
+          <div class="col-lg-2">
+            <div class="form-group">
+              <label>Estado</label>
+                <label class="i-switch m-t-xs m-r">
+                  <input type="checkbox" checked ng-model="estado" ng-init="estado = true">
+                  <i></i>
+                </label>
+            </div>
+          </div>
+          <div class="col-lg-12">
+                <ng-path ng-label="Ruta" ng-placeholder="Ruta" ng-data="paths"></ng-path>
+          </div>
+          <div class="col-lg-12">
+            <p class="pull-right"><button type="submit" ng-disabled="!indiceForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button></p>            
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-7">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de Rutas</div>
+          <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Plantilla</th>
+                      <th>Rutas</th>
+                      <th>Estado</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="!rutas" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="rutas.length  > 0" ng-repeat="ruta in rutas">
+                        <td>{{ruta.plantilla.nombre}}</td>
+                        <td>{{ruta.path[0].path}}<a href="" ng-click="showPathView(ruta.path)" ng-hide="ruta.path.length == 1"><b class="badge bg-success pull-right">+ {{ruta.path.length == 1 ? ruta.path.length : (ruta.path.length) - 1}}</b></a></td>
+                        <td>
+                          <label class="i-switch m-t-xs m-r">
+                            <input type="checkbox" checked ng-model="ruta.estado" ng-click="changeState(ruta)">
+                            <i></i>
+                          </label>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(ruta)"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(ruta)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_ruta.html">
+  <div ng-include="'tpl/modals/editar_ruta.html'"></div>
+</script> 
+<script type="text/ng-template" id="pathView.html">
+  <div class="modal-body wrapper-lg">
+    <div class="row">
+        <h3 class="m-t-none m-b font-thin">Rutas</h3>
+        <p>Rutas, Destinos de archivos</strong></p>
+        <form role="form" >
+            <div class="table-responsive">
+              <table class="table table-striped b-t b-light">
+                <thead>
+                  <tr>
+                    <th>Rutas</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-show="myPaths.length == 0"><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No existen Rutas</td></tr>
+                  <tr ng-show="myPaths.length > 0" ng-repeat="path in myPaths">
+                    <td><i class="fa fa-folder-o"></i> {{path.path}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="pull-right">
+              <button type="submit" class="btn btn-sm btn-warning" ng-click="$close()">Cerrar</button>        
+            </p>
+        </form>
+    </div>
+  </div>
+</script>  

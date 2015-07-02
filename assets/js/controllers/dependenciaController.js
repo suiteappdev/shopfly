@@ -1,4 +1,4 @@
-angular.module('app').controller("dependenciaController", ["$scope","$http", '$modal', "toaster", "$rootScope", function($scope, $http, $modal, toaster, $rootScope){
+angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope","$http", '$modal', "toaster", "$rootScope", "$window", function($docFlyConf, $scope, $http, $modal, toaster, $rootScope, $window){
 	$scope.load = function(){
 		$http.get("http://boruto:3000/docdependencia").success(function(data){
 			$scope.dependencias = data;
@@ -28,13 +28,22 @@ angular.module('app').controller("dependenciaController", ["$scope","$http", '$m
     };
 
 	$scope.Create = function(){
+
 		$http.post("http://boruto:3000/docdependencia", {
 			id : $scope.dependencia.nombre,
 			parent : $scope.selectedNode ? $scope.selectedNode.node.text : null
 		}).success(function(data){
 			$scope.load();
-			if($scope.dependencia) delete $scope.dependencia;
-        	toaster.pop("success", "Listo!", "Creado Correctamente");
+			if(data.parent == $docFlyConf.root){
+					$window.mkdirp($docFlyConf.path + data.id, function (err) {
+					    if (err) console.error(err)
+				    	console.log('pow!')
+					});	
+			}
+
+			if($scope.dependencia){
+				delete $scope.dependencia;
+			} 
 		});
 	}
 

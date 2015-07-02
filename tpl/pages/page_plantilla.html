@@ -8,18 +8,18 @@
       <div class="panel panel-default">
         <div class="panel-heading font-bold">Plantillas</div>
         <div class="panel-body">
-          <form role="form" name="plantillasForm">
+          <form role="form" name="plantillasForm" no-validate>
           <div class="col-lg-10">
             <div class="form-group">
               <label>Plantilla</label>
-              <input type="text" class="form-control" placeholder="Plantilla" ng-model="plantilla.nombre" required/>
+              <input type="text" class="form-control" placeholder="Plantilla" ng-model="plantilla.nombre"/>
             </div>               
           </div>
           <div class="col-lg-2">
             <div class="form-group">
               <label>Estado</label>
                 <label class="i-switch m-t-xs m-r">
-                  <input type="checkbox" checked ng-model="plantilla.estado">
+                  <input type="checkbox" checked ng-model="plantilla.estado" ng-init="plantilla.estado = true">
                   <i></i>
                 </label>
             </div>
@@ -27,7 +27,7 @@
           <div class="col-lg-12">
             <div class="form-group">
             <label>Indices</label>
-              <ui-select multiple ng-model="$parent.plantilla.indice" theme="bootstrap" ng-disabled="disabled" required>
+              <ui-select multiple ng-model="$parent.plantilla.indice" theme="bootstrap" ng-disabled="disabled">
                   <ui-select-match placeholder="Elija los indices...">{{$item.nombre}}</ui-select-match>
                   <ui-select-choices repeat="indice in indices | propsFilter: {nombre: $select.search, tipo: $select.search}">
                     <div ng-bind-html="indice.nombre | highlight: $select.search"></div>
@@ -64,7 +64,7 @@
                     <tr ng-show="!plantillas" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
                     <tr ng-show="plantillas.length  > 0" ng-repeat="plantilla in plantillas">
                         <td>{{plantilla.nombre}}</td>
-                        <td>{{plantilla.indice[0].nombre}}<a href=""><b class="badge bg-success pull-right">+ {{plantilla.indice.length == 1 ? plantilla.indice.length : (plantilla.indice.length) - 1}}</b></a></td>
+                        <td>{{plantilla.indice[0].nombre}}<a ng-hide="plantilla.indice.length == 1" href=""><b class="badge bg-success pull-right">+ {{plantilla.indice.length == 1 ? plantilla.indice.length : (plantilla.indice.length) - 1}}</b></a></td>
                         <td>
                           <label class="i-switch m-t-xs m-r">
                             <input type="checkbox" checked ng-model="plantilla.estado" ng-click="changeState(plantilla)">

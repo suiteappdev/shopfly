@@ -15,13 +15,16 @@
 },
 "aside" : {
   "nav" : {
+    "USUARIO" : "Usuario",
     "HEADER" : "Menu",
     "DASHBOARD" : "Armaturenbrett",
     "CALENDAR" : "Kalender",
     "EMAIL" : "E-Mail",
     "WIDGETS" : "Widgets",
     "components" : {
-      "COMPONENTS" : "Komponenten",
+      "COMPONENTS" : "Gestion de usuario",
+      "DOGGESTION" : "Gestion de documentos",
+      "Documentar" : "Documentar",
       "ui_kits" : {
         "UI_KITS" : "UI Kits",
         "BUTTONS" : "Knöpfe",
@@ -60,7 +63,7 @@
       }
     },
     "your_stuff" : {
-      "YOUR_STUFF": "Configuraciòn",
+      "YOUR_STUFF": "Parametrizaciòn",
       "PROFILE" : "Profil",
       "DOCUMENTS" : "Dokumente"
     },
@@ -69,8 +72,10 @@
       "Dependencia": "Dependencia",
       "Indices": "Indices",
       "Plantilla": "Plantilla",
+      "Rutas": "Rutas",
       "Barrio" : "Barrio",
       "Banco" : "Banco",
+      "TipoCliente" : "Tipo de Cliente",
       "Perfil" : "Perfil",
       "Iva" : "Iva",
       "Retencion" : "Retenciòn"

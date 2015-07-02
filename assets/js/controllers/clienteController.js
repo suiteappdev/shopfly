@@ -2,31 +2,32 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 
 	$scope.load = function(){
 		$scope.tab = "personal";
-		$API.Cliente.List().then(function(data){
-			$scope.clientes = data || [];
+		$API.Cliente.List().then(function(res){
+			$scope.clientes = res.data || [];
 		});
+
 		if($stateParams.id){
-			$API.Cliente.Cliente($stateParams.id).then(function(cliente){
-				$scope.cliente = cliente;
-				$rootScope.cropped = cliente.metadata.foto;
-				$rootScope.document = cliente.tipoDocumento;
-				$rootScope.client_status = cliente.estado;
-				$rootScope.phoneBook = cliente.metadata.telefono;
-				$rootScope.cellularPhoneBook = cliente.metadata.celular;
-				$rootScope.client_type = cliente.tipoCliente;
-				$rootScope.faxBook = cliente.metadata.fax;
-				$rootScope.birthday = cliente.metadata.fechaNacimiento;
-				$rootScope.gender = cliente.metadata.sexo;
-				$rootScope.marital_status = cliente.metadata.estadoCivil;
-				$rootScope.education_level = cliente.metadata.nivelEstudio;
-				$rootScope.regime = cliente.metadata.regimen;
-				$rootScope.taxpayer_type = cliente.metadata.tipoContribuyente;
-				$rootScope.stratum = cliente.metadata.estrato;
-				$rootScope.location = cliente.metadata.localizacion;
-				$rootScope.profile = cliente.metadata.perfil;
-				$rootScope.office = cliente.metadata.cargo;
-				$rootScope.line_price = cliente.metadata.lineaPrecio;
-				$rootScope.enterprise = cliente.metadata.empresa;
+			$API.Cliente.Cliente($stateParams.id).then(function(res){
+				$scope.cliente = res.data;
+				$rootScope.cropped = $scope.cliente.metadata.foto;
+				$rootScope.document = $scope.cliente.tipoDocumento;
+				$rootScope.client_status = $scope.cliente.estado;
+				$rootScope.phoneBook = $scope.cliente.metadata.telefono;
+				$rootScope.cellularPhoneBook = $scope.cliente.metadata.celular;
+				$rootScope.client_type = $scope.cliente.tipoCliente;
+				$rootScope.faxBook = $scope.cliente.metadata.fax;
+				$rootScope.birthday = $scope.cliente.metadata.fechaNacimiento;
+				$rootScope.gender = $scope.cliente.metadata.sexo;
+				$rootScope.marital_status = $scope.cliente.metadata.estadoCivil;
+				$rootScope.education_level = $scope.cliente.metadata.nivelEstudio;
+				$rootScope.regime = $scope.cliente.metadata.regimen;
+				$rootScope.taxpayer_type = $scope.cliente.metadata.tipoContribuyente;
+				$rootScope.stratum = $scope.cliente.metadata.estrato;
+				$rootScope.location = $scope.cliente.metadata.localizacion;
+				$rootScope.profile = $scope.cliente.metadata.perfil;
+				$rootScope.office = $scope.cliente.metadata.cargo;
+				$rootScope.line_price = $scope.cliente.metadata.lineaPrecio;
+				$rootScope.enterprise = $scope.cliente.metadata.empresa;
 			});
 		}
 	}
@@ -179,8 +180,8 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 			documento 		: $scope.filter ? $scope.filter.numero  : null,
 			cliente 		: $scope.cliente ? $scope.cliente : null,
 			tipoCliente		: $rootScope.client_type ? $rootScope.client_type : null,
- 		}).then(function(data){
-			$scope.clientes = data;
+ 		}).then(function(res){
+			$scope.clientes = res.data || [];
 		});
 	}
 }]);
