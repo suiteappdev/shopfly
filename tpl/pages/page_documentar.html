@@ -35,7 +35,8 @@
                 <tr>
                     <th width="70%">Archivo</th>
                     <th width="10%">Tamaño</th>
-                    <th>Acciones</th>
+                    <th>Estado</th>
+                    <th class="pull-right">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,6 +44,7 @@
              <tr ng-repeat="file in myFiles">
                <td>{{file.name}}</td>
                <td>{{units(file.size, true)}}</td>
+               <td>Pendiente</td>
                <td>
                   <div class="pull-right">
                     <a class="btn btn-sm btn-icon btn-danger" ng-click="remove(file)"><i class="fa fa-trash"></i></a>

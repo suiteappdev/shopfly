@@ -4,10 +4,18 @@ angular.module('app')
 	.service('$fileManagerService', ['$document', '$q', '$timeout', function($document, $q, $timeout){
 		try{
 			var fse = require('fs-extra')
+			var path = require('path')
 		}catch(e){
 
 		}
 
+		this.path = path;
+		this.createDir = fse.mkdirp;
+		this.Create = fse.createFile;
+		this.Remove = fse.remove;
+		this.copyFile = fse.copy
+		this.copy = fse.copy;
+		
 		this.fileSize = function(bytes, si){
 		    var thresh = si ? 1000 : 1024;
 		    
@@ -26,21 +34,5 @@ angular.module('app')
 		    } while(Math.abs(bytes) >= thresh && u < units.length - 1);
 		    
 		    return bytes.toFixed(1)+' '+units[u];
-		}
-
-		this.Create = function(file, cb){
-			fse.createFile(file, cb);
-		}
-
-		this.Remove = function(file, cb){
-			fse.remove(file, cb);
-		}
-
-		this.CopyFile = function(src, dest, cb){
-			fse.copy(src, dest, cb); 
-		}
-
-		this.copyFiles = function(src, dest, cb){
-			fse.copy(src, dest, cb); 
 		}
 }]);

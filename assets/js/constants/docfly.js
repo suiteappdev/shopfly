@@ -2,5 +2,6 @@
 
 angular.module('app').constant("$docFlyConf", {
         path: "Z:\\",
-        root: "#"
+        root: "#",
+        fileKey : "Majoca0126*"
     })
