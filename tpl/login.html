@@ -1,0 +1,23 @@
+<div class="container w-xxl w-auto-xs">
+  <a href class="navbar-brand block m-t text-white">{{app.name}}</a>
+  <div class="m-b-lg">
+    <form name="form" class="form-validation">
+      <div class="text-danger wrapper text-center" ng-show="authError">
+          {{authError}}
+      </div>
+      <div class="list-group list-group-sm">
+        <div class="list-group-item">
+          <input type="text" placeholder="Usuario" class="form-control no-border" ng-model="user.usuario" required>
+        </div>
+        <div class="list-group-item">
+           <input type="password" placeholder="Contraseña" class="form-control no-border" ng-model="user.password" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-lg btn-success btn-block" ng-click="login()" ng-disabled='form.$invalid'>Ingresar</button>
+    </form>
+  </div>
+  <div class="text-center" ng-include="'tpl/blocks/page_footer.html'">
+    {% include 'blocks/page_footer.html' %}
+  </div>
+</div>
+<div class="container w-xxl w-auto-xs "></div> 

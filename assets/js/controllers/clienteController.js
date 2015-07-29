@@ -1,4 +1,4 @@
-angular.module('app').controller("clienteController", ["$scope", "$API", "$modal", "toaster", "$rootScope", "$stateParams", function($scope, $API, $modal, toaster, $rootScope, $stateParams){
+angular.module('app').controller("clienteController", ["$scope", "$API", "$modal", "toaster", "$rootScope", "$stateParams", "$location", function($scope, $API, $modal, toaster, $rootScope, $stateParams, $location){
 
 	$scope.load = function(){
 		$scope.tab = "personal";
@@ -72,6 +72,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 				delete $scope.cliente;
 				$rootScope.clearCustomFields();
 				$scope.tab = "personal";
+				$location.path("app/page/clientes");
 			}
 		});
 	}
@@ -121,6 +122,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 			$scope.formCliente.$setPristine();
 			$rootScope.clearCustomFields();
 			$scope.tab = "personal";
+			$location.path("/app/page/clientes");
 		})
 	}
 
@@ -134,20 +136,20 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
       	});
 	}
 
-	$scope.changeState = function(cliente){
+	$scope.changeState = function(usuario){
 		var modalInstance = $modal.open({
 	        templateUrl: 'confirm.html',
 	        scope : $scope,
 	        controller : function($scope, toaster){
 	        	$scope.ok = function(){
-					if(!cliente.estado.value){
-						$API.Cliente.Inactivo(cliente._id).then(function(data){
-							if(data) toaster.pop("warning","Desactivar", "Cliente Desactivado");
+					if(!usuario.estado.value){
+						$API.Usuario.Inactivo(usuario._id).then(function(data){
+							if(data) toaster.pop("warning","Desactivar", "Usuario Desactivado");
 						});
 
 					}else{
-						$API.Cliente.Activo(cliente._id).then(function(data){
-        					if(data) toaster.pop("success","Activar", "Cliente Activado");
+						$API.Usuario.Activo(usuario._id).then(function(data){
+        					if(data) toaster.pop("success","Activar", "Usuario Activado");
 						});
 					}
 
@@ -156,7 +158,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 
 	        	$scope.cancel = function(){
 	        		$scope.$close();
-	        		cliente.estado.value = !cliente.estado.value;
+	        		usuario.estado.value = !usuario.estado.value;
 	        	}
 	        }
       	});
@@ -170,7 +172,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
       				return;
       			}
 
-	        	cliente.estado.value = !cliente.estado.value;
+	        	usuario.estado.value = !usuario.estado.value;
   		});
 	}
 
@@ -179,7 +181,6 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 			estado 			: $rootScope.client_status ? $rootScope.client_status  :  null,
 			documento 		: $scope.filter ? $scope.filter.numero  : null,
 			cliente 		: $scope.cliente ? $scope.cliente : null,
-			tipoCliente		: $rootScope.client_type ? $rootScope.client_type : null,
  		}).then(function(res){
 			$scope.clientes = res.data || [];
 		});

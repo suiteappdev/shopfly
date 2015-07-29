@@ -1,24 +1,33 @@
 <div class="hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-init="Load()">
   <div class="col w-lg bg-light b-r bg-auto">
     <div class="wrapper-md dker d-b">
-      <h3 class="m-n font-thin w-c">Seleccionar Archivos</h3>
+      <h3 class="m-n font-thin w-c"><i class="fa fa-folder"></i> Archivos</h3>
     </div>
     <div class="wrapper-md text-center">      
       <input type="file" multiple="multiple" id="files" ng-file class="hidden">
-      <label for="files" class="text-center btn btn-info"><i class="icon icon-cloud-upload"></i> Selecc. Archivos</label>
+      <label for="files" class="text-center btn btn-info"><i class="icon icon-cloud-upload"></i> Archivos</label>
       <p></p>
-      <label class="text-center btn btn-info"><i class="icon icon-printer"></i> Scanear Archivo</label>
-    </div>
-    <div class="wrapper-md text-center">      
-    <div class="form-group" ng-show="myFiles.length > 0">
-      <label>Platillas</label>
-        <ui-select ng-model="$parent.ruta" theme="bootstrap" on-select="onSelect($item, $model)">
-          <ui-select-match placeholder="Plantillas">{{$parent.ruta.plantilla.nombre}}</ui-select-match>
-          <ui-select-choices group-by="'group'" repeat="ruta in rutas | filter: $select.search">
-            <span ng-bind-html="ruta.plantilla.nombre | highlight: $select.search"></span>
-          </ui-select-choices>
-        </ui-select>
-    </div>
+        <div class="form-group">
+          <label>Seleccione el Scanner</label>
+            <ui-select ng-model="$parent.print" theme="bootstrap">
+              <ui-select-match placeholder="Dispositivo de entrada">{{print.Name}}</ui-select-match>
+              <ui-select-choices group-by="'group'" repeat="print in prints | filter: $select.search">
+                <span ng-bind-html="print.Name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+        </div>
+        <p></p>
+      <label class="text-center btn btn-info"  ng-click="Scan()"><i class="icon icon-printer"></i> Scannear</label>
+      <p></p>
+      <div class="form-group" ng-show="myFiles.length > 0">
+        <label>Plantillas</label>
+          <ui-select ng-model="$parent.ruta" theme="bootstrap" on-select="onSelect($item, $model)">
+            <ui-select-match allow-clear="true" placeholder="Plantillas">{{$parent.ruta.plantilla.nombre}}</ui-select-match>
+            <ui-select-choices group-by="'group'" repeat="ruta in rutas | filter: $select.search">
+              <span ng-bind-html="ruta.plantilla.nombre | highlight: $select.search"></span>
+            </ui-select-choices>
+          </ui-select>
+      </div>
     </div>
   </div>
   <div class="col">
@@ -44,7 +53,7 @@
              <tr ng-repeat="file in myFiles">
                <td>{{file.name}}</td>
                <td>{{units(file.size, true)}}</td>
-               <td>Pendiente</td>
+               <td class="text-center"><i class="fa  fa-check-circle text-success" ng-show="file.estado"></i><i class="fa fa-clock-o text-warning" ng-show="!file.estado"></i></td>
                <td>
                   <div class="pull-right">
                     <a class="btn btn-sm btn-icon btn-danger" ng-click="remove(file)"><i class="fa fa-trash"></i></a>
@@ -60,3 +69,6 @@
 <script type="text/ng-template" id="documentar.html">
   <div ng-include="'tpl/modals/documentar.html'"></div>
 </script> 
+<script type="text/ng-template" id="renombrar_archivo.html">
+  <div ng-include="'tpl/modals/renombrar_archivo.html'"></div>
+</script>  

@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="assets/css/app.css" type="text/css" />
 </head>
 <body ng-controller="AppCtrl">
-  <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}" ui-view>
+  <div class="app" id="app" ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}"ui-view>
 
   </div>
 
@@ -52,6 +52,7 @@
   <!-- App -->
   <script src="assets/js/app.js"></script>
   <script src="assets/js/config.js"></script>
+  <script src="assets/js/io/socket.io-1.3.5.js"></script>
   <script src="assets/js/config.lazyload.js"></script>
   <script src="assets/js/config.router.js"></script>
   <script src="assets/js/main.js"></script>
@@ -59,8 +60,11 @@
   <script src="assets/js/services/fileManagerServices.js"></script>
   <script src="assets/js/services/printerService.js"></script>
   <script src="assets/js/services/cryptoServices.js"></script>
+  <script src="assets/js/services/webkitService.js"></script>
+  <script src="assets/js/factory/authFactory.js"></script>
   <script src="assets/js/constants/docfly.js"></script>
   <script src="assets/js/filters/fromNow.js"></script>
+  <script src="assets/js/services/moment.js"></script>
   <script src="assets/js/directives/setnganimate.js"></script>
   <script src="assets/js/directives/ui-butterbar.js"></script>
   <script src="assets/js/directives/ui-focus.js"></script>
@@ -72,6 +76,7 @@
   <script src="assets/js/directives/ui-shift.js"></script>
   <script src="assets/js/directives/ui-toggleclass.js"></script>
   <script src="assets/js/controllers/bootstrap.js"></script>
+  <script src="assets/js/controllers/navigationController.js"></script>
 
   <!--app logic-->
   <script src="assets/js/static/departamentos.js"></script>

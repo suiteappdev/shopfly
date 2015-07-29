@@ -17,8 +17,32 @@ angular.module('app').controller("perfilController", ["$scope", "$API", "$modal"
 		});
 	}
 
-	$scope.update = function(){
+	$scope.Update = function(perfil){
+		$scope.setPerfil = angular.copy(perfil);
 
+		var modalInstance = $modal.open({
+	        templateUrl: 'editar_perfil.html',
+	        size : 'sm',
+	        scope : $scope,
+	        controller : function($scope){
+	        	$scope.ok = function(){
+	        		$scope.$close(true);
+	        	}
+	        }
+      	});
+
+      	modalInstance.result.then(
+      		function(val){
+      			if(val){
+	      			$API.Banco.Update($scope.setPerfil).then(function(res){
+	      				if(res.status == 200){
+	      					$scope.perfiles[$scope.perfiles.indexOf(perfil)] = res.data;
+	      					toaster.pop("success","Banco", "Actualizado");
+	      				}
+	      			});      				
+      			}
+      		}
+		);
 	}
 
 	$scope.del = function(perfil){

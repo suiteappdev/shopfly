@@ -1,10 +1,19 @@
 'use strict';
-angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  function($rootScope,   $state,   $stateParams, $window) {
+angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "AuthenticationService", "$location", "$localStorage",  function($rootScope,   $state,   $stateParams, $window, AuthenticationService, $location, $localStorage) {
           $rootScope.$state = $state;
           $rootScope.$stateParams = $stateParams;
           $rootScope.country = {code : "CO", name : "Colombia"};
           $rootScope.getScanner = $window.getScanner;
-          
+
+          $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){
+              $rootScope.credential = $localStorage.credential;
+
+              if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication 
+                  && !AuthenticationService.isAuthenticated && !$localStorage.credential) {
+                    $state.go("login");
+              }
+          });
+
           $rootScope.clearCustomFields = function(){
             try{
               delete $rootScope.client_type;
@@ -41,39 +50,57 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
       }
     ]
   ).config(['$stateProvider', '$urlRouterProvider', 'JQ_CONFIG', function($stateProvider,   $urlRouterProvider, JQ_CONFIG) {
-          
-          $urlRouterProvider.otherwise('/app/panel');
-
+          $urlRouterProvider.otherwise('/login');
           $stateProvider
+              .state('login', {
+                  url: '/login',
+                  templateUrl: 'tpl/login.html',
+                  controller : 'loginController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/loginController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
             .state('app', {
                   abstract: true,
                   url: '/app',
-                  templateUrl: 'tpl/app.html'
+                  templateUrl: 'tpl/app.html',
+                  access: { requiredAuthentication: true }
               })
               .state('app.panel', {
                   url: '/panel',
                   templateUrl: 'tpl/board.html',
+                  access: { requiredAuthentication: true },
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                         return $ocLazyLoad.load([
                           'assets/js/controllers/chart.js',
-                          'assets/js/services/provider.js',
-                          'assets/js/services/file.js'
                           ]);
                     }]
                   }
+                 
               })
               // pages
               .state('app.page', {
                   url: '/page',
-                  template: '<div ui-view class="fade-in-down"></div>'
+                  template: '<div ui-view class="fade-in-down"></div>',
+                  access: { requiredAuthentication: true }
               })
 
               /* start shopFly pages */
               .state('app.page.dependencia', {
                   url: '/dependencia',
                   templateUrl: 'tpl/pages/page_dependencia.html',
+                  access: { requiredAuthentication: true },
                   controller : 'dependenciaController',
                   resolve:{
                       deps: ['$ocLazyLoad',
@@ -99,6 +126,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/barrio',
                   templateUrl: 'tpl/pages/page_barrio.html',
                   controller : 'barrioController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -122,6 +150,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/banco',
                   templateUrl: 'tpl/pages/page_banco.html',
                   controller : 'bancoController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -139,6 +168,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/perfil',
                   templateUrl: 'tpl/pages/page_perfil.html',
                   controller : 'perfilController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -159,6 +189,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
               .state('app.page.iva', {
                   url: '/iva',
                   templateUrl: 'tpl/pages/page_iva.html',
+                  access: { requiredAuthentication: true },
                   controller : 'ivaController',
                   resolve:{
                       deps: ['$ocLazyLoad',
@@ -181,6 +212,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/retencion',
                   templateUrl: 'tpl/pages/page_retencion.html',
                   controller : 'retencionController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -202,6 +234,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/indices',
                   templateUrl: 'tpl/pages/page_indice.html',
                   controller : 'indiceController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -219,6 +252,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/plantillas',
                   templateUrl: 'tpl/pages/page_plantilla.html',
                   controller : 'plantillaController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -236,6 +270,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/rutas',
                   templateUrl: 'tpl/pages/page_ruta.html',
                   controller : 'rutaController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -254,6 +289,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/documentar',
                   templateUrl: 'tpl/pages/page_documentar.html',
                   controller : 'documentarController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -262,17 +298,86 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                                  return $ocLazyLoad.load([
                                   'assets/js/controllers/documentarController.js',
                                   'assets/js/directives/file.js',
-                                  'assets/js/directives/path.js'
+                                  'assets/js/directives/path.js',
+                                  'assets/js/controllers/clienteController.js',
+                                  'assets/js/directives/client_type.js',
+                                  'assets/js/directives/client_status.js',
+                                  'assets/js/directives/document.js',
+                                  'assets/js/directives/phoneBook.js',
                                   ]);
                               }
                           );
                       }]
                   }
               })
+              .state('app.page.editar-documentacion', {
+                  url: '/editar-documentacion/:documentacion',
+                  templateUrl: 'tpl/pages/editar_documentacion.html',
+                  controller : 'documentarController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster', 'ui.select']).then(
+                              function(){
+                                 return $ocLazyLoad.load([
+                                  'assets/js/controllers/documentarController.js',
+                                  'assets/js/directives/file.js',
+                                  'assets/js/directives/path.js',
+                                  'assets/js/controllers/clienteController.js',
+                                  'assets/js/directives/client_type.js',
+                                  'assets/js/directives/client_status.js',
+                                  'assets/js/directives/document.js',
+                                  'assets/js/directives/phoneBook.js',
+                                  ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.documentaciones', {
+                  url: '/documentaciones',
+                  templateUrl: 'tpl/pages/page_documentaciones.html',
+                  controller : 'documentarController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster', 'ui.select']).then(
+                              function(){
+                                 return $ocLazyLoad.load([
+                                  JQ_CONFIG.moment,
+                                  'assets/js/controllers/documentarController.js',
+                                  'assets/js/static/main.js'
+                                  ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.estadoDocumento', {
+                  url: '/estadoDocumento',
+                  templateUrl: 'tpl/pages/page_estadoDocumento.html',
+                  controller : 'estadoDocumentoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/estadoDocumentoController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              }) 
               .state('app.page.empresas', {
                   url: '/empresas',
                   templateUrl: 'tpl/pages/empresa_listado.html',
                   controller : 'empresaController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -294,6 +399,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/editar-empresa/:id',
                   templateUrl: 'tpl/pages/editar_empresa.html',
                   controller : 'empresaController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -317,6 +423,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/empresa',
                   templateUrl: 'tpl/pages/page_empresa.html',
                   controller : 'empresaController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -335,10 +442,101 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                       }]
                   }
               })
+              .state('app.page.permisos', {
+                  url: '/permisos',
+                  templateUrl: 'tpl/pages/listado_permisos.html',
+                  controller : 'permisoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/permisoController.js',
+                                      'assets/js/static/permisos.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/document.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.permiso', {
+                  url: '/permiso',
+                  templateUrl: 'tpl/pages/page_permiso.html',
+                  controller : 'permisoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/permisoController.js',
+                                      'assets/js/static/permisos.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/phoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.editar-permiso', {
+                  url: '/editar-permiso/:usuario',
+                  templateUrl: 'tpl/pages/editar_permiso.html',
+                  controller : 'permisoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/permisoController.js',
+                                      'assets/js/static/permisos.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/phoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.roles', {
+                  url: '/roles',
+                  templateUrl: 'tpl/pages/page_roles.html',
+                  controller : 'rolesController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/rolesController.js',
+                                      'assets/js/static/permisos.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
               .state('app.page.cliente', {
                   url: '/cliente',
                   templateUrl: 'tpl/pages/page_cliente.html',
                   controller : 'clienteController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
@@ -381,6 +579,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
               .state('app.page.tipo_cliente', {
                   url: '/tipoCliente',
                   templateUrl: 'tpl/pages/page_tipoCliente.html',
+                  access: { requiredAuthentication: true },
                   controller : 'tipoClienteController',
                   resolve:{
                       deps: ['$ocLazyLoad',
@@ -397,7 +596,8 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
               })
               .state('app.page.clientes', {
                   url: '/clientes',
-                  templateUrl: 'tpl/pages/cliente_list.html',
+                  templateUrl: 'tpl/pages/listado_cliente.html',
+                  access: { requiredAuthentication: true },
                   controller : 'clienteController',
                   resolve:{
                       deps: ['$ocLazyLoad',
@@ -423,6 +623,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window",  f
                   url: '/editar-cliente/:id',
                   templateUrl: 'tpl/pages/editar_cliente.html',
                   controller : 'clienteController',
+                  access: { requiredAuthentication: true },
                   resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){

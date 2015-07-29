@@ -1,9 +1,9 @@
 <!-- list -->
 <ul class="nav">
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-if="credential.user.permiso.menus[3].visible">
     <span translate="aside.nav.components.COMPONENTS">Gestion de usuario</span>
   </li>
-  <li>
+  <li ng-if="credential.user.permiso.menus[3].visible">
     <a href class="auto">      
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
@@ -16,22 +16,48 @@
     <ul class="nav nav-sub dk">
       <li ui-sref-active="active">
         <a ui-sref="app.page.clientes">
-          <span translate="aside.nav.USUARIO">Dependencia</span>
+          <span translate="aside.nav.USUARIO">Usuario</span>
+        </a>
+      </li>
+    </ul>
+    <ul class="nav nav-sub dk">
+      <li ui-sref-active="active">
+        <a ui-sref="app.page.permisos">
+          <span translate="aside.nav.Sistema.Permisos">Permisos</span>
+        </a>
+      </li>
+      <li ui-sref-active="active">
+        <a ui-sref="app.page.roles">
+          <span translate="aside.nav.Sistema.Roles">Roles</span>
         </a>
       </li>
     </ul>
   </li>
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-    <span translate="aside.nav.components.DOGGESTION">Gestion de Documentos</span>
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-if="credential.user.permiso.menus[2].visible">
+    <span translate="aside.nav.components.DOGGESTION" >Gestion de Documentos</span>
   </li>
-  <li>
-    <a ui-sref="app.page.documentar" class="auto">      
+  <li ng-if="credential.user.permiso.menus[2].visible">
+    <a href class="auto">
       <span class="pull-right text-muted">
+        <i class="fa fa-fw fa-angle-right text"></i>
+        <i class="fa fa-fw fa-angle-down text-active"></i>
       </span>
-      <b class="badge bg-info pull-right">3</b>
-      <i class="glyphicon glyphicon-th"></i>
-      <span translate="aside.nav.components.Documentar">Documentar</span>
+      <i class="fa fa-file-pdf-o text-success"></i>
+      <span translate="aside.nav.components.Documentar" class="font-bold">Documentacion</span>
     </a>
+    <ul class="nav nav-sub dk">
+      <li ui-sref-active="active">
+        <a ui-sref="app.page.documentar">
+          <span translate="aside.nav.components.NuevaDocumentacion">Documentaciòn</span>
+        </a>
+        <a ui-sref="app.page.documentaciones">
+          <span translate="aside.nav.components.Buscar">Buscar</span>
+        </a>
+        <a ui-sref="app.page.estadoDocumento">
+          <span translate="aside.nav.components.EstadoDocumento">Estados de Documentos</span>
+        </a>
+      </li>
+    </ul>
   </li>
   <li ng-class="{active:$state.includes('app.ui')}">
     <ul class="nav nav-sub dk">
@@ -39,12 +65,10 @@
       </li>
     </ul>
   </li>
-  <li class="line dk hidden-folded"></li>
-
-  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">          
+  <li class="hidden-folded padder m-t m-b-sm text-muted text-xs" ng-if="credential.user.permiso.menus[0].visible">          
     <span translate="aside.nav.your_stuff.YOUR_STUFF">Your Stuff</span>
   </li>  
-  <li>
+  <li ng-if="credential.user.permiso.menus[0].visible">
     <a href class="auto">
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
@@ -106,9 +130,8 @@
       </li>
     </ul>
   </li>
-
     <li>
-    <a href class="auto">
+    <a href class="auto" ng-if="credential.user.permiso.menus[1].visible">
       <span class="pull-right text-muted">
         <i class="fa fa-fw fa-angle-right text"></i>
         <i class="fa fa-fw fa-angle-down text-active"></i>

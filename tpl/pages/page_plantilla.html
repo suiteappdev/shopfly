@@ -25,10 +25,35 @@
             </div>
           </div>
           <div class="col-lg-12">
-            <div class="form-group">
-            <label>Indices</label>
-              <ui-select multiple ng-model="$parent.plantilla.indice" theme="bootstrap" ng-disabled="disabled">
-                  <ui-select-match placeholder="Elija los indices...">{{$item.nombre}}</ui-select-match>
+          <div class="table-responsive m_b">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Indice</th>
+                      <th>Tipo</th>
+                      <th>Longitud</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="!plantilla.indice" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No has agregado indices a esta plantilla.</td></tr>
+                    <tr ng-show="indices.length  > 0" ng-repeat="indice in plantilla.indice">
+                        <td>{{indice.nombre}}</td>
+                        <td>{{indice.tipo}}</td>
+                        <td>{{indice.longitud}}</td>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="removeIndice(indice)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="form-group" >
+              <label>Plantillas</label>
+              <ui-select on-select="onSelect($item, $model)" ng-model="$parent.$parent.indice" theme="bootstrap" ng-disabled="disabled">
+                  <ui-select-match placeholder="Elija los indices...">{{$parent.indice.nombre}}</ui-select-match>
                   <ui-select-choices repeat="indice in indices | propsFilter: {nombre: $select.search, tipo: $select.search}">
                     <div ng-bind-html="indice.nombre | highlight: $select.search"></div>
                     <small>
@@ -36,7 +61,7 @@
                     </small>
                   </ui-select-choices>
               </ui-select>
-            </div>            
+            </div>
           </div>
           <div class="col-lg-12">
             <p class="pull-right">

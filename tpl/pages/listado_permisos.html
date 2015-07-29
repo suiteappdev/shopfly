@@ -1,0 +1,109 @@
+<div ng-init="load()">
+  <div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3 inline">Lista de Clientes</h1>
+    <a sref="app.page.permiso" href="#/app/page/permiso" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nuevo Usuario</a>
+    <ul class="breadcrumb">
+          <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
+          <li><a href="">Permisos</a></li>
+          <li class="active">Lista de Usuarios</li>
+    </ul>
+  </div>
+  <div class="wrapper-xs">
+    <div class="panel panel-default">
+      <div class="row wrapper-sm">
+        <div class="col-sm-4">
+            <div class="form-group">
+              <label>Documento</label>
+              <input type="text" class="form-control" placeholder="Numero Documento" ng-model="filter.numero">
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <ng-client-status ng-label="Estado" ng-placeholder="Estado"></ng-client-status>
+        </div>
+        <div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label>Buscar Por:</label>
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Cliente, Empresa, Razòn Social, Representante legal..." ng-model="cliente">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="button" ng-click="Search()" >Buscar!</button>
+              </span>
+            </div>
+        </div>
+        </div>       
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-striped b-t b-light">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Correo</th>
+              <th>Telefono</th>
+              <th style="width:30px;">Estado</th>
+              <th class="pull-right">Editar</th>
+            </tr>
+          </thead>
+          <tbody>
+          <tr ng-show="Usuarios == undefined || Usuarios.length  == 0" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+            <tr ng-repeat="usuario in Usuarios">
+              <td>{{usuario.cliente.nombre || usuario.cliente.representanteLegal}} {{usuario.cliente.apellido || ''}}</td>
+              <td>{{usuario.cliente.metadata.email}}</td>
+              <td><a href="" class="success" ng-click="showPhoneBookView(usuario.cliente.metadata.telefono)">{{usuario.cliente.metadata.telefono[0]}}</a></td>
+              <td>
+                <div>
+                      <label class="i-switch m-t-xs m-r">
+                        <input type="checkbox" checked ng-model="usuario.estado.value" ng-click="changeState(usuario)">
+                        <i></i>
+                      </label>                    
+                </div>
+              </td>
+              <td>
+                <div class="pull-right">
+                  <a sref="app.page.editar-permiso({id : usuario._id})" href="#/app/page/editar-permiso/{{usuario._id}}" class="btn btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>  
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<div>
+  <script type="text/ng-template" id="confirm.html">
+    <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+  </script>  
+</div>
+  <script type="text/ng-template" id="phoneBookView.html">
+    <div class="modal-body wrapper-lg">
+      <div class="row">
+          <h3 class="m-t-none m-b font-thin">Numeros Telefonicos</h3>
+          <p>Telefonos del cliente</strong></p>
+          <form role="form" >
+              <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Numero Telefonico</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="$parent.phoneCollection == 0"><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No existen numeros telefonicos</td></tr>
+                    <tr ng-show="$parent.phoneCollection.length > 0" ng-repeat="phone in $parent.phoneCollection">
+                      <td>{{phone}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="pull-right">
+                <button type="submit" class="btn btn-sm btn-warning" ng-click="$close()">Cerrar</button>        
+              </p>
+          </form>
+      </div>
+    </div>
+  </script>  
+
+

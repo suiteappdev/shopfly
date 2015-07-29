@@ -4,12 +4,12 @@ angular.module('app').controller("empresaController", ["$scope", "$rootScope", "
 		$rootScope.clearCustomFields();
 
 		$API.Empresa.List().then(function(res){
-			$scope.empresas = res.data || [];
+				$scope.empresas = res || [];
 		});
 
 		if($stateParams.id){
 			$API.Empresa.Empresa($stateParams.id).then(function(res){
-				$scope.empresa = res.data;
+				$scope.empresa = res;
 				$rootScope.faxBook = $scope.empresa.metadata.fax;
 				$rootScope.phoneBook = $scope.empresa.metadata.telefono;
 				$rootScope.cellularPhoneBook = $scope.empresa.metadata.celular;

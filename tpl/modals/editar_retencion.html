@@ -1,40 +1,44 @@
-<div class="modal-body wrapper-lg">
+<div class="modal-body">
   <div class="row">
-      <h3 class="m-t-none m-b font-thin">Ediciòn de retención</h3>
-          <form role="form" name="setRetencionForm">
-            <div class="col-lg-10">
-              <div class="form-group">
-                <label>Retencion</label>
-                <input type="text" class="form-control" placeholder="Retencion" ng-pattern="/^[a-zA-Z\s]+$/" name="nombre" ng-model="setRetencion.nombre" required/>
-              </div>              
-            </div>
-            <div class="col-lg-2">
+  <div class="col-lg-12">
+      <h3 class="m-t-none m-b font-thin">Ediciòn de retención</h3>    
+  </div>
+    <form role="form" name="setRetencionForm">
+      <div class="col-lg-10">
+        <div class="form-group">
+          <label>Retencion</label>
+          <input type="text" class="form-control" placeholder="Retencion" ng-pattern="/^[a-zA-Z\s]+$/" name="nombre" ng-model="setRetencion.nombre" required/>
+        </div>              
+      </div>
+      <div class="col-lg-2">
+      <div class="form-group">
+        <label>Estado</label>
+        <div>
+              <label class="i-switch m-t-xs m-r">
+                <input type="checkbox" checked ng-model="setRetencion.estado" ng-click="changeState(retencion)">
+                <i></i>
+              </label>                    
+        </div>
+      </div>
+      </div>
+        <div class="col-lg-6">
             <div class="form-group">
-              <label>Estado</label>
-              <div>
-                    <label class="i-switch m-t-xs m-r">
-                      <input type="checkbox" checked ng-model="setRetencion.estado" ng-click="changeState(retencion)">
-                      <i></i>
-                    </label>                    
-              </div>
-            </div>
-            </div>
-              <div class="col-lg-6">
-                  <div class="form-group">
-                    <label>Valor</label>
-                    <input type="text" class="form-control" placeholder="Valor" ng-pattern="/^-?\d*(\.\d+)?$/" name="valor" ng-model="setRetencion.valor" required/>
-                  </div>              
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                  <label>Base</label>
-                  <input type="text" class="form-control" placeholder="Base" name="base" ng-pattern="/^[0-9]+$/" ng-model="setRetencion.base" required/>
-                </div>                 
-              </div>
-            <p class="pull-right">
-              <button type="submit" ng-disabled="!setRetencionForm.$valid" class="btn btn-sm btn-primary" ng-click="$parent.ok()">Ok</button>
-              <button type="submit" ng-disabled="!setRetencionForm.$valid" class="btn btn-sm btn-warning" ng-click="$close()">Cancelar</button>
-            </p>
-          </form>
+              <label>Valor</label>
+              <input type="text" class="form-control" placeholder="Valor" ng-pattern="/^-?\d*(\.\d+)?$/" name="valor" ng-model="setRetencion.valor" required/>
+            </div>              
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group">
+            <label>Base</label>
+            <input type="text" class="form-control" placeholder="Base" name="base" ng-pattern="/^[0-9]+$/" ng-model="setRetencion.base" required/>
+          </div>                 
+        </div>
+        <div class="col-lg-12">
+        <p class="pull-right">
+          <button type="submit" ng-disabled="!setRetencionForm.$valid" class="btn btn-sm btn-primary" ng-click="$parent.ok()">Ok</button>
+          <button type="submit" ng-disabled="!setRetencionForm.$valid" class="btn btn-sm btn-warning" ng-click="$close()">Cancelar</button>
+        </p>          
+        </div>
+    </form>
   </div>
 </div>

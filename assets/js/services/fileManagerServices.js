@@ -3,19 +3,25 @@
 angular.module('app')
 	.service('$fileManagerService', ['$document', '$q', '$timeout', function($document, $q, $timeout){
 		try{
-			var fse = require('fs-extra')
-			var path = require('path')
+			var fse = require('fs-extra');
+			var fs = require('fs');
+			var path = require('path'); 
+			var walk = require('walk')
+
+			this.walker = walk;
+			this.path = path;
+			this.fs = fs;
+			this.fse = fse;
+			this.createDir = fse.mkdirp;
+			this.Move = fse.move;
+			this.Create = fse.createFile;
+			this.Remove = fse.remove;
+			this.copyFile = fse.copy
+			this.copy = fse.copy;			
 		}catch(e){
 
 		}
 
-		this.path = path;
-		this.createDir = fse.mkdirp;
-		this.Create = fse.createFile;
-		this.Remove = fse.remove;
-		this.copyFile = fse.copy
-		this.copy = fse.copy;
-		
 		this.fileSize = function(bytes, si){
 		    var thresh = si ? 1000 : 1024;
 		    

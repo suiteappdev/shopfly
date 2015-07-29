@@ -1,6 +1,15 @@
 {
   "name": "edge-test-app",
   "main": "index.html",
+  "window": {
+    "frame": true,
+    "width": 1024,
+    "height": 768,
+    "toolbar": true,
+    "transparent": false,
+    "position": "center",
+    "resizable": true
+  },
   "dependencies": {
     "MD5": "^1.2.2",
     "chokidar": "^1.0.3",
@@ -17,6 +26,7 @@
     "gulp-rename": "~1.2.0",
     "gulp-uglify": "~1.1.0",
     "mkdirp": "^0.5.1",
-    "path": "^0.11.14"
+    "path": "^0.11.14",
+    "walk": "^2.3.9"
   }
 }

@@ -32,32 +32,71 @@ angular.module('app').controller("plantillaController", ["$scope","$rootScope", 
 		});
 	}
 
-	$scope.Update = function(plantilla){
-		$scope.setPlantilla = angular.copy(plantilla);
+	$scope.onSelect = function($item, $model){
+		var _exist = false;
 
+		if(!$scope.plantilla.indice){
+			$scope.plantilla.indice = [];
+		}
+
+		$scope.plantilla.indice.forEach(function(value){
+			if(value._id == $item._id){
+				_exist = true;
+				return;
+			}
+		});	
+
+		if(_exist){return}
+
+		$scope.plantilla.indice.push($item);
+	}
+
+	$scope.removeIndice = function(indice){
+		$scope.plantilla.indice.splice($scope.plantilla.indice.indexOf(indice), 1);
+	}
+
+	$scope.Update = function(plantilla){
 		var modalInstance = $modal.open({
-	        templateUrl: 'editar_ruta.html',
+	        templateUrl: 'editar_plantilla.html',
 	        size : 'md',
 	        scope : $scope,
 	        controller : function($scope){
-	        	$scope.ok = function(){
-	        		$scope.$close(true);
+	        	$scope.Load = function(){
+	        		$scope.setPlantilla = angular.copy(plantilla);
+	        		$scope.selectedIndices = $scope.setPlantilla.indice;
 	        	}
-	        }
-      	});
 
-      	modalInstance.result.then(
-      		function(val){
-      			if(val){
+				$scope.onSelect = function($item, $model){
+					var _exist = false;
+
+					$scope.setPlantilla.indice.forEach(function(value){
+						if(value._id == $item._id){
+							_exist = true;
+							return;
+						}
+					});	
+
+					if(_exist){return}
+
+					$scope.setPlantilla.indice.push($item);
+				}
+
+				$scope.Del = function(indice){
+					$scope.setPlantilla.indice.splice($scope.setPlantilla.indice.indexOf(indice), 1);
+				}
+
+	        	$scope.ok = function(){
 	      			$API.Plantilla.Update($scope.setPlantilla).then(function(res){
 	      				if(res.status == 200){
 	      					toaster.pop("success","Plantilla", "Actualizada");
-	      					$scope.plantillas[$scope.plantillas.indexOf(plantilla)] = res.data;
+	      					$scope.$parent.plantillas[$scope.$parent.plantillas.indexOf(plantilla)] = res.data;
+	        				$scope.$close(true);
+
 	      				}
-	      			});   				
-      			}
-      		}
-		);
+	      			});  	
+	        	}
+	        }
+      	});
 	}
 
 	$scope.changeState = function(plantilla){

@@ -34,7 +34,7 @@
                     <tr ng-repeat="perfil in perfiles">
                         <td>{{perfil.nombre}}</td>
                         <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(perfil)"><i class="fa fa-edit"></i></button>
                             <button type="submit" class="btn btn-sm btn-danger" ng-click="del(perfil)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>

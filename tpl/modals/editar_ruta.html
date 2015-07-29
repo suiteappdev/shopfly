@@ -1,33 +1,35 @@
-<div class="modal-body wrapper-lg">
+<div class="modal-body">
   <div class="row">
+  <div class="col-lg-12">
       <h3 class="m-t-none m-b font-thin">Ediciòn Rutas</h3>
-          <form role="form" name="indiceForm">
-            <div class="col-lg-10">
-              <div class="form-group">
-                <label>Plantillas</label>
-                  <ui-select ng-model="setRuta.plantilla" theme="bootstrap">
-                    <ui-select-match placeholder="Plantillas">{{setRuta.plantilla.nombre}}</ui-select-match>
-                    <ui-select-choices group-by="'group'" repeat="plantilla in plantillas | filter: $select.search">
-                      <span ng-bind-html="plantilla.nombre | highlight: $select.search"></span>
-                    </ui-select-choices>
-                  </ui-select>
-              </div>            
-            </div>
-            <div class="col-lg-2">
-              <div class="form-group">
-                <label>Estado</label>
-                  <label class="i-switch m-t-xs m-r">
-                    <input type="checkbox" checked ng-model="setRuta.estado">
-                    <i></i>
-                  </label>
-              </div>
-            </div>
-            <div class="col-lg-12">
-                  <ng-path ng-label="Ruta" ng-placeholder="Ruta" ng-data="setRuta.path"></ng-path>
-            </div>
-            <div class="col-lg-12">
-              <p class="pull-right"><button type="submit" ng-disabled="!indiceForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button></p>            
-            </div>
-          </form>
+  </div>
+    <form role="form" name="indiceForm">
+      <div class="col-lg-10">
+        <div class="form-group">
+          <label>Plantillas</label>
+            <ui-select ng-model="setRuta.plantilla" theme="bootstrap">
+              <ui-select-match placeholder="Plantillas">{{setRuta.plantilla.nombre}}</ui-select-match>
+              <ui-select-choices group-by="'group'" repeat="plantilla in plantillas | filter: $select.search">
+                <span ng-bind-html="plantilla.nombre | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+        </div>            
+      </div>
+      <div class="col-lg-2">
+        <div class="form-group">
+          <label>Estado</label>
+            <label class="i-switch m-t-xs m-r">
+              <input type="checkbox" checked ng-model="setRuta.estado">
+              <i></i>
+            </label>
+        </div>
+      </div>
+      <div class="col-lg-12">
+            <ng-path ng-label="Ruta" ng-placeholder="Ruta" ng-data="setRuta.path"></ng-path>
+      </div>
+      <div class="col-lg-12">
+        <p class="pull-right"><button type="submit" ng-disabled="!indiceForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button></p>            
+      </div>
+    </form>
   </div>
 </div>

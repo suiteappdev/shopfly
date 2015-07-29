@@ -1,6 +1,6 @@
 var app = angular.module('app')
-    .config(['$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
-        function ($controllerProvider,   $compileProvider,   $filterProvider,   $provide) {
+    .config(['$controllerProvider', '$compileProvider', '$filterProvider', '$provide', "$httpProvider","$tooltipProvider",
+        function ($controllerProvider,   $compileProvider,   $filterProvider,   $provide, $httpProvider, $tooltipProvider ) {
             app.controller = $controllerProvider.register;
             app.directive  = $compileProvider.directive;
             app.filter     = $filterProvider.register;
@@ -8,6 +8,8 @@ var app = angular.module('app')
             app.service    = $provide.service;
             app.constant   = $provide.constant;
             app.value      = $provide.value;
+            $httpProvider.interceptors.push('TokenInterceptor');
+            console.log($tooltipProvider);
     }
   ])
   .config(['$translateProvider', function($translateProvider){

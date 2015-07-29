@@ -25,6 +25,9 @@
       "COMPONENTS" : "Gestion de usuario",
       "DOGGESTION" : "Gestion de documentos",
       "Documentar" : "Documentar",
+      "NuevaDocumentacion" : "Crear",
+      "Buscar" : "Buscar",
+      "EstadoDocumento" : "Estados de Documentos",
       "ui_kits" : {
         "UI_KITS" : "UI Kits",
         "BUTTONS" : "Knöpfe",
@@ -82,6 +85,11 @@
     },
     "Empresa" : {
       "Empresa": "Empresa"
+    },
+    "Sistema" : {
+      "Sistema": "Sistema",
+      "Permisos": "Permisos",
+      "Roles": "Roles"
     }
   },
   "MILESTONE" : "Meilenstein",

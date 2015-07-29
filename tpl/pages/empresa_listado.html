@@ -1,7 +1,7 @@
 <div ng-init="Load()">
   <div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3 inline">Lista de Empresas</h1>
-    <a sref="app.page.empresa" href="#/app/page/empresa" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nueva Empresa</a>
+    <a sref="app.page.empresa" ng-disabled="!credential.user.permiso.formularios[11].permisos.W" href="#/app/page/empresa" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nueva Empresa</a>
     <ul class="breadcrumb">
           <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
           <li><a href="">Empresas</a></li>

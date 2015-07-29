@@ -3,5 +3,6 @@
 angular.module('app').constant("$docFlyConf", {
         path: "Z:\\",
         root: "#",
-        fileKey : "Majoca0126*"
+        fileKey : "Majoca0126*",
+        scanFolder : 'F:\\'
     })
