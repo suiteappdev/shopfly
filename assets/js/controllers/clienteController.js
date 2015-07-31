@@ -1,6 +1,10 @@
-angular.module('app').controller("clienteController", ["$scope", "$API", "$modal", "toaster", "$rootScope", "$stateParams", "$location", function($scope, $API, $modal, toaster, $rootScope, $stateParams, $location){
+angular.module('app').controller("clienteController", ["$scope", "$API", "$modal", "toaster", "$rootScope", "$stateParams", "$location", "socket", function($scope, $API, $modal, toaster, $rootScope, $stateParams, $location, socket){
 
 	$scope.load = function(){
+	    socket.on('getDocuments', function(data) {
+	       console.log(data);
+	    });
+
 		$scope.tab = "personal";
 		$API.Cliente.List().then(function(res){
 			$scope.clientes = res.data || [];
@@ -33,7 +37,8 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 	}
 
 	$scope.Update  = function(){
-		$API.Cliente.Update($scope.cliente._id,{
+		$API.Cliente.Update({
+			_id 				: $scope.cliente._id,
 			tipoDocumento 		: $rootScope.document,
 			documento 			: $scope.cliente.documento,
 			nombre 				: $scope.cliente ? $scope.cliente.nombre : null,
@@ -143,12 +148,12 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 	        controller : function($scope, toaster){
 	        	$scope.ok = function(){
 					if(!usuario.estado.value){
-						$API.Usuario.Inactivo(usuario._id).then(function(data){
+						$API.Cliente.Inactivo(usuario._id).then(function(data){
 							if(data) toaster.pop("warning","Desactivar", "Usuario Desactivado");
 						});
 
 					}else{
-						$API.Usuario.Activo(usuario._id).then(function(data){
+						$API.Cliente.Activo(usuario._id).then(function(data){
         					if(data) toaster.pop("success","Activar", "Usuario Activado");
 						});
 					}

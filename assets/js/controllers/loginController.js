@@ -15,10 +15,10 @@ angular.module('app').controller("loginController", ["$scope", "$location", "$wi
 	$scope.logOut = function(){
 		if(AuthenticationService.isAuthenticated){
             UserService.logOut().then(function(res){
+                $location.path("/login");                
                 $localStorage.$reset();
                 AuthenticationService.isAuthenticated = false;
                 delete $rootScope.credential;
-                $location.path("login");                
             });
 		}
 	}

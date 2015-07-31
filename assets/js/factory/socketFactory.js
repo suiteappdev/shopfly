@@ -1,5 +1,6 @@
-angular.module('app').factory('socket', function ($rootScope, $timeout) {
-  var socket = io.connect('http://boruto:8080');
+angular.module('app').factory('socket', function ($rootScope, $docFlyConf) {
+  var socket = io.connect($docFlyConf.socketUrl);
+
   return {
         on: function (eventName, callback) {
             socket.on(eventName, function () {  

@@ -62,7 +62,6 @@
   <script src="assets/js/services/cryptoServices.js"></script>
   <script src="assets/js/services/webkitService.js"></script>
   <script src="assets/js/factory/authFactory.js"></script>
-  <script src="assets/js/factory/socketFactory.js"></script>
   <script src="assets/js/constants/docfly.js"></script>
   <script src="assets/js/filters/fromNow.js"></script>
   <script src="assets/js/services/moment.js"></script>

@@ -79,6 +79,7 @@
       "Barrio" : "Barrio",
       "Banco" : "Banco",
       "TipoCliente" : "Tipo de Cliente",
+      "Cargo" : "Cargo",
       "Perfil" : "Perfil",
       "Iva" : "Iva",
       "Retencion" : "Retenciòn"

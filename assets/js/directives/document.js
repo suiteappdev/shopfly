@@ -12,7 +12,6 @@ angular.module("app").directive("ngDocument", function(){
 		controller : ctrl,
 		scope : true,
 		scope : {
-			ngForm : '@',
 			ngRequired : '@',
 			ngLabel : "@",
 			ngPlaceholder : '@'

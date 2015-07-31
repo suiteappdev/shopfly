@@ -5,12 +5,13 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
           $rootScope.country = {code : "CO", name : "Colombia"};
           $rootScope.getScanner = $window.getScanner;
 
+
           $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){
               $rootScope.credential = $localStorage.credential;
 
               if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication 
                   && !AuthenticationService.isAuthenticated && !$localStorage.credential) {
-                    $state.go("login");
+                  $location.path('login');
               }
           });
 
@@ -50,7 +51,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
       }
     ]
   ).config(['$stateProvider', '$urlRouterProvider', 'JQ_CONFIG', function($stateProvider,   $urlRouterProvider, JQ_CONFIG) {
-          $urlRouterProvider.otherwise('/login');
+          $urlRouterProvider.otherwise('app/panel');
           $stateProvider
               .state('login', {
                   url: '/login',
@@ -116,6 +117,24 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                       'assets/js/directives/enterprise_status.js',
                                       'assets/js/directives/gender.js',
                                       'assets/js/services/file.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.cargo', {
+                  url: '/cargo',
+                  templateUrl: 'tpl/pages/page_cargo.html',
+                  access: { requiredAuthentication: true },
+                  controller : 'cargoController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/cargoController.js'
                                       ]);
                               }
                           );

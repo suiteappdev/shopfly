@@ -19,6 +19,9 @@ window.permisos = {
 						{"parent":"mnuEmpresa","nombre":"Empresa"},
 						{"parent":"mnuDocumentacion","nombre":"Crear"},
 						{"parent":"mnuDocumentacion","nombre":"Buscar"},
-						{"parent":"mnuDocumentacion","nombre":"Estados de Documentos"}
+						{"parent":"mnuDocumentacion","nombre":"Estados de Documentos"},
+						{"parent":"mnuUsuario","nombre":"Permiso"},
+						{"parent":"mnuUsuario","nombre":"Roles"},
+						{"parent":"mnuConfiguracion","nombre":"Cargo"}
 					]
 }

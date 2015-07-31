@@ -10,20 +10,35 @@
 <div class="row">
 <div class="row">
     <div ng-class="$root.cropped ? 'col-lg-9' : 'col-lg-12'">
-        <form name="formCliente">
+        <form name="formCliente" role="form">
           <div class="panel panel-default">
             <div class="panel-heading">
               <span class="h4">Cliente</span>
             </div>
             <div class="panel-body">
             <div class="col-sm-3">
-                <ng-document ng-label="Documento" ng-form="formCliente" ng-placeholder="Tipo de Documento" ng-required="true"></ng-document>
+                <ng-document  ng-label="Documento" ng-placeholder="Tipo de Documento" ng-required="true"
+                  tooltip="Campo Requerido"
+                  tooltip-placement="bottom"
+                  tooltip-trigger="mouseenter"
+                  tooltip-enable="!$root.document"
+                ></ng-document>
             </div>
             <div class="col-sm-3">
                 <div class="form-group">
                   <label>Numero de Documento</label>
-                  <input type="text" class="form-control" name="numero" placeholder="Numero" ng-model="cliente.numero" required>
-                  <span class="help-block" ng-show="formCliente.numero.$dirty && formCliente.numero.$invalid" style="position: absolute;top: 60px; margin-top:0px;font-size:10px;color:red;"><i class="fa fa-exclamation-circle"></i> Valor Incorrecto.<br></span>
+                  <input 
+                      type="number" 
+                      class="form-control" 
+                      name="numero" 
+                      required
+                      placeholder="Numero" 
+                      ng-model="cliente.numero" 
+                      tooltip="Campo Requerido!"
+                      tooltip-placement="top"
+                      tooltip-trigger="mouseenter"
+                      tooltip-enable="formCliente.numero.$invalid"
+                      >
                 </div>
             </div>
             <div class="col-sm-3">
@@ -36,15 +51,23 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label>Nombres</label>
-                      <input type="text" class="form-control" name="nombre" placeholder="nombres" ng-model="cliente.Nombres" ng-required="$root.document != 'NIT'">
-                      <span class="help-block" ng-show="formCliente.nombre.$dirty && formCliente.nombre.$invalid" style="position: absolute;top: 60px; margin-top:0px;font-size:10px;color:red;"><i class="fa fa-exclamation-circle"></i> Valor Incorrecto.<br></span>
+                      <input type="text" class="form-control" name="nombre" placeholder="nombres" ng-model="cliente.Nombres" ng-required="$root.document != 'NIT'"
+                      tooltip="Campo Requerido!"
+                      tooltip-placement="top"
+                      tooltip-trigger="mouseenter"
+                      tooltip-enable="formCliente.nombre.$invalid"
+                      >
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label>Apellidos</label>
-                      <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" ng-model="cliente.Apellidos" ng-required="$root.document != 'NIT'">
-                      <span class="help-block" ng-show="formCliente.apellidos.$dirty && formCliente.apellidos.$invalid" style="position: absolute;top: 60px; margin-top:0px;font-size:10px;color:red;"><i class="fa fa-exclamation-circle"></i> Valor Incorrecto.<br></span>
+                      <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" ng-model="cliente.Apellidos" ng-required="$root.document != 'NIT'"
+                      tooltip="Campo Requerido!"
+                      tooltip-placement="top"
+                      tooltip-trigger="mouseenter"
+                      tooltip-enable="formCliente.apellidos.$invalid"
+                      >
                     </div>
                 </div>
             </div>
@@ -52,15 +75,23 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label>Razòn Social</label>
-                      <input type="text" class="form-control" name="razon" placeholder="Razòn Social" ng-model="cliente.razonSocial" ng-required="$root.document == 'NIT'">
-                      <span class="help-block" ng-show="formCliente.razon.$dirty && formCliente.razon.$invalid" style="position: absolute;top: 60px; margin-top:0px;font-size:10px;color:red;"><i class="fa fa-exclamation-circle"></i> Valor Incorrecto.<br></span>
+                      <input type="text" class="form-control" name="razon" placeholder="Razòn Social" ng-model="cliente.razonSocial" ng-required="$root.document == 'NIT'"
+                      tooltip="Campo Requerido!"
+                      tooltip-placement="top"
+                      tooltip-trigger="mouseenter"
+                      tooltip-enable="formCliente.razon.$invalid"
+                      >
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <div class="form-group">
                       <label>Representante Legal</label>
-                      <input type="text" class="form-control" name="representante" placeholder="Representante Legal" ng-model="cliente.representanteLegal" ng-required="$root.document == 'NIT'">
-                      <span class="help-block" ng-show="formCliente.representante.$dirty && formCliente.razon.$invalid" style="position: absolute;top: 60px; margin-top:0px;font-size:10px;color:red;"><i class="fa fa-exclamation-circle"></i> Valor Incorrecto.<br></span>
+                      <input type="text" class="form-control" name="representante" placeholder="Representante Legal" ng-model="cliente.representanteLegal" ng-required="$root.document == 'NIT'"
+                      tooltip="Campo Requerido!"
+                      tooltip-placement="top"
+                      tooltip-trigger="mouseenter"
+                      tooltip-enable="formCliente.representante.$invalid"
+                      >
                     </div>
                 </div>
             </div>            
@@ -105,13 +136,23 @@
                               <div class="col-sm-4">
                                   <div class="form-group">
                                     <label>Correo</label>
-                                    <input type="email" class="form-control" placeholder="Correo" ng-model="cliente.email">
+                                    <input type="email" class="form-control" name="email" placeholder="Correo" ng-model="cliente.email"
+                                      tooltip="Campo Incorrecto! Ejemplo: juan@example.com"
+                                      tooltip-placement="top"
+                                      tooltip-trigger="mouseenter"
+                                      tooltip-enable="formCliente.email.$invalid"
+                                    >
                                   </div>
                               </div>
                               <div class="col-sm-3">
                                   <div class="form-group">
                                     <label>Sitio Web</label>
-                                    <input type="url" class="form-control" placeholder="Sitio Web" ng-model="cliente.website">
+                                    <input type="url" class="form-control" name="sitioWeb" placeholder="Sitio Web" ng-model="cliente.website"
+                                      tooltip="Campo Incorrecto! Ejemplo: http://www.example.com"
+                                      tooltip-placement="top"
+                                      tooltip-trigger="mouseenter"
+                                      tooltip-enable="formCliente.sitioWeb.$invalid"
+                                    >
                                   </div>
                               </div>
                               <div class="col-sm-3">
@@ -144,7 +185,6 @@
                                   ng-label-barrio="Barrio" 
                                   ng-placeholder-barrio="Barrio" >
                               </ng-location>
-
                         </div>
                         <div class="col-lg-6">
                               <div class="col-lg-6">

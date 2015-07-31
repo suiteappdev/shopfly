@@ -1,7 +1,7 @@
 <div ng-init="load()">
   <div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3 inline">Lista de Clientes</h1>
-    <a sref="app.page.cliente" href="#/app/page/cliente" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nuevo Cliente</a>
+    <a ng-disabled="!credential.user.permiso.formularios[10].permisos.W" sref="app.page.cliente" href="#/app/page/cliente" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nuevo Cliente</a>
     <ul class="breadcrumb">
           <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
           <li><a href="">Clientes</a></li>
@@ -30,7 +30,7 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Cliente, Empresa, Razòn Social, Representante legal..." ng-model="cliente">
               <span class="input-group-btn">
-                <button class="btn btn-primary" type="button" ng-click="Search()" >Buscar!</button>
+                <button ng-disabled="!credential.user.permiso.formularios[10].permisos.R" class="btn btn-primary" type="button" ng-click="Search()" >Buscar!</button>
               </span>
             </div>
         </div>
@@ -57,14 +57,14 @@
               <td>
                 <div>
                       <label class="i-switch m-t-xs m-r">
-                        <input type="checkbox" checked ng-model="cliente.estado.value" ng-click="changeState(cliente)">
+                        <input type="checkbox" ng-disabled="!credential.user.permiso.formularios[10].permisos.W" checked ng-model="cliente.estado.value" ng-click="changeState(cliente)">
                         <i></i>
                       </label>                    
                 </div>
               </td>
               <td>
                 <div class="pull-right">
-                  <a sref="app.page.editar-cliente({id : cliente._id})" href="#/app/page/editar-cliente/{{cliente._id}}" class="btn btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></a>
+                  <a ng-disabled="!credential.user.permiso.formularios[10].permisos.R" sref="app.page.editar-cliente({id : cliente._id})" href="#/app/page/editar-cliente/{{cliente._id}}" class="btn btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></a>
 
                 </div>
               </td>

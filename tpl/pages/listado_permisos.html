@@ -1,7 +1,7 @@
 <div ng-init="load()">
   <div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3 inline">Lista de Clientes</h1>
-    <a sref="app.page.permiso" href="#/app/page/permiso" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nuevo Usuario</a>
+    <a sref="app.page.permiso" href="#/app/page/permiso" class="btn btn-success btn-xs pull-right"><i class="icon icon-note" ng-disabled="!credential.user.permiso.formularios[15].permisos.W"></i> Crear Nuevo Usuario</a>
     <ul class="breadcrumb">
           <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
           <li><a href="">Permisos</a></li>
@@ -27,7 +27,7 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Cliente, Empresa, Razòn Social, Representante legal..." ng-model="cliente">
               <span class="input-group-btn">
-                <button class="btn btn-primary" type="button" ng-click="Search()" >Buscar!</button>
+                <button class="btn btn-primary" type="button" ng-click="Search()" ng-disabled="!credential.user.permiso.formularios[15].permisos.R">Buscar!</button>
               </span>
             </div>
         </div>

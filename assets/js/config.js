@@ -9,7 +9,6 @@ var app = angular.module('app')
             app.constant   = $provide.constant;
             app.value      = $provide.value;
             $httpProvider.interceptors.push('TokenInterceptor');
-            console.log($tooltipProvider);
     }
   ])
   .config(['$translateProvider', function($translateProvider){
