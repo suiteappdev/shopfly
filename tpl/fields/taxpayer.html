@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label>{{ngLabel}}</label>
+    <ui-select ng-model="$root.taxpayer_type" theme="bootstrap" ng-disabled="{{ngDisabled}}">
+      <ui-select-match placeholder="{{ngPlaceholder}}">{{$root.taxpayer_type.nombre}}</ui-select-match>
+      <ui-select-choices group-by="'group'" repeat="tipo_contribuyente in tipo_contribuyentes | filter: $select.search">
+        <span ng-bind-html="tipo_contribuyente.nombre | highlight: $select.search"></span>
+      </ui-select-choices>
+    </ui-select>
+</div>

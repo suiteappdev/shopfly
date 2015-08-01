@@ -1,0 +1,1 @@
+window.enterprise_status = [{name : "Activo", value : true}, {name : "Inactivo", value : false} ];

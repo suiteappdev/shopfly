@@ -1,0 +1,55 @@
+<div>
+  <div class="form-group">
+    <label>Fax</label>
+    <div class="input-group">
+    <ui-select ng-model="$root.faxBookNumber" theme="bootstrap">
+      <ui-select-match placeholder="Fax">{{$root.faxBookNumber}}</ui-select-match>
+      <ui-select-choices group-by="'group'" repeat="fax in faxBook | filter: $select.search">
+        <span ng-bind-html="fax | highlight: $select.search"></span>
+      </ui-select-choices>
+    </ui-select>
+      <span class="input-group-btn">
+        <button ng-click="showFaxBook()" class="btn btn-primary">
+          <span class="glyphicon glyphicon-edit"></span>
+        </button>
+      </span>
+    </div>
+  </div>
+
+  <script type="text/ng-template" id="faxBook.html">
+    <div class="modal-body wrapper-lg">
+      <div class="row">
+          <h3 class="m-t-none m-b font-thin">Numeros de Fax</h3>
+          <form role="form" name="faxBookForm">
+              <div class="form-group">
+                <input type="number" class="form-control" placeholder="Numero de Fax" ng-model="number" required>
+              </div>
+              <p ng-show="faxBook.length == 0" class="text-center"><i class="fa fa-exclamation-circle"></i> No existen numeros telefonicos</p>
+              <div class="table-responsive"  ng-show="faxBook.length > 0">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Numero Fax</th>
+                      <th style="width:30px;"></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="fax in faxBook">
+                      <td>{{fax}}</td>
+                      <td>
+                        <a href class="active" ng-click="deletePhoneNumber(fax)" ><i class="icon icon-trash"></i></a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="pull-right">
+                <button type="submit" ng-disabled="!faxBookForm.$valid"class="btn btn-sm btn-primary" ng-click="addphoneNumber()">Agregar</button>
+                <button type="submit" class="btn btn-sm btn-warning" ng-click="cancel()">Cerrar</button>        
+              </p>
+          </form>
+      </div>
+    </div>
+  </script>    
+</div>
+

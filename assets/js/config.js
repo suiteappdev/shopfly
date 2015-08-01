@@ -1,6 +1,6 @@
 var app = angular.module('app')
-    .config(['$controllerProvider', '$compileProvider', '$filterProvider', '$provide',
-        function ($controllerProvider,   $compileProvider,   $filterProvider,   $provide) {
+    .config(['$controllerProvider', '$compileProvider', '$filterProvider', '$provide', "$httpProvider","$tooltipProvider",
+        function ($controllerProvider,   $compileProvider,   $filterProvider,   $provide, $httpProvider, $tooltipProvider ) {
             app.controller = $controllerProvider.register;
             app.directive  = $compileProvider.directive;
             app.filter     = $filterProvider.register;
@@ -8,6 +8,7 @@ var app = angular.module('app')
             app.service    = $provide.service;
             app.constant   = $provide.constant;
             app.value      = $provide.value;
+            $httpProvider.interceptors.push('TokenInterceptor');
     }
   ])
   .config(['$translateProvider', function($translateProvider){
@@ -19,7 +20,7 @@ var app = angular.module('app')
       suffix: '.js'
     });
     // Tell the module what language to use by default
-    $translateProvider.preferredLanguage('en');
+    $translateProvider.preferredLanguage('es');
     // Tell the module to store the language in the local storage
     $translateProvider.useLocalStorage();
   }]);

@@ -1,0 +1,79 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+</div>
+<div class="wrapper-md" ng-init="Load()">
+<div class="row">
+<div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Nuevo Estado de Documentos</div>
+        <div class="panel-body">
+          <form role="form" name="estadoForm">
+          <div class="col-lg-10">
+            <div class="form-group">
+              <label>Descripciòn</label>
+              <input type="text" class="form-control" placeholder="Descripciòn" ng-model="estado.nombre" required>
+            </div>           
+          </div>
+          <div class="col-lg-2">
+            <div>
+                  <label>Gestiòn</label>
+                  <label class="i-switch m-t-xs m-r">
+                    <input type="checkbox" checked ng-model="estado.gestion" ng-init="estado.gestion = true">
+                    <i></i>
+                  </label>                    
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <p class="pull-right">
+              <button type="submit" ng-disabled="!estadoForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+            </p>            
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de Estados</div>
+          <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Descripciòn</th>
+                      <th>Gestiòn</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="!estadosDocumentos" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="estadosDocumentos.length  > 0" ng-repeat="estado in estadosDocumentos">
+                        <td>{{estado.nombre}}</td>
+                        <td>
+                          <div>
+                                <label class="i-switch m-t-xs m-r">
+                                  <input type="checkbox" checked ng-model="estado.gestion" ng-click="changeState(estado)">
+                                  <i></i>
+                                </label>                    
+                          </div>
+                        </td>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(estado)"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(estado)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_estadoDocumento.html">
+  <div ng-include="'tpl/modals/editar_estadoDocumento.html'"></div>
+</script>    

@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label>{{ngLabel}}</label>
+    <ui-select ng-model="$root.regime" theme="bootstrap" ng-disabled="{{ngDisabled}}">
+      <ui-select-match placeholder="{{ngPlaceholder}}">{{$root.regime}}</ui-select-match>
+      <ui-select-choices group-by="'group'" repeat="reg in regime | filter: $select.search">
+        <span ng-bind-html="reg | highlight: $select.search"></span>
+      </ui-select-choices>
+    </ui-select>
+</div>

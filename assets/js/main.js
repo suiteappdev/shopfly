@@ -3,8 +3,8 @@
 /* Controllers */
 
 angular.module('app')
-  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', 
-    function(              $scope,   $translate,   $localStorage,   $window ) {
+  .controller('AppCtrl', ['$scope', '$translate', '$localStorage', '$window', '$rootScope', 
+    function(              $scope,   $translate,   $localStorage,   $window, $rootScope ) {
       // add 'ie' classes to html
       var isIE = !!navigator.userAgent.match(/MSIE/i);
       isIE && angular.element($window.document.body).addClass('ie');
@@ -12,8 +12,8 @@ angular.module('app')
 
       // config
       $scope.app = {
-        name: 'Angulr',
-        version: '2.0.1',
+        name: 'shopfly',
+        version: '1.0.0',
         // for chart colors
         color: {
           primary: '#7266ba',
@@ -55,7 +55,7 @@ angular.module('app')
 
       // angular translate
       $scope.lang = { isopen: false };
-      $scope.langs = {en:'English', de_DE:'German', it_IT:'Italian'};
+      $scope.langs = {en:'English', de_DE:'German', it_IT:'Italian', es_ES:'Español'};
       $scope.selectLang = $scope.langs[$translate.proposedLanguage()] || "English";
       $scope.setLang = function(langKey, $event) {
         // set the current lang

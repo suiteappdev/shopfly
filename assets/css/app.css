@@ -1,6 +1,49 @@
-/* 
+* {
+  -webkit-user-select: none;
+}
 
-*/
+.files {
+  padding: 0;
+  margin: 0;
+}
+
+.file {
+  padding: 2px;
+  margin: 2px;
+  width: 110px;
+  display: inline-block;
+
+  text-align: center;
+  vertical-align: top;
+}
+
+.file.focus {
+  background-color: #08C;
+  -webkit-border-radius: 4px;
+}
+
+.file .name {
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.file.focus .name {
+  color: white;
+}
+
+.file .icon {
+  margin: auto;
+  margin-top: 0;
+}
+
+.file.focus .icon {
+  -webkit-filter: invert(20%);
+}
+
+.selected{
+  background-color: rgb(155, 155, 155)!important;
+  color: white;
+}
 
 html {
   background-color: #f0f3f4;
@@ -9,10 +52,19 @@ html {
 body {
   font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
+  height: 700px!important;
   -webkit-font-smoothing: antialiased;
   line-height: 1.42857143;
   color: #58666e;
   background-color: transparent;
+}
+
+.breadcrumb {
+  padding: 8px 0px;
+  margin-bottom: 0px!important;
+  list-style: none;
+  background-color: #f6f8f8!important;
+  border-radius: 4px;
 }
 
 *:focus {
@@ -42,6 +94,14 @@ a:focus {
 
 label {
   font-weight: normal;
+}
+
+.d-b{
+    background-color: #434444 !important;
+}
+
+.w-c{
+  color : white !important;
 }
 
 small,
@@ -399,6 +459,10 @@ a.list-group-item.hover {
 }
 
 .tab-container .tab-content {
+  width:100%;
+  position: relative;
+  float: left;
+  height: auto;
   padding: 15px;
   background-color: #fff;
   border: 1px solid #dee5e7;
@@ -481,8 +545,10 @@ a.list-group-item.hover {
 
 .table > tbody > tr > td,
 .table > tfoot > tr > td {
-  padding: 8px 15px;
+  padding: 4px 15px;
+  padding-bottom: 4px;
   border-top: 1px solid #eaeff0;
+    line-height: 1.8!important;
 }
 
 .table > thead > tr > th {

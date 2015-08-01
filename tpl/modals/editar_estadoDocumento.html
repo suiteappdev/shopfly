@@ -1,0 +1,27 @@
+<div class="modal-body">
+  <div class="row">
+  <div class="col-lg-12">
+      <h3 class="m-t-none m-b font-thin">Estados de Documentos</h3>    
+  </div>
+    <form role="form" name="indiceForm">
+      <div class="col-lg-10">
+        <div class="form-group">
+          <label>Descripciòn</label>
+          <input type="text" class="form-control" placeholder="Descripciòn" ng-model="setEstado.nombre" required>
+        </div>  
+      </div>
+      <div class="col-lg-2">
+        <div class="form-group">
+          <label>Gestiòn</label>
+            <label class="i-switch m-t-xs m-r">
+              <input type="checkbox" checked ng-model="setEstado.gestion">
+              <i></i>
+            </label>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <p class="pull-right"><button type="submit" ng-disabled="!indiceForm.$valid" class="btn btn-sm btn-primary" ng-click="ok()">Actualizar</button></p>            
+      </div>
+    </form>
+  </div>
+</div>

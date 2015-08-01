@@ -1,0 +1,1 @@
+window.gender = ["Masculino", "Femenino"]

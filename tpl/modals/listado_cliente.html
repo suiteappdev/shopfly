@@ -1,0 +1,65 @@
+<div class="modal-body wrapper-lg">
+  <div class="row">
+      <h3 class="m-t-none m-b font-thin">Buscar Cliente</h3>
+      <form role="form" name="clienteForm">
+    	<div class="panel">
+	      <div class="row">
+		      <form name="buscarCliente" name="buscarClienteForm">
+		      <div class="col-lg-12">
+			        <div class="col-sm-2">
+			            <div class="form-group">
+			              <label># Documento</label>
+			              <input type="text" class="form-control" placeholder="Numero Documento" ng-model="$parent.filter.numero">
+			            </div>
+			        </div>
+			        <div class="col-sm-2">
+			            <ng-client-type ng-label="Tipo Cliente" ng-placeholder="Tipo"></ng-client-type>
+			        </div>
+			        <div class="col-sm-2">
+			            <ng-client-status ng-label="Estado" ng-placeholder="Estado"></ng-client-status>
+			        </div>
+			        <div>
+			        <div class="col-sm-6">
+			          <div class="form-group">
+			            <label>Buscar:</label>
+			            <div class="input-group">
+			              <input type="text" class="form-control" placeholder="Cliente, Empresa, Razòn Social, Representante legal..." ng-model="$parent.cliente">
+			              <span class="input-group-btn">
+			                <button class="btn btn-primary" type="submit" ng-click="buscarCliente()" >Buscar!</button>
+			              </span>
+			            </div>
+			        </div>
+			        </div> 		      	
+		      </div>
+ 
+		      </form>
+	        </div>
+      </div>
+      <div class="col-lg-12">
+	      <div class="table-responsive">
+	        <table class="table" ng-arrow-selector>
+	          <thead>
+	            <tr>
+	              <th>Cliente</th>
+	              <th>Correo</th>
+	              <th>Telefono</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr ng-repeat="cliente in clientes" ng-click="setSelected(cliente)" ng-class="{selected : selected == cliente}">
+	              <td>{{cliente.nombre || cliente.representanteLegal}} {{cliente.apellido || ''}}</td>
+	              <td>{{cliente.metadata.email}}</td>
+	              <td><a href="" class="success" ng-click="showPhoneBookView(cliente.metadata.telefono)">{{cliente.metadata.telefono[0]}}</a></td>
+	            </tr>
+	          </tbody>
+	        </table>
+	      </div>      	
+      </div>
+      <div class="col-lg-12">
+		    <p class="pull-right">
+		      <button type="submit" ng-disabled="!selected" class="btn btn-sm btn-primary" ng-click="ok()">Listo!</button>
+		      <button type="submit" class="btn btn-sm btn-warning" ng-click="cancel()">Cancelar</button>
+		    </p>  
+      </div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+</div>
+<div class="wrapper-md" ng-init="Load()">
+<div class="row">
+<div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Indices</div>
+        <div class="panel-body">
+          <form role="form" name="indiceForm">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label>Indice</label>
+              <input type="text" class="form-control" placeholder="Indice" ng-model="indice.nombre" required/>
+            </div>               
+          </div>
+            <div class="col-lg-3">
+              <div class="radio">
+              <label class="i-checks">
+                <input type="radio" name="a" value="Texto" ng-model="indice.tipo">
+                <i></i>
+                Texto
+              </label>
+            </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="radio">
+                  <label class="i-checks">
+                    <input type="radio" name="a" value="Numero" ng-model="indice.tipo"><i></i>Numerico
+                  </label>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="radio">
+                  <label class="i-checks">
+                    <input type="radio" name="a" value="Fecha" ng-model="indice.tipo"><i></i>Fecha
+                  </label>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="radio">
+                  <label class="i-checks">
+                    <input type="radio" name="a" value="Alpha" ng-model="indice.tipo"><i></i>Alpha.
+                  </label>
+                </div>
+            </div>
+            <div class="col-lg-12" ng-show="indice.tipo != 'Fecha'">
+                <div class="form-group">
+                  <label>Tamaño</label>
+                  <input type="number" class="form-control" placeholder="Tamaño de caracteres" ng-model="indice.longitud" required/>
+                </div>                 
+            </div>
+            <p class="pull-right">
+              <button type="submit" ng-disabled="!indiceForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de Indices</div>
+          <div class="table-responsive m_b">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Indice</th>
+                      <th>Tipo</th>
+                      <th>Longitud</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="!indices" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="indices.length  > 0" ng-repeat="indice in indices">
+                        <td>{{indice.nombre}}</td>
+                        <td>{{indice.tipo}}</td>
+                        <td>{{indice.longitud}}</td>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(indice)"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(indice)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_indice.html">
+  <div ng-include="'tpl/modals/editar_indice.html'"></div>
+</script>    

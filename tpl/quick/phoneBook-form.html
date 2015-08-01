@@ -1,0 +1,23 @@
+<script type="text/ng-template" id="phoneBook.html">
+  <div class="modal-body wrapper-lg">
+    <div class="row">
+        <h3 class="m-t-none m-b font-thin">Numeros Telefonicos</h3>
+        <p>Agregar, Modificar y Eliminar Mis Numeros Telefonicos</strong></p>
+        <form role="form" >
+            <div class="form-group">
+              <label>Numero Telefonico</label>
+              <input type="number" class="form-control" placeholder="Numero de Telefono">
+            </div>
+            <p class="pull-right">
+              <button type="submit" class="btn btn-sm btn-primary" ng-click="$parent.addphoneNumber()">Agregar</button>
+              <button type="submit" class="btn btn-sm btn-success" ng-click="$parent.editPhoneNumber()">Modificar</button>        
+              <button type="submit" class="btn btn-sm btn-danger" ng-click="$parent.deletePhoneNumber()">Borrar</button>        
+              <button type="submit" class="btn btn-sm btn-warning" ng-click="$parent.$close()">Cancelar</button>        
+              <button type="submit" class="btn btn-sm btn-warning" ng-click="$parent.alertPhoneNumber()">Alert</button>        
+            </p>
+        </form>
+    </div>
+  </div>
+</script>  
+
+

@@ -1,0 +1,74 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-init="Load()">
+  <div class="col w-lg bg-light b-r bg-auto">
+    <div class="wrapper-md dker d-b">
+      <h3 class="m-n font-thin w-c"><i class="fa fa-folder"></i> Archivos</h3>
+    </div>
+    <div class="wrapper-md text-center">      
+      <input type="file" multiple="multiple" id="files" ng-file class="hidden">
+      <label for="files" class="text-center btn btn-info"><i class="icon icon-cloud-upload"></i> Archivos</label>
+      <p></p>
+        <div class="form-group">
+          <label>Seleccione el Scanner</label>
+            <ui-select ng-model="$parent.print" theme="bootstrap">
+              <ui-select-match placeholder="Dispositivo de entrada">{{print.Name}}</ui-select-match>
+              <ui-select-choices group-by="'group'" repeat="print in prints | filter: $select.search">
+                <span ng-bind-html="print.Name | highlight: $select.search"></span>
+              </ui-select-choices>
+            </ui-select>
+        </div>
+        <p></p>
+      <label class="text-center btn btn-info"  ng-click="Scan()"><i class="icon icon-printer"></i> Scannear</label>
+      <p></p>
+      <div class="form-group" ng-show="myFiles.length > 0">
+        <label>Plantillas</label>
+          <ui-select ng-model="$parent.ruta" theme="bootstrap" on-select="onSelect($item, $model)">
+            <ui-select-match allow-clear="true" placeholder="Plantillas">{{$parent.ruta.plantilla.nombre}}</ui-select-match>
+            <ui-select-choices group-by="'group'" repeat="ruta in rutas | filter: $select.search">
+              <span ng-bind-html="ruta.plantilla.nombre | highlight: $select.search"></span>
+            </ui-select-choices>
+          </ui-select>
+      </div>
+    </div>
+  </div>
+  <div class="col">
+      <div class="wrapper-md bg-light dk b-b">
+        <span class="pull-right m-t-xs">Cantidad Total: <b class="badge" ng-class="{'bg-info': myFiles.length > 0 } " >{{myFiles.length}}</b></span>
+        <h3 class="m-n font-thin">Pila de Archivos por Procesar</h3>      
+      </div>
+      <div>
+      <div class="col-lg-12 text-center m-t" ng-show="myFiles.length == 0">
+        <P><i class="fa fa-exclamation-circle"></i> No Existen Archivos.</P>
+      </div>
+        <table class="table bg-white-only b-a" ng-show="myFiles.length > 0">
+            <thead>
+                <tr>
+                    <th width="70%">Archivo</th>
+                    <th width="10%">Tamaño</th>
+                    <th>Estado</th>
+                    <th class="pull-right">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+          <tr ng-show="myFiles.length  == 0" ><td colspan="3" class="text-center"><i class="fa fa-exclamation-circle"></i> No Existen Archivos.</td></tr>
+             <tr ng-repeat="file in myFiles">
+               <td>{{file.name}}</td>
+               <td>{{units(file.size, true)}}</td>
+               <td class="text-center"><i class="fa  fa-check-circle text-success" ng-show="file.estado"></i><i class="fa fa-clock-o text-warning" ng-show="!file.estado"></i></td>
+               <td>
+                  <div class="pull-right">
+                    <a class="btn btn-sm btn-icon btn-danger" ng-click="remove(file)"><i class="fa fa-trash"></i></a>
+                  </div>
+                </td>
+             </tr>
+            </tbody>
+        </table>
+      </div>
+  </div>  
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="documentar.html">
+  <div ng-include="'tpl/modals/documentar.html'"></div>
+</script> 
+<script type="text/ng-template" id="renombrar_archivo.html">
+  <div ng-include="'tpl/modals/renombrar_archivo.html'"></div>
+</script>  

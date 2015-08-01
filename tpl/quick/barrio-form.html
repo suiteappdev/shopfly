@@ -1,0 +1,16 @@
+<div class="modal-body wrapper-lg" ng-init="Load()">
+  <div class="row">
+      <h3 class="m-t-none m-b font-thin">Agregar Barrio</h3>
+      <p>Este barrio se agregara en el departamento : <strong>{{$parent.location.departamento.name}}</strong></p>
+      <form role="form" name="barrioForm">
+          <div class="form-group">
+            <label>Barrio</label>
+            <input type="text" class="form-control" placeholder="Barrio" ng-model="barrio.nombre" required>
+          </div>
+          <p class="pull-right">
+            <button type="submit" ng-disabled="!barrioForm.$valid" class="btn btn-sm btn-primary" ng-click="$parent.Create()">Crear</button>        
+            <button type="submit" class="btn btn-sm btn-warning" ng-click="$parent.$close()">Cancelar</button>        
+          </p>
+      </form>
+  </div>
+</div>

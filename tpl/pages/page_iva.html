@@ -1,0 +1,55 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+</div>
+<div class="wrapper-md" ng-init="load()">
+<div class="row">
+<div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Iva</div>
+        <div class="panel-body">
+          <form role="form" name="ivaForm">
+            <div class="form-group">
+              <label>Iva</label>
+              <input type="text" class="form-control"  ng-pattern="/^[0-9]+$/" name="iva" placeholder="Valor Iva" ng-model="iva.valor" required>
+              <span class="help-block animated bounceIn" style="color:#ee3939;" ng-show="ivaForm.iva.$dirty && ivaForm.iva.$invalid"><i class="fa fa-exclamation-circle"></i> Solo se aceptan numero.<br></span>
+            </div>
+            <button type="button" ng-disabled="!ivaForm.$valid" class="btn btn-sm btn-primary" ng-click="create()">Crear</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de perfiles</div>
+          <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Ivas</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="iva in ivas">
+                        <td>{{iva.valor}} %</td>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(iva)"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(iva)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_iva.html">
+  <div ng-include="'tpl/modals/editar_iva.html'"></div>
+</script>    

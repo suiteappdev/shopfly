@@ -1,0 +1,147 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+  <button class="btn btn-success btn-xs pull-right" ng-click="Create()"><i class="icon icon-note"></i> Crear Usuario</button>
+  <ul class="breadcrumb">
+          <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
+          <li><a href="">Clientes</a></li>
+          <li class="active">Lista de Clientes</li>
+  </ul>
+</div>
+<div class="wrapper-sm" ng-init="Load()">
+  <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading font-bold"><i class="icon icon-user"></i> Informaciòn de Usuario</div>
+          <div class="panel-body">
+            <form name="userForm">
+            <div class="col-lg-4">
+              <div class="form-group" ng-if="!setCliente">
+                <label>Cliente</label>
+                <input type="text" class="form-control" ng-click="formClient()" placeholder="Cliente">
+              </div>
+              <div class="form-group" ng-if="setCliente.nombre">
+                <label>Cliente</label>
+                <input type="text" class="form-control" ng-click="formClient()" placeholder="Cliente" ng-model="setCliente.nombre">
+              </div>
+              <div class="form-group" ng-if="setCliente.representanteLegal || setCliente.razonSocial">
+                <label>Cliente</label>
+                <input type="text" class="form-control" ng-click="formClient()" placeholder="Cliente" ng-model="setCliente.representanteLegal">
+              </div>      
+            </div>
+            <div class="col-lg-4">
+              <ng-client-status ng-placeholder="estado" ng-label="Estado"><ng-client-status>
+            </div>
+            <div class="col-lg-4">
+            <div class="form-group">
+            <label>Perfil</label>
+                  <div class="input-group">
+                      <ui-select ng-model="$parent.usuario.perfil" theme="bootstrap" on-select="onSelect($item, $model)">
+                        <ui-select-match placeholder="Perfil">{{$select.selected.perfil.nombre}}</ui-select-match>
+                        <ui-select-choices group-by="'group'" repeat="rol in roles | filter: $select.search">
+                          <span ng-bind-html="rol.perfil.nombre | highlight: $select.search"></span>
+                        </ui-select-choices>
+                      </ui-select>
+                      <span class="input-group-btn">
+                        <button ng-click="usuario.perfil = undefined; Load()" class="btn btn-warning">
+                          <span class="fa fa-eraser"></span>
+                        </button>
+                      </span>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                  <label>Usuario</label>
+                  <input type="text" class="form-control" placeholder="Cliente" ng-model="usuario.usuario">              
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                  <label>Contraseña</label>
+                  <input type="password" class="form-control" placeholder="Contraseña" ng-model="usuario.password">              
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group">
+                  <label>Repita la Contraseña</label>
+                  <input type="password" class="form-control" placeholder="Repita la contraseña" ng-model="rePassword">              
+              </div>
+            </div>
+            </form>            
+          </div>
+        </div>
+  </div>
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold"><i class="icon icon-bell"></i> Notificaciones</div>
+      <div class="list-group no-radius alt">
+        <a class="list-group-item" href="" ng-repeat="estado in estadoDocumentos" ng-click="estado.subscribed = estado.subscribed ? false : true">
+          <input type="checkbox" ng-model="estado.subscribed">
+          <i class="fa fa-reorder  fa-fw text-muted"></i> 
+          {{estado.nombre}}
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-4">
+        <div class="panel panel-default">
+          <div class="panel-heading font-bold">Menus</div>
+            <div class="list-group no-radius alt">
+              <a class="list-group-item" href="" ng-repeat="menu in permisos.menus" ng-click="$parent.selected = menu.id; menu.visible = menu.visible ? false: true">
+                <input type="checkbox" ng-model="menu.visible">
+                <i class="fa fa-reorder  fa-fw text-muted"></i> 
+                {{menu.nombre}}
+              </a>
+            </div>
+        </div>
+  </div>
+
+  <div class="col-lg-8">
+        <div class="panel panel-default">
+          <div class="panel-heading font-bold">Formulario</div>
+          <div class="table-responsive m_b">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Formulario</th>
+                      <th>Ejecutar</th>
+                      <th>Leer</th>
+                      <th>Escribir</th>
+                      <th>Borrar</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="form in permisos.formularios | filter : { parent : selected }">
+                        <td>
+                          {{form.nombre}}
+                        </td>
+                        <td>
+                          <input type="checkbox" ng-model="form.permisos.X">
+                        </td>
+                        <td>
+                          <input type="checkbox" ng-model="form.permisos.R">
+                        </td>
+                        <td>
+                          <input type="checkbox" ng-model="form.permisos.W">
+                        </td>
+                        <td>
+                          <input type="checkbox" ng-model="form.permisos.D">
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+        </div>
+  </div>
+
+</div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_banco.html">
+  <div ng-include="'tpl/modals/editar_banco.html'"></div>
+</script>
+<script type="text/ng-template" id="listado_cliente.html">
+  <div ng-include="'tpl/modals/listado_cliente.html'"></div>
+</script>

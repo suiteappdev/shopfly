@@ -8,16 +8,16 @@
       <div class="dropdown wrapper" dropdown>
         <a ui-sref="app.page.profile">
           <span class="thumb-lg w-auto-folded avatar m-t-sm">
-            <img src="img/a0.jpg" class="img-full" alt="...">
+            <img ng-src="{{credential.user.cliente.metadata.foto}}" class="img-full" alt="...">
           </span>
         </a>
         <a href class="dropdown-toggle hidden-folded" dropdown-toggle>
           <span class="clear">
             <span class="block m-t-sm">
-              <strong class="font-bold text-lt">John.Smith</strong> 
+              <strong class="font-bold text-lt">{{credential.user.cliente.nombreCompleto}}</strong> 
               <b class="caret"></b>
             </span>
-            <span class="text-muted text-xs block">Art Director</span>
+            <span class="text-muted text-xs block">{{credential.user.perfil.perfil.nombre}}</span>
           </span>
         </a>
         <!-- dropdown -->
@@ -55,20 +55,5 @@
     <!-- nav -->
     <nav ui-nav class="navi clearfix" ng-include="'tpl/blocks/nav.html'"></nav>
     <!-- nav -->
-
-    <!-- aside footer -->
-    <div class="wrapper m-t">
-      <div class="text-center-folded">
-        <span class="pull-right pull-none-folded">60%</span>
-        <span class="hidden-folded" translate="aside.MILESTONE">Milestone</span>
-      </div>
-      <progressbar value="60" class="progress-xxs m-t-sm dk" type="info"></progressbar>
-      <div class="text-center-folded">
-        <span class="pull-right pull-none-folded">35%</span>
-        <span class="hidden-folded" translate="aside.RELEASE">Release</span>
-      </div>
-      <progressbar value="35" class="progress-xxs m-t-sm dk" type="primary"></progressbar>
-    </div>
-    <!-- / aside footer -->
   </div>
 </div>

@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label>{{ngLabel}}</label>
+    <ui-select ng-model="$root.client_status" theme="bootstrap" ng-disabled="{{ngDisabled}}" ng-required="{{ngRequired}}">
+      <ui-select-match placeholder="{{ngPlaceholder}}">{{$root.client_status.name}}</ui-select-match>
+      <ui-select-choices group-by="'group'" repeat="status in client_status | filter: $select.search">
+        <span ng-bind-html="status.name | highlight: $select.search"></span>
+      </ui-select-choices>
+    </ui-select>
+</div>

@@ -1,0 +1,9 @@
+<div class="form-group">
+  <label>{{ngLabel}}</label>
+    <ui-select ng-model="$root.office" theme="bootstrap" ng-disabled="{{ngDisabled}}">
+      <ui-select-match placeholder="{{ngPlaceholder}}">{{$root.office.nombre}}</ui-select-match>
+      <ui-select-choices group-by="'group'" repeat="office in offices | filter: $select.search">
+        <span ng-bind-html="office.nombre | highlight: $select.search"></span>
+      </ui-select-choices>
+    </ui-select>
+</div>

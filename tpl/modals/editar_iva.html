@@ -1,0 +1,16 @@
+<div class="modal-body wrapper-lg">
+  <div class="row">
+      <h3 class="m-t-none m-b font-thin">Ediciòn de Ivas</h3>
+      <form role="form" name="IvaEdit">
+        <div class="form-group">
+          <label>Iva</label>
+          <input type="text" class="form-control" name="
+          " ng-model="setIva.valor" placeholder="Valor" required>
+        </div>
+        <p class="pull-right">
+          <button type="submit" ng-disabled="!IvaEdit.$valid" class="btn btn-sm btn-primary" ng-click="$parent.ok()">OK</button>
+          <button type="submit" class="btn btn-sm btn-warning" ng-click="$parent.$close()">Cancel</button>
+        </p>
+      </form>
+  </div>
+</div>

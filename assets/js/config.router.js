@@ -1,627 +1,688 @@
 'use strict';
-angular.module('app')
-  .run(
-    [          '$rootScope', '$state', '$stateParams',
-      function ($rootScope,   $state,   $stateParams) {
+angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "AuthenticationService", "$location", "$localStorage", "$socket",  function($rootScope,   $state,   $stateParams, $window, AuthenticationService, $location, $localStorage, $socket) {
           $rootScope.$state = $state;
-          $rootScope.$stateParams = $stateParams;        
+          $rootScope.$stateParams = $stateParams;
+          $rootScope.country = {code : "CO", name : "Colombia"};
+          $rootScope.getScanner = $window.getScanner;
+          $socket.initialize();
+
+
+          $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){
+              $rootScope.credential = $localStorage.credential;
+
+              if (nextRoute != null && nextRoute.access != null && nextRoute.access.requiredAuthentication 
+                  && !AuthenticationService.isAuthenticated && !$localStorage.credential) {
+                  $location.path('login');
+              }
+          });
+
+          $rootScope.clearCustomFields = function(){
+            try{
+              delete $rootScope.client_type;
+              delete $rootScope.barrio;
+              delete $rootScope.client_status;
+              delete $rootScope.enterprise_status;
+              delete $rootScope.cropped;
+              delete $rootScope.departamento;
+              delete $rootScope.document;
+              delete $rootScope.regime;
+              delete $rootScope.gender;
+              delete $rootScope.line_price;
+              delete $rootScope.location;
+              delete $rootScope.municipio;
+              delete $rootScope.barrios;
+              delete $rootScope.marital_status;
+              delete $rootScope.municipio;
+              delete $rootScope.profile;
+              delete $rootScope.stratum;
+              delete $rootScope.taxpayer_type;     
+              delete $rootScope.enterprise;
+              delete $rootScope.office;
+              delete $rootScope.education_level;
+              delete $rootScope.birthday;
+              delete $rootScope.phoneBook;
+              delete $rootScope.faxBook;
+              delete $rootScope.cellularPhoneBook;
+              delete $rootScope.faxBookNumber;
+              delete $rootScope.cellularPhone;
+              delete $rootScope.phone;
+                       
+            }catch(e){}
+          }
       }
     ]
-  )
-  .config(
-    [          '$stateProvider', '$urlRouterProvider', 'JQ_CONFIG', 
-      function ($stateProvider,   $urlRouterProvider, JQ_CONFIG) {
-          
-          $urlRouterProvider.otherwise('/app/dashboard-v1');
-
+  ).config(['$stateProvider', '$urlRouterProvider', 'JQ_CONFIG', function($stateProvider,   $urlRouterProvider, JQ_CONFIG) {
+          $urlRouterProvider.otherwise('app/panel');
           $stateProvider
+              .state('login', {
+                  url: '/login',
+                  templateUrl: 'tpl/login.html',
+                  controller : 'loginController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/loginController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
             .state('app', {
                   abstract: true,
                   url: '/app',
-                  templateUrl: 'tpl/app.html'
+                  templateUrl: 'tpl/app.html',
+                  access: { requiredAuthentication: true }
               })
-              .state('app.dashboard-v1', {
-                  url: '/dashboard-v1',
-                  templateUrl: 'tpl/app_dashboard_v1.html',
+              .state('app.panel', {
+                  url: '/panel',
+                  templateUrl: 'tpl/board.html',
+                  access: { requiredAuthentication: true },
                   resolve: {
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
-                        return $ocLazyLoad.load(['assets/js/controllers/chart.js']);
+                        return $ocLazyLoad.load([
+                          'assets/js/controllers/chart.js',
+                          ]);
                     }]
                   }
-              })
-              .state('app.dashboard-v2', {
-                  url: '/dashboard-v2',
-                  templateUrl: 'tpl/app_dashboard_v2.html',
-                  resolve: {
-                    deps: ['$ocLazyLoad',
-                      function( $ocLazyLoad ){
-                        return $ocLazyLoad.load(['assets/js/controllers/chart.js']);
-                    }]
-                  }
-              })
-              .state('app.ui', {
-                  url: '/ui',
-                  template: '<div ui-view class="fade-in-up"></div>'
-              })
-              .state('app.ui.buttons', {
-                  url: '/buttons',
-                  templateUrl: 'tpl/ui_buttons.html'
-              })
-              .state('app.ui.icons', {
-                  url: '/icons',
-                  templateUrl: 'tpl/ui_icons.html'
-              })
-              .state('app.ui.grid', {
-                  url: '/grid',
-                  templateUrl: 'tpl/ui_grid.html'
-              })
-              .state('app.ui.widgets', {
-                  url: '/widgets',
-                  templateUrl: 'tpl/ui_widgets.html'
-              })          
-              .state('app.ui.bootstrap', {
-                  url: '/bootstrap',
-                  templateUrl: 'tpl/ui_bootstrap.html'
-              })
-              .state('app.ui.sortable', {
-                  url: '/sortable',
-                  templateUrl: 'tpl/ui_sortable.html'
-              })
-              .state('app.ui.scroll', {
-                  url: '/scroll',
-                  templateUrl: 'tpl/ui_scroll.html',
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad){
-                          return uiLoad.load('assets/js/controllers/scroll.js');
-                      }]
-                  }
-              })
-              .state('app.ui.portlet', {
-                  url: '/portlet',
-                  templateUrl: 'tpl/ui_portlet.html'
-              })
-              .state('app.ui.timeline', {
-                  url: '/timeline',
-                  templateUrl: 'tpl/ui_timeline.html'
-              })
-              .state('app.ui.tree', {
-                  url: '/tree',
-                  templateUrl: 'tpl/ui_tree.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('angularBootstrapNavTree').then(
-                              function(){
-                                 return $ocLazyLoad.load('assets/js/controllers/tree.js');
-                              }
-                          );
-                        }
-                      ]
-                  }
-              })
-              .state('app.ui.toaster', {
-                  url: '/toaster',
-                  templateUrl: 'tpl/ui_toaster.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad){
-                          return $ocLazyLoad.load('toaster').then(
-                              function(){
-                                 return $ocLazyLoad.load('assets/js/controllers/toaster.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              .state('app.ui.jvectormap', {
-                  url: '/jvectormap',
-                  templateUrl: 'tpl/ui_jvectormap.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad){
-                          return $ocLazyLoad.load('assets/js/controllers/vectormap.js');
-                      }]
-                  }
-              })
-              .state('app.ui.googlemap', {
-                  url: '/googlemap',
-                  templateUrl: 'tpl/ui_googlemap.html',
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load( [
-                            'assets/js/app/map/load-google-maps.js',
-                            'assets/js/app/map/ui-map.js',
-                            'assets/js/app/map/map.js'] ).then(
-                              function(){
-                                return loadGoogleMaps(); 
-                              }
-                            );
-                      }]
-                  }
-              })
-              .state('app.chart', {
-                  url: '/chart',
-                  templateUrl: 'tpl/ui_chart.html',
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad){
-                          return uiLoad.load('assets/js/controllers/chart.js');
-                      }]
-                  }
-              })
-              // table
-              .state('app.table', {
-                  url: '/table',
-                  template: '<div ui-view></div>'
-              })
-              .state('app.table.static', {
-                  url: '/static',
-                  templateUrl: 'tpl/table_static.html'
-              })
-              .state('app.table.datatable', {
-                  url: '/datatable',
-                  templateUrl: 'tpl/table_datatable.html'
-              })
-              .state('app.table.footable', {
-                  url: '/footable',
-                  templateUrl: 'tpl/table_footable.html'
-              })
-              .state('app.table.grid', {
-                  url: '/grid',
-                  templateUrl: 'tpl/table_grid.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('ngGrid').then(
-                              function(){
-                                  return $ocLazyLoad.load('assets/js/controllers/grid.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              .state('app.table.uigrid', {
-                  url: '/uigrid',
-                  templateUrl: 'tpl/table_uigrid.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('ui.grid').then(
-                              function(){
-                                  return $ocLazyLoad.load('assets/js/controllers/uigrid.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              .state('app.table.editable', {
-                  url: '/editable',
-                  templateUrl: 'tpl/table_editable.html',
-                  controller: 'XeditableCtrl',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('xeditable').then(
-                              function(){
-                                  return $ocLazyLoad.load('assets/js/controllers/xeditable.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              .state('app.table.smart', {
-                  url: '/smart',
-                  templateUrl: 'tpl/table_smart.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('smart-table').then(
-                              function(){
-                                  return $ocLazyLoad.load('assets/js/controllers/table.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              // form
-              .state('app.form', {
-                  url: '/form',
-                  template: '<div ui-view class="fade-in"></div>',
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load('assets/js/controllers/form.js');
-                      }]
-                  }
-              })
-              .state('app.form.components', {
-                  url: '/components',
-                  templateUrl: 'tpl/form_components.html',
-                  resolve: {
-                      deps: ['uiLoad', '$ocLazyLoad',
-                        function( uiLoad, $ocLazyLoad ){
-                          return uiLoad.load( JQ_CONFIG.daterangepicker )
-                          .then(
-                              function(){
-                                return uiLoad.load('assets/js/controllers/form.components.js');
-                              }
-                          ).then(
-                              function(){
-                                return $ocLazyLoad.load('ngBootstrap');
-                              }
-                          );
-                        }
-                      ]
-                  }
-              })
-              .state('app.form.elements', {
-                  url: '/elements',
-                  templateUrl: 'tpl/form_elements.html'
-              })
-              .state('app.form.validation', {
-                  url: '/validation',
-                  templateUrl: 'tpl/form_validation.html'
-              })
-              .state('app.form.wizard', {
-                  url: '/wizard',
-                  templateUrl: 'tpl/form_wizard.html'
-              })
-              .state('app.form.fileupload', {
-                  url: '/fileupload',
-                  templateUrl: 'tpl/form_fileupload.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad){
-                          return $ocLazyLoad.load('angularFileUpload').then(
-                              function(){
-                                 return $ocLazyLoad.load('assets/js/controllers/file-upload.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              .state('app.form.imagecrop', {
-                  url: '/imagecrop',
-                  templateUrl: 'tpl/form_imagecrop.html',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad){
-                          return $ocLazyLoad.load('ngImgCrop').then(
-                              function(){
-                                 return $ocLazyLoad.load('assets/js/controllers/imgcrop.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              .state('app.form.select', {
-                  url: '/select',
-                  templateUrl: 'tpl/form_select.html',
-                  controller: 'SelectCtrl',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('ui.select').then(
-                              function(){
-                                  return $ocLazyLoad.load('assets/js/controllers/select.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              .state('app.form.slider', {
-                  url: '/slider',
-                  templateUrl: 'tpl/form_slider.html',
-                  controller: 'SliderCtrl',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('vr.directives.slider').then(
-                              function(){
-                                  return $ocLazyLoad.load('assets/js/controllers/slider.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              .state('app.form.editor', {
-                  url: '/editor',
-                  templateUrl: 'tpl/form_editor.html',
-                  controller: 'EditorCtrl',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('textAngular').then(
-                              function(){
-                                  return $ocLazyLoad.load('assets/js/controllers/editor.js');
-                              }
-                          );
-                      }]
-                  }
-              })
-              .state('app.form.xeditable', {
-                  url: '/xeditable',
-                  templateUrl: 'tpl/form_xeditable.html',
-                  controller: 'XeditableCtrl',
-                  resolve: {
-                      deps: ['$ocLazyLoad',
-                        function( $ocLazyLoad ){
-                          return $ocLazyLoad.load('xeditable').then(
-                              function(){
-                                  return $ocLazyLoad.load('assets/js/controllers/xeditable.js');
-                              }
-                          );
-                      }]
-                  }
+                 
               })
               // pages
               .state('app.page', {
                   url: '/page',
-                  template: '<div ui-view class="fade-in-down"></div>'
-              })
-              .state('app.page.profile', {
-                  url: '/profile',
-                  templateUrl: 'tpl/page_profile.html'
-              })
-              .state('app.page.post', {
-                  url: '/post',
-                  templateUrl: 'tpl/page_post.html'
-              })
-              .state('app.page.search', {
-                  url: '/search',
-                  templateUrl: 'tpl/page_search.html'
-              })
-              .state('app.page.invoice', {
-                  url: '/invoice',
-                  templateUrl: 'tpl/page_invoice.html'
-              })
-              .state('app.page.price', {
-                  url: '/price',
-                  templateUrl: 'tpl/page_price.html'
-              })
-              .state('app.docs', {
-                  url: '/docs',
-                  templateUrl: 'tpl/docs.html'
-              })
-              // others
-              .state('lockme', {
-                  url: '/lockme',
-                  templateUrl: 'tpl/page_lockme.html'
-              })
-              .state('access', {
-                  url: '/access',
-                  template: '<div ui-view class="fade-in-right-big smooth"></div>'
-              })
-              .state('access.signin', {
-                  url: '/signin',
-                  templateUrl: 'tpl/page_signin.html',
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load( ['assets/js/controllers/signin.js'] );
-                      }]
-                  }
-              })
-              .state('access.signup', {
-                  url: '/signup',
-                  templateUrl: 'tpl/page_signup.html',
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load( ['assets/js/controllers/signup.js'] );
-                      }]
-                  }
-              })
-              .state('access.forgotpwd', {
-                  url: '/forgotpwd',
-                  templateUrl: 'tpl/page_forgotpwd.html'
-              })
-              .state('access.404', {
-                  url: '/404',
-                  templateUrl: 'tpl/page_404.html'
+                  template: '<div ui-view class="fade-in-down"></div>',
+                  access: { requiredAuthentication: true }
               })
 
-              // fullCalendar
-              .state('app.calendar', {
-                  url: '/calendar',
-                  templateUrl: 'tpl/app_calendar.html',
-                  // use resolve to load other dependences
-                  resolve: {
-                      deps: ['$ocLazyLoad', 'uiLoad',
-                        function( $ocLazyLoad, uiLoad ){
-                          return uiLoad.load(
-                            JQ_CONFIG.fullcalendar.concat('assets/js/app/calendar/calendar.js')
-                          ).then(
-                            function(){
-                              return $ocLazyLoad.load('ui.calendar');
-                            }
-                          )
-                      }]
-                  }
-              })
-
-              // mail
-              .state('app.mail', {
-                  abstract: true,
-                  url: '/mail',
-                  templateUrl: 'tpl/mail.html',
-                  // use resolve to load other dependences
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load( ['assets/js/app/mail/mail.js',
-                                               'assets/js/app/mail/mail-service.js',
-                                               JQ_CONFIG.moment] );
-                      }]
-                  }
-              })
-              .state('app.mail.list', {
-                  url: '/inbox/{fold}',
-                  templateUrl: 'tpl/mail.list.html'
-              })
-              .state('app.mail.detail', {
-                  url: '/{mailId:[0-9]{1,4}}',
-                  templateUrl: 'tpl/mail.detail.html'
-              })
-              .state('app.mail.compose', {
-                  url: '/compose',
-                  templateUrl: 'tpl/mail.new.html'
-              })
-
-              .state('layout', {
-                  abstract: true,
-                  url: '/layout',
-                  templateUrl: 'tpl/layout.html'
-              })
-              .state('layout.fullwidth', {
-                  url: '/fullwidth',
-                  views: {
-                      '': {
-                          templateUrl: 'tpl/layout_fullwidth.html'
-                      },
-                      'footer': {
-                          templateUrl: 'tpl/layout_footer_fullwidth.html'
-                      }
-                  },
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load( ['assets/js/controllers/vectormap.js'] );
-                      }]
-                  }
-              })
-              .state('layout.mobile', {
-                  url: '/mobile',
-                  views: {
-                      '': {
-                          templateUrl: 'tpl/layout_mobile.html'
-                      },
-                      'footer': {
-                          templateUrl: 'tpl/layout_footer_mobile.html'
-                      }
-                  }
-              })
-              .state('layout.app', {
-                  url: '/app',
-                  views: {
-                      '': {
-                          templateUrl: 'tpl/layout_app.html'
-                      },
-                      'footer': {
-                          templateUrl: 'tpl/layout_footer_fullwidth.html'
-                      }
-                  },
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load( ['assets/js/controllers/tab.js'] );
-                      }]
-                  }
-              })
-              .state('apps', {
-                  abstract: true,
-                  url: '/apps',
-                  templateUrl: 'tpl/layout.html'
-              })
-              .state('apps.note', {
-                  url: '/note',
-                  templateUrl: 'tpl/apps_note.html',
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load( ['assets/js/app/note/note.js',
-                                               JQ_CONFIG.moment] );
-                      }]
-                  }
-              })
-              .state('apps.contact', {
-                  url: '/contact',
-                  templateUrl: 'tpl/apps_contact.html',
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load( ['assets/js/app/contact/contact.js'] );
-                      }]
-                  }
-              })
-              .state('app.weather', {
-                  url: '/weather',
-                  templateUrl: 'tpl/apps_weather.html',
-                  resolve: {
+              /* start shopFly pages */
+              .state('app.page.dependencia', {
+                  url: '/dependencia',
+                  templateUrl: 'tpl/pages/page_dependencia.html',
+                  access: { requiredAuthentication: true },
+                  controller : 'dependenciaController',
+                  resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
-                          return $ocLazyLoad.load(
-                              {
-                                  name: 'angular-skycons',
-                                  files: ['assets/js/app/weather/skycons.js',
-                                          'assets/js/app/weather/angular-skycons.js',
-                                          'assets/js/app/weather/ctrl.js',
-                                          JQ_CONFIG.moment ] 
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/dependenciaController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/gender.js',
+                                      'assets/js/services/file.js'
+                                      ]);
                               }
                           );
                       }]
                   }
               })
-              .state('app.todo', {
-                  url: '/todo',
-                  templateUrl: 'tpl/apps_todo.html',
-                  resolve: {
-                      deps: ['uiLoad',
-                        function( uiLoad ){
-                          return uiLoad.load( ['../assets/js/app/todo/todo.js',
-                                               JQ_CONFIG.moment] );
-                      }]
-                  }
-              })
-              .state('app.todo.list', {
-                  url: '/{fold}'
-              })
-              .state('music', {
-                  url: '/music',
-                  templateUrl: 'tpl/music.html',
-                  controller: 'MusicCtrl',
-                  resolve: {
+              .state('app.page.cargo', {
+                  url: '/cargo',
+                  templateUrl: 'tpl/pages/page_cargo.html',
+                  access: { requiredAuthentication: true },
+                  controller : 'cargoController',
+                  resolve:{
                       deps: ['$ocLazyLoad',
                         function( $ocLazyLoad ){
-                          return $ocLazyLoad.load([
-                            'com.2fdevs.videogular', 
-                            'com.2fdevs.videogular.plugins.controls', 
-                            'com.2fdevs.videogular.plugins.overlayplay',
-                            'com.2fdevs.videogular.plugins.poster',
-                            'com.2fdevs.videogular.plugins.buffering',
-                            'assets/js/app/music/ctrl.js', 
-                            'assets/js/app/music/theme.css'
-                          ]);
+                          return $ocLazyLoad.load(['toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/cargoController.js'
+                                      ]);
+                              }
+                          );
                       }]
                   }
               })
-                .state('music.home', {
-                    url: '/home',
-                    templateUrl: 'tpl/music.home.html'
-                })
-                .state('music.genres', {
-                    url: '/genres',
-                    templateUrl: 'tpl/music.genres.html'
-                })
-                .state('music.detail', {
-                    url: '/detail',
-                    templateUrl: 'tpl/music.detail.html'
-                })
-                .state('music.mtv', {
-                    url: '/mtv',
-                    templateUrl: 'tpl/music.mtv.html'
-                })
-                .state('music.mtvdetail', {
-                    url: '/mtvdetail',
-                    templateUrl: 'tpl/music.mtv.detail.html'
-                })
-                .state('music.playlist', {
-                    url: '/playlist/{fold}',
-                    templateUrl: 'tpl/music.playlist.html'
-                })
+              .state('app.page.barrio', {
+                  url: '/barrio',
+                  templateUrl: 'tpl/pages/page_barrio.html',
+                  controller : 'barrioController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/barrioController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/gender.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.banco', {
+                  url: '/banco',
+                  templateUrl: 'tpl/pages/page_banco.html',
+                  controller : 'bancoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/bancoController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.perfil', {
+                  url: '/perfil',
+                  templateUrl: 'tpl/pages/page_perfil.html',
+                  controller : 'perfilController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('toaster').then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/perfilController.js'
+                                      //'assets/js/directives/country.js',
+                                      //'assets/js/directives/document.js',
+                                      //'assets/js/directives/marital_status.js',
+                                      //'assets/js/directives/location.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.iva', {
+                  url: '/iva',
+                  templateUrl: 'tpl/pages/page_iva.html',
+                  access: { requiredAuthentication: true },
+                  controller : 'ivaController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('toaster').then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/ivaController.js'
+                                      //'assets/js/directives/country.js',
+                                      //'assets/js/directives/document.js',
+                                      //'assets/js/directives/marital_status.js',
+                                      //'assets/js/directives/location.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.retencion', {
+                  url: '/retencion',
+                  templateUrl: 'tpl/pages/page_retencion.html',
+                  controller : 'retencionController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load('toaster').then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/retencionController.js'
+                                      //'assets/js/directives/country.js',
+                                      //'assets/js/directives/document.js',
+                                      //'assets/js/directives/marital_status.js',
+                                      //'assets/js/directives/location.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.indices', {
+                  url: '/indices',
+                  templateUrl: 'tpl/pages/page_indice.html',
+                  controller : 'indiceController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/indiceController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.plantillas', {
+                  url: '/plantillas',
+                  templateUrl: 'tpl/pages/page_plantilla.html',
+                  controller : 'plantillaController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/plantillaController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.rutas', {
+                  url: '/rutas',
+                  templateUrl: 'tpl/pages/page_ruta.html',
+                  controller : 'rutaController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/rutaController.js',
+                                      'assets/js/directives/path.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.documentar', {
+                  url: '/documentar',
+                  templateUrl: 'tpl/pages/page_documentar.html',
+                  controller : 'documentarController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster', 'ui.select']).then(
+                              function(){
+                                 return $ocLazyLoad.load([
+                                  'assets/js/controllers/documentarController.js',
+                                  'assets/js/directives/file.js',
+                                  'assets/js/directives/path.js',
+                                  'assets/js/controllers/clienteController.js',
+                                  'assets/js/directives/client_type.js',
+                                  'assets/js/directives/client_status.js',
+                                  'assets/js/directives/document.js',
+                                  'assets/js/directives/phoneBook.js',
+                                  ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.editar-documentacion', {
+                  url: '/editar-documentacion/:documentacion',
+                  templateUrl: 'tpl/pages/editar_documentacion.html',
+                  controller : 'documentarController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster', 'ui.select']).then(
+                              function(){
+                                 return $ocLazyLoad.load([
+                                  'assets/js/controllers/documentarController.js',
+                                  'assets/js/directives/file.js',
+                                  'assets/js/directives/path.js',
+                                  'assets/js/controllers/clienteController.js',
+                                  'assets/js/directives/client_type.js',
+                                  'assets/js/directives/client_status.js',
+                                  'assets/js/directives/document.js',
+                                  'assets/js/directives/phoneBook.js',
+                                  ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.documentaciones', {
+                  url: '/documentaciones',
+                  templateUrl: 'tpl/pages/page_documentaciones.html',
+                  controller : 'documentarController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster', 'ui.select']).then(
+                              function(){
+                                 return $ocLazyLoad.load([
+                                  JQ_CONFIG.moment,
+                                  'assets/js/controllers/documentarController.js',
+                                  'assets/js/static/main.js'
+                                  ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.estadoDocumento', {
+                  url: '/estadoDocumento',
+                  templateUrl: 'tpl/pages/page_estadoDocumento.html',
+                  controller : 'estadoDocumentoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/estadoDocumentoController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              }) 
+              .state('app.page.empresas', {
+                  url: '/empresas',
+                  templateUrl: 'tpl/pages/empresa_listado.html',
+                  controller : 'empresaController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/empresaController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/cellularPhoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.editar-empresa', {
+                  url: '/editar-empresa/:id',
+                  templateUrl: 'tpl/pages/editar_empresa.html',
+                  controller : 'empresaController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/empresaController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/faxBook.js',
+                                      'assets/js/directives/cellularPhoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.empresa', {
+                  url: '/empresa',
+                  templateUrl: 'tpl/pages/page_empresa.html',
+                  controller : 'empresaController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/empresaController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/faxBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.permisos', {
+                  url: '/permisos',
+                  templateUrl: 'tpl/pages/listado_permisos.html',
+                  controller : 'permisoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/permisoController.js',
+                                      'assets/js/static/permisos.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/document.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.permiso', {
+                  url: '/permiso',
+                  templateUrl: 'tpl/pages/page_permiso.html',
+                  controller : 'permisoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/permisoController.js',
+                                      'assets/js/static/permisos.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/phoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.editar-permiso', {
+                  url: '/editar-permiso/:usuario',
+                  templateUrl: 'tpl/pages/editar_permiso.html',
+                  controller : 'permisoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/permisoController.js',
+                                      'assets/js/static/permisos.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/phoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.roles', {
+                  url: '/roles',
+                  templateUrl: 'tpl/pages/page_roles.html',
+                  controller : 'rolesController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/rolesController.js',
+                                      'assets/js/static/permisos.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.cliente', {
+                  url: '/cliente',
+                  templateUrl: 'tpl/pages/page_cliente.html',
+                  controller : 'clienteController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'ngImgCrop', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/clienteController.js',
+                                      'assets/js/controllers/barrioController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/gender.js',
+                                      'assets/js/directives/birthday.js',
+                                      'assets/js/directives/education_level.js',
+                                      'assets/js/directives/regime.js',
+                                      'assets/js/directives/stratum.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/enterprise.js',
+                                      'assets/js/directives/branch.js',
+                                      'assets/js/directives/line_price.js',
+                                      'assets/js/directives/office.js',
+                                      'assets/js/directives/taxpayer_type.js',
+                                      'assets/js/directives/profile.js',
+                                      'assets/js/directives/cropper.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/cellularPhoneBook.js',
+                                      'assets/js/directives/faxBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  },
+                  onExit: function($rootScope){
+                    $rootScope.clearCustomFields();
+                  }
+              })
+              .state('app.page.tipo_cliente', {
+                  url: '/tipoCliente',
+                  templateUrl: 'tpl/pages/page_tipoCliente.html',
+                  access: { requiredAuthentication: true },
+                  controller : 'tipoClienteController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/tipoClienteController.js',
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.clientes', {
+                  url: '/clientes',
+                  templateUrl: 'tpl/pages/listado_cliente.html',
+                  access: { requiredAuthentication: true },
+                  controller : 'clienteController',
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/clienteController.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/phoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  },
+                  onExit: function($rootScope){
+                    $rootScope.clearCustomFields();
+                  }
+              })
+              .state('app.page.editar-cliente', {
+                  url: '/editar-cliente/:id',
+                  templateUrl: 'tpl/pages/editar_cliente.html',
+                  controller : 'clienteController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'ngImgCrop', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/clienteController.js',
+                                      'assets/js/directives/country.js',
+                                      'assets/js/directives/document.js',
+                                      'assets/js/directives/marital_status.js',
+                                      'assets/js/directives/enterprise_status.js',
+                                      'assets/js/directives/client_status.js',
+                                      'assets/js/directives/location.js',
+                                      'assets/js/directives/gender.js',
+                                      'assets/js/directives/birthday.js',
+                                      'assets/js/directives/education_level.js',
+                                      'assets/js/directives/regime.js',
+                                      'assets/js/directives/stratum.js',
+                                      'assets/js/directives/client_type.js',
+                                      'assets/js/directives/enterprise.js',
+                                      'assets/js/directives/branch.js',
+                                      'assets/js/directives/line_price.js',
+                                      'assets/js/directives/office.js',
+                                      'assets/js/directives/taxpayer_type.js',
+                                      'assets/js/directives/profile.js',
+                                      'assets/js/directives/cropper.js',
+                                      'assets/js/directives/phoneBook.js',
+                                      'assets/js/directives/cellularPhoneBook.js',
+                                      'assets/js/directives/faxBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  },
+                  onExit: function($rootScope){
+                    $rootScope.clearCustomFields();
+                  }
+              })
+              /* end shopFly pages */
       }
     ]
   );

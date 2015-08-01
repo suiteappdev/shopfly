@@ -63,6 +63,13 @@
       "YOUR_STUFF": "Le tue cos",
       "PROFILE" : "Profilo",
       "DOCUMENTS" : "Documenti"
+    },
+    "Configuracion" : {
+      "Configuracion": "Configuraciòn",
+      "Pais" : "Pais",
+      "Departamento" : "Departamento",
+      "Ciudad" : "Ciudad",
+      "Barrio" : "Barrio"
     }
   },
   "MILESTONE" : "Pietra miliare",
