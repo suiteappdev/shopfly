@@ -31,6 +31,9 @@ angular.module('app').controller("documentarController", [
 			){
 	
 	$scope.Load = function(){
+		
+		$scope.documents = [];
+
 		$API.EstadoDocumento.List().then(function(res){
 			$scope.estadoDocs = res.data || [];
 		});
@@ -39,7 +42,13 @@ angular.module('app').controller("documentarController", [
 	     	if(estado.subscribed){
 		        $socket.on(estado.nombre, function(res){
 		            alert(res);
-		        });	     		
+		        });
+
+				$API.DocDocumento.Search({
+					estado : estado._id
+				}).then(function(res){
+					$scope.documents.concat(res.data);
+				});	     		
 	     	}
 	    })
 

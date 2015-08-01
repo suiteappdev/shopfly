@@ -1,6 +1,6 @@
 angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope","$http", '$modal', "toaster", "$rootScope", "$window", function($docFlyConf, $scope, $http, $modal, toaster, $rootScope, $window){
 	$scope.load = function(){
-		$http.get("http://boruto:3000/docdependencia").success(function(data){
+		$http.get("http://192.168.1.10:3000/docdependencia").success(function(data){
 			$scope.dependencias = data;
 		});
 	}
