@@ -5,7 +5,16 @@
     </div>
     <div class="wrapper-md text-center">      
       <form role="form" name="searchDocumentForm">
-       <div class="form-group">
+      <div class="form-group">
+        <label>Estado</label>
+          <ui-select ng-model="$parent.estado" theme="bootstrap">
+            <ui-select-match placeholder="Estado">{{$select.selected.nombre}}</ui-select-match>
+            <ui-select-choices group-by="'group'" repeat="estado in estadoDocs | filter: $select.search">
+              <span ng-bind-html="estado.nombre | highlight: $select.search"></span>
+            </ui-select-choices>
+          </ui-select>
+      </div>
+      <div class="form-group">
         <label>Plantillas</label>
           <ui-select ng-model="$parent.ruta" theme="bootstrap">
             <ui-select-match placeholder="Plantillas">{{$parent.ruta.plantilla.nombre}}</ui-select-match>

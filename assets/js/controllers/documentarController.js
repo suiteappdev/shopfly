@@ -31,13 +31,17 @@ angular.module('app').controller("documentarController", [
 			){
 	
 	$scope.Load = function(){
-	     angular.forEach($rootScope.credential.user.metadata.estadoDocumento, function(estado){
+		$API.EstadoDocumento.List().then(function(res){
+			$scope.estadoDocs = res.data || [];
+		});
+
+	    angular.forEach($rootScope.credential.user.metadata.estadoDocumento, function(estado){
 	     	if(estado.subscribed){
 		        $socket.on(estado.nombre, function(res){
 		            alert(res);
 		        });	     		
 	     	}
-	     })
+	    })
 
 		$scope.units = $fileManagerService.fileSize;
 
@@ -236,6 +240,7 @@ angular.module('app').controller("documentarController", [
 	$scope.Search = function(){
 		$API.DocDocumento.Search(
 				{
+					estado : $scope.estado ? $scope.estado._id : null,
 					id : $scope.ruta ? $scope.ruta.plantilla._id : null,
 					criteria : $scope.criteria,
 					ini : $scope.ini ? $moment($scope.ini.date).startOf('day').format() : null,
