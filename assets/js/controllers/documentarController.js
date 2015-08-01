@@ -12,6 +12,7 @@ angular.module('app').controller("documentarController", [
 		"$cryptoService",
 		"$webkitService",
 		"$moment",
+		"$socket",
 		 function(
 			$scope,
 			$docFlyConf,
@@ -25,10 +26,19 @@ angular.module('app').controller("documentarController", [
 			$docFlyConf,
 			$cryptoService,
 			$webkitService,
-			$moment
+			$moment,
+			$socket
 			){
 	
 	$scope.Load = function(){
+	     angular.forEach($rootScope.credential.user.metadata.estadoDocumento, function(estado){
+	     	if(estado.subscribed){
+		        $socket.on(estado.nombre, function(res){
+		            alert(res);
+		        });	     		
+	     	}
+	     })
+
 		$scope.units = $fileManagerService.fileSize;
 
 		$scope.COUNTER = 0;

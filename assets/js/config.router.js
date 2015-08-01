@@ -1,9 +1,10 @@
 'use strict';
-angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "AuthenticationService", "$location", "$localStorage",  function($rootScope,   $state,   $stateParams, $window, AuthenticationService, $location, $localStorage) {
+angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "AuthenticationService", "$location", "$localStorage", "$socket",  function($rootScope,   $state,   $stateParams, $window, AuthenticationService, $location, $localStorage, $socket) {
           $rootScope.$state = $state;
           $rootScope.$stateParams = $stateParams;
           $rootScope.country = {code : "CO", name : "Colombia"};
           $rootScope.getScanner = $window.getScanner;
+          $socket.initialize();
 
 
           $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){

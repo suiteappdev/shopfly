@@ -3,6 +3,10 @@ angular.module('app').controller("navigationController", ["$scope", "$location",
 		
 	}
 
+	$scope.getPendingDoc =  function(){
+
+	}
+	
 	$scope.logOut = function(){
 		if(AuthenticationService.isAuthenticated){
         	UserService.logOut().then(function(res){

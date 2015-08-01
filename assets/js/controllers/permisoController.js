@@ -3,6 +3,12 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 	$scope.Load = function(){
 		$scope.permisos = $window.permisos;
 
+		$API.EstadoDocumento.List().then(function(res){
+			$scope.estadoDocumentos = res.data.filter(function(estado){
+				return estado.gestion;
+			});
+		});
+
 		if($stateParams.usuario){
 			$API.Usuario.Usuario($stateParams.usuario).then(function(res){
 				if(res.status == 200){
@@ -31,7 +37,8 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 			password : $scope.usuario.password,
 			cliente : $scope.setCliente,
 			estado : $rootScope.client_status,
-			permiso : $scope.permisos
+			permiso : $scope.permisos,
+			metadata : {estadoDocumento : $scope.estadoDocumentos}
 		})).then(function(res){
 			if(res.status == 200){
 				toaster.pop("success","Usuario", "Creado");
@@ -47,6 +54,7 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 			password : $scope.usuario.password,
 			cliente : $scope.setCliente,
 			estado : $rootScope.client_status,
+			metadata : {estadoDocumento : $scope.usuario.metadata.estadoDocumento},
 			permiso : $scope.permisos
 		})).then(function(res){
 			if(res.status == 200){

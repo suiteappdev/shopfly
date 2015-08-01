@@ -1,10 +1,6 @@
-angular.module('app').controller("clienteController", ["$scope", "$API", "$modal", "toaster", "$rootScope", "$stateParams", "$location", "socket", function($scope, $API, $modal, toaster, $rootScope, $stateParams, $location, socket){
+angular.module('app').controller("clienteController", ["$scope", "$API", "$modal", "toaster", "$rootScope", "$stateParams", "$location", "$socket", function($scope, $API, $modal, toaster, $rootScope, $stateParams, $location, $socket){
 
 	$scope.load = function(){
-	    socket.on('getDocuments', function(data) {
-	       console.log(data);
-	    });
-
 		$scope.tab = "personal";
 		$API.Cliente.List().then(function(res){
 			$scope.clientes = res.data || [];

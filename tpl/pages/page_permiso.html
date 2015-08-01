@@ -10,7 +10,7 @@
 <div class="wrapper-sm" ng-init="Load()">
   <div class="col-lg-12">
         <div class="panel panel-default">
-          <div class="panel-heading font-bold">Informaciòn de Usuario</div>
+          <div class="panel-heading font-bold"><i class="icon icon-user"></i> Informaciòn de Usuario</div>
           <div class="panel-body">
             <form name="userForm">
             <div class="col-lg-4">
@@ -70,6 +70,18 @@
           </div>
         </div>
   </div>
+  <div class="col-lg-12">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold"><i class="icon icon-bell"></i> Notificaciones</div>
+      <div class="list-group no-radius alt">
+        <a class="list-group-item" href="" ng-repeat="estado in estadoDocumentos" ng-click="estado.subscribed = estado.subscribed ? false : true">
+          <input type="checkbox" ng-model="estado.subscribed">
+          <i class="fa fa-reorder  fa-fw text-muted"></i> 
+          {{estado.nombre}}
+        </a>
+      </div>
+    </div>
+  </div>
   <div class="col-lg-4">
         <div class="panel panel-default">
           <div class="panel-heading font-bold">Menus</div>
@@ -82,6 +94,7 @@
             </div>
         </div>
   </div>
+
   <div class="col-lg-8">
         <div class="panel panel-default">
           <div class="panel-heading font-bold">Formulario</div>
@@ -119,6 +132,7 @@
             </div>
         </div>
   </div>
+
 </div>
 </div>
 <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
