@@ -90,7 +90,7 @@
             </div>
             <footer class="panel-footer text-right bg-light lter">
               <a sref="app.page.empresas" href="#/app/page/empresas" type="button" class="btn btn-warning">Cancelar</a>
-              <button type="button" class="btn btn-primary" ng-click="Update()">Actualizar</button>
+              <button ng-disabled="!credential.user.permiso.formularios[11].permisos.W" type="button" class="btn btn-primary" ng-click="Update()">Actualizar</button>
             </footer>
           </div>
         </form>

@@ -54,14 +54,14 @@
               <td>
                 <div>
                       <label class="i-switch m-t-xs m-r">
-                        <input type="checkbox" checked ng-model="empresa.estado.value" ng-click="changeState(empresa)">
+                        <input ng-disabled="!credential.user.permiso.formularios[11].permisos.W" type="checkbox" checked ng-model="empresa.estado.value" ng-click="changeState(empresa)">
                         <i></i>
                       </label>                    
                 </div>
               </td>
               <td>
                 <div class="pull-right">
-                  <a sref="app.page.editar-empresa({id : empresa._id})" href="#/app/page/editar-empresa/{{empresa._id}}" class="btn btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></a>
+                  <a ng-disabled="!credential.user.permiso.formularios[11].permisos.R" sref="app.page.editar-empresa({id : empresa._id})" href="#/app/page/editar-empresa/{{empresa._id}}" class="btn btn-sm btn-icon btn-info"><i class="fa fa-edit"></i></a>
                 </div>
               </td>
             </tr>
