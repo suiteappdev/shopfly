@@ -36,8 +36,8 @@
                     <tr ng-show="barrios.length  > 0" ng-repeat="barrio in barrios">
                         <td>{{barrio.nombre}}</td>
                         <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(barrio)"><i class="fa fa-edit"></i></button>
-                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(barrio)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[4].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(barrio)"><i class="fa fa-edit"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[4].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(barrio)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>

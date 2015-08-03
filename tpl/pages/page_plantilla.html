@@ -65,7 +65,7 @@
           </div>
           <div class="col-lg-12">
             <p class="pull-right">
-              <button type="submit" ng-disabled="!plantillasForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+              <button ng-disabled="!credential.user.permiso.formularios[2].permisos.W" type="submit" ng-disabled="!plantillasForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
             </p>            
           </div>
           </form>
@@ -92,13 +92,13 @@
                         <td>{{plantilla.indice[0].nombre}}<a ng-hide="plantilla.indice.length == 1" href=""><b class="badge bg-success pull-right">+ {{plantilla.indice.length == 1 ? plantilla.indice.length : (plantilla.indice.length) - 1}}</b></a></td>
                         <td>
                           <label class="i-switch m-t-xs m-r">
-                            <input type="checkbox" checked ng-model="plantilla.estado" ng-click="changeState(plantilla)">
+                            <input ng-disabled="!credential.user.permiso.formularios[1].permisos.W"type="checkbox" checked ng-model="plantilla.estado" ng-click="changeState(plantilla)">
                             <i></i>
                           </label>
                         </td>
                         <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(plantilla)"><i class="fa fa-edit"></i></button>
-                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(plantilla)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[2].permisos.W"type="submit" class="btn btn-sm btn-info" ng-click="Update(plantilla)"><i class="fa fa-edit"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[2].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(plantilla)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>

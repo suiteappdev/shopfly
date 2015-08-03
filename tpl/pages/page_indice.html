@@ -52,7 +52,7 @@
                 </div>                 
             </div>
             <p class="pull-right">
-              <button type="submit" ng-disabled="!indiceForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+              <button ng-disabled="!credential.user.permiso.formularios[1].permisos.W" type="submit" ng-disabled="!indiceForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
             </p>
           </form>
         </div>
@@ -78,8 +78,8 @@
                         <td>{{indice.tipo}}</td>
                         <td>{{indice.longitud}}</td>
                         <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(indice)"><i class="fa fa-edit"></i></button>
-                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(indice)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[1].permisos.W"type="submit" class="btn btn-sm btn-info" ng-click="Update(indice)"><i class="fa fa-edit"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[1].permisos.W" type="submit" class="btn btn-sm btn-danger" ng-click="Del(indice)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>

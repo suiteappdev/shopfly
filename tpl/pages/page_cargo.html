@@ -14,7 +14,7 @@
               <input type="text" class="form-control" placeholder="Cargo" ng-model="cargo.nombre" required/>
             </div> 
             <p class="pull-right">
-              <button type="submit" ng-disabled="!cargoForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+              <button ng-disabled="!credential.user.permiso.formularios[17].permisos.W" type="submit" ng-disabled="!cargoForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
             </p>
           </form>
         </div>
@@ -36,8 +36,8 @@
                     <tr ng-show="cargos.length  > 0" ng-repeat="cargo in cargos">
                         <td>{{cargo.nombre}}</td>
                         <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(cargo)"><i class="fa fa-edit"></i></button>
-                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(cargo)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[17].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(cargo)"><i class="fa fa-edit"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[17].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(cargo)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>

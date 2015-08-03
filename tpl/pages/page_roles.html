@@ -52,7 +52,7 @@
                                       <td>{{rol.perfil.nombre}}</td>
                                       <td class="pull-right">
                                           <button type="submit" class="btn btn-sm btn-info" ng-click="Update(rol)"><i class="fa fa-edit"></i></button>
-                                          <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(rol)"><i class="fa fa-trash"></i></button>
+                                          <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(rol)" ng-disabled="!credential.user.permiso.formularios[16].permisos.D"><i class="fa fa-trash"></i></button>
                                       </td>
                                   </tr>
                                 </tbody>

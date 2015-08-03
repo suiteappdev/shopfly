@@ -25,7 +25,7 @@
             </div>
           </div>
             <p class="pull-right">
-              <button type="submit" ng-disabled="!tipoClientesForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+              <button ng-disabled="!credential.user.permiso.formularios[6].permisos.W" type="submit" ng-disabled="!tipoClientesForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
             </p>
           </form>
         </div>
@@ -49,13 +49,13 @@
                         <td>{{tipo.descripcion}}</td>
                         <td>
                         <label class="i-switch m-t-xs m-r">
-                            <input type="checkbox" checked ng-model="tipo.estado" ng-click="changeState(tipo)">
+                            <input ng-disabled="!credential.user.permiso.formularios[5].permisos.W" type="checkbox" checked ng-model="tipo.estado" ng-click="changeState(tipo)">
                             <i></i>
                         </label>
                         </td>
                         <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(tipo)"><i class="fa fa-edit"></i></button>
-                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(tipo)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[6].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(tipo)"><i class="fa fa-edit"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[6].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(tipo)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>
