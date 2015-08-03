@@ -2,7 +2,7 @@
   <h1 class="m-n font-thin h3 inline">Plataforma</h1>
   <button class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Plantilla</button>
 </div>
-<div class="wrapper-md" ng-init="load()">
+<div class="wrapper-md" ng-init="load(); selectedNode = undefined">
 <div class="row">
 <div class="row">
     <div class="col-sm-6">
@@ -11,9 +11,16 @@
         <div class="panel-body">
           <form role="form" class="ng-pristine ng-valid">
             <div class="form-group">
-              <label>Dependencia</label>
-              <input type="text" class="form-control" ng-model="dependencia.nombre" placeholder="Dependencia">
-              <span ng-show="selectedNode" class="help-block m-b-none"><i class="fa fa-folder-open-o"></i> Crear Dependencia en : <span class="text-success font-bold">{{selectedNode.node.text}}</span></span>
+                <label>Dependencia</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Dependencia" ng-model="dependencia.nombre">
+                  <span class="input-group-btn">
+                    <button ng-click="selectedNode = undefined" class="btn btn-warning">
+                      <span class="fa fa-eraser"></span>
+                    </button>
+                  </span>
+                </div>
+                  <span ng-show="selectedNode" class="help-block m-b-none"><i class="fa fa-folder-open"></i> {{selectedNode.node.text}}</span>
             </div>
             <p class="pull-right">
               <button type="submit" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
@@ -33,7 +40,7 @@
               <div ng-include="'tpl/modals/edit_dependencia.html'"></div>
             </script>
             <p class="pull-right">
-              <button type="submit" class="btn btn-sm btn-danger" ng-click="Remove()">Borrar Dependencia</button>
+              <button type="submit" ng-show="selectedNode"  class="btn btn-sm btn-danger" ng-click="Remove()">Borrar Dependencia</button>
               <button type="submit" ng-show="selectedNode" class="btn btn-sm btn-primary" ng-click="open()">Modificar</button>
             </p>
           </div>

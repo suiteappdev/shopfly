@@ -1,7 +1,7 @@
-angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope","$http", '$modal', "toaster", "$rootScope", "$window", function($docFlyConf, $scope, $http, $modal, toaster, $rootScope, $window){
+angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope","$http", '$modal', "toaster", "$rootScope", "$window", "$API", function($docFlyConf, $scope, $http, $modal, toaster, $rootScope, $window, $API){
 	$scope.load = function(){
-		$http.get("http://192.168.1.10:3000/docdependencia").success(function(data){
-			$scope.dependencias = data;
+		$API.DocDependencia.List().then(function(res){
+			$scope.dependencias = res.data ||[];
 		});
 	}
 
@@ -28,47 +28,56 @@ angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope
     };
 
 	$scope.Create = function(){
-
-		$http.post("http://boruto:3000/docdependencia", {
+		$API.DocDependencia.Create({
 			id : $scope.dependencia.nombre,
 			parent : $scope.selectedNode ? $scope.selectedNode.node.text : null
-		}).success(function(data){
-			$scope.load();
-			if(data.parent == $docFlyConf.root){
-					$window.mkdirp($docFlyConf.path + data.id, function (err) {
-					    if (err) console.error(err)
-				    	console.log('pow!')
-					});	
-			}
+		}).then(function(res){
+			if(res.status == 200){
+				$scope.load();
 
-			if($scope.dependencia){
-				delete $scope.dependencia;
-			} 
+				if(res.data.parent == $docFlyConf.root){
+						$window.mkdirp($docFlyConf.path + res.data.id, function (err) {
+						    if (err) console.error(err)
+	      					toaster.pop("success","Dependencia", "Creada");
+	      					delete $scope.selectedNode;
+						});	
+				}
+
+				if($scope.dependencia){
+					delete $scope.dependencia;
+				} 
+			}
 		});
 	}
 
 	$scope.Update = function(){
-		$http.put("http://boruto:3000/docdependencia/" + $scope.selectedNode.node.id, {
-			text : $scope.selectedNode.node.text
-		}).success(function(data){
+		$API.DocDependencia.Update({
+			id : $scope.selectedNode.node.id
+		}).then(function(res){
         	toaster.pop("success","Actualizado", "se ha actualizado Correctamente");
         	$scope.$close();
         	$scope.load();
 		});
-
 	}
 
 	$scope.Remove = function(){
       var modalInstance = $modal.open({
         templateUrl: 'confirm.html',
+        size : 'sm',
         scope : $scope,
         controller : function($scope){
         	$scope.ok = function(){
-				$http.delete("http://boruto:3000/docdependencia/" + $scope.selectedNode.node.id).success(function(data){
+        		if($scope.selectedNode.node.children.length > 0){
+		        	toaster.pop("warning","Eliminado", "No Puede eliminar un elemento padre si contiene Hijos");
+        			return;
+        		}
+        		
+        		$API.DocDependencia.Delete($scope.selectedNode.node.id).then(function(res){
 					$rootScope.$broadcast('deleted_dependencia');
 		        	toaster.pop("success","Eliminado", "se ha eliminado Correctamente");
+		        	delete $scope.selectedNode;
 		        	$scope.$close();
-				});         		
+        		});
         	}
         }
       });
@@ -82,7 +91,6 @@ angular.module('app').controller("dependenciaModalController", ["$scope","$http"
 		}).success(function(data){
         	toaster.pop("success","Actualizado", "se ha actualizado Correctamente");
         	$scope.$close();
-
         	$rootScope.$broadcast("updated_dependencia", data);
 		});
 	}
