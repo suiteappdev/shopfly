@@ -14,7 +14,7 @@
               <input type="text" class="form-control"  ng-pattern="/^[0-9]+$/" name="iva" placeholder="Valor Iva" ng-model="iva.valor" required>
               <span class="help-block animated bounceIn" style="color:#ee3939;" ng-show="ivaForm.iva.$dirty && ivaForm.iva.$invalid"><i class="fa fa-exclamation-circle"></i> Solo se aceptan numero.<br></span>
             </div>
-            <button type="button" ng-disabled="!ivaForm.$valid" class="btn btn-sm btn-primary" ng-click="create()">Crear</button>
+            <button ng-disabled="!credential.user.permiso.formularios[8].permisos.W" type="button" ng-disabled="!ivaForm.$valid" class="btn btn-sm btn-primary" ng-click="create()">Crear</button>
           </form>
         </div>
       </div>
@@ -34,8 +34,8 @@
                     <tr ng-repeat="iva in ivas">
                         <td>{{iva.valor}} %</td>
                         <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(iva)"><i class="fa fa-edit"></i></button>
-                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(iva)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[8].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(iva)"><i class="fa fa-edit"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[8].permisos.D"type="submit" class="btn btn-sm btn-danger" ng-click="Del(iva)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>
