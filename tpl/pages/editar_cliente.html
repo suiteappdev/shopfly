@@ -1,5 +1,5 @@
 <div class="bg-light lter b-b wrapper-md">
-  <h1 class="m-n font-thin h3">Cliente - {{cliente.nombreCompleto}}</h1>
+  <h1 class="m-n font-thin h3">Cliente - {{cliente.nombre || cliente.representanteLegal}} {{cliente.apellido || ''}}</h1>
       <ul class="breadcrumb">
           <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
           <li><a href="">Cliente</a></li>

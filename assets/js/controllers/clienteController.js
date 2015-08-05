@@ -6,6 +6,10 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 			$scope.clientes = res.data || [];
 		});
 
+		$API.Perfil.List().then(function(res){
+			$scope.perfiles = res.data;
+		});
+
 		if($stateParams.id){
 			$API.Cliente.Cliente($stateParams.id).then(function(res){
 				$scope.cliente = res.data;
@@ -180,6 +184,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 	$scope.Search = function(){
 		$API.Cliente.Search({
 			estado 			: $rootScope.client_status ? $rootScope.client_status  :  null,
+			tipoCliente 	: $rootScope.client_type ? $rootScope.client_type  :  null,
 			documento 		: $scope.filter ? $scope.filter.numero  : null,
 			cliente 		: $scope.cliente ? $scope.cliente : null,
  		}).then(function(res){

@@ -1,16 +1,8 @@
 angular.module("app").directive("ngProfile", function(){
 	function ctrl($rootScope, $scope, $window, $API){
-		$API.Perfil.List().then(function(data){
-			$scope.perfiles = data || [];
+		$API.Perfil.List().then(function(res){
+			$scope.perfiles = res.data || [];
 		})
-
-		$rootScope.$watch('profile', function(n, o){
-			try{
-				$rootScope.profile = n;
-			}catch(e){
-
-			}
-		});
 	}
 
 	function link($scope){

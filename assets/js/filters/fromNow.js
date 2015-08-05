@@ -1,13 +1,20 @@
 'use strict';
-
-/* Filters */
-// need load the moment.js to use this filter. 
 angular.module('app')
-  .filter('fromNow', function() {
-    return function(date) {
-      return moment(date).fromNow();
-    }
+  .filter('fromNow', function($window) {
+      return function(date) {
+        if($window.moment){
+          return $window.moment(date).fromNow();
+        }
+
+        try{
+            var moment = require('moment');
+            return global.moment(date).fromNow();
+        }catch(e){
+
+        }
+      }
   });
+
 angular.module('app').filter('propsFilter', function() {
     return function(items, props) {
         var out = [];
