@@ -1,16 +1,8 @@
 angular.module("app").directive("ngOffice", function(){
 	function ctrl($rootScope, $scope, $window, $API){
-		$API.Cargo.List().then(function(data){
-			$scope.offices = data || [];
+		$API.Cargo.List().then(function(res){
+			$scope.offices = res.data || [];
 		})
-
-		$rootScope.$watch('office', function(n, o){
-			try{
-				$rootScope.office = n;
-			}catch(e){
-
-			}
-		});
 	}
 
 	function link($scope){

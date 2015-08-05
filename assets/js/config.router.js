@@ -85,7 +85,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                         return $ocLazyLoad.load([
-                          'assets/js/controllers/chart.js',
+                          'assets/js/controllers/chart.js'
                           ]);
                     }]
                   }
@@ -348,7 +348,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                   'assets/js/directives/client_type.js',
                                   'assets/js/directives/client_status.js',
                                   'assets/js/directives/document.js',
-                                  'assets/js/directives/phoneBook.js',
+                                  'assets/js/directives/phoneBook.js'
                                   ]);
                               }
                           );

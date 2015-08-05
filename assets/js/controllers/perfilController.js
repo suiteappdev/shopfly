@@ -34,7 +34,7 @@ angular.module('app').controller("perfilController", ["$scope", "$API", "$modal"
       	modalInstance.result.then(
       		function(val){
       			if(val){
-	      			$API.Banco.Update($scope.setPerfil).then(function(res){
+	      			$API.Perfil.Update($scope.setPerfil).then(function(res){
 	      				if(res.status == 200){
 	      					$scope.perfiles[$scope.perfiles.indexOf(perfil)] = res.data;
 	      					toaster.pop("success","Banco", "Actualizado");

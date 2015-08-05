@@ -48,35 +48,31 @@
         <li class="dropdown" dropdown>
           <a href class="dropdown-toggle" dropdown-toggle>
             <i class="icon-bell fa-fw"></i>
-            <span class="visible-xs-inline">Notifications</span>
-            <span class="badge badge-sm up bg-danger pull-right-xs">2</span>
+            <span class="visible-xs-inline">Notificaciones</span>
+            <span class="badge badge-sm up bg-danger pull-right-xs">{{documents.length}}</span>
           </a>
           <!-- dropdown -->
           <div class="dropdown-menu w-xl animated fadeInUp">
             <div class="panel bg-white">
               <div class="panel-heading b-light bg-light">
-                <strong>You have <span>2</span> notifications</strong>
+                <strong>Tienes  <span>{{documents.length}}</span> notificaciones</strong>
               </div>
               <div class="list-group">
-                <a href class="media list-group-item">
+                <a sref"app.page.editar-documentacion({documentacion : document._id})" href="#/app/page/editar-documentacion/{{document._id}}"class="media list-group-item" ng-repeat="document in documents">
                   <span class="pull-left thumb-sm">
-                    <img src="img/a0.jpg" alt="..." class="img-circle">
+                    <img ng-src="{{document.cliente.metadata.foto}}" alt="..." class="img-circle">
                   </span>
-                  <span class="media-body block m-b-none">
-                    Use awesome animate.css<br>
-                    <small class="text-muted">10 minutes ago</small>
-                  </span>
-                </a>
-                <a href class="media list-group-item">
-                  <span class="media-body block m-b-none">
-                    1.0 initial released<br>
-                    <small class="text-muted">1 hour ago</small>
+                  <span class="media-body">
+                    {{document.plantilla.nombre}}
+                    <small class="pull-right text-muted">{{ document.created | fromNow }}</small>
+                    <div class="hr"></div>
+                    <small class="text-muted">{{document.estado.nombre}}</small>
                   </span>
                 </a>
               </div>
               <div class="panel-footer text-sm">
                 <a href class="pull-right"><i class="fa fa-cog"></i></a>
-                <a href="#notes" data-toggle="class:show animated fadeInRight">See all the notifications</a>
+                <a href="#notes" data-toggle="class:show animated fadeInRight">Ver todas las notificaciones</a>
               </div>
             </div>
           </div>

@@ -31,32 +31,14 @@ angular.module('app').controller("documentarController", [
 			){
 	
 	$scope.Load = function(){
-		
-		$scope.documents = [];
 
 		$API.EstadoDocumento.List().then(function(res){
 			$scope.estadoDocs = res.data || [];
 		});
 
-	    angular.forEach($rootScope.credential.user.metadata.estadoDocumento, function(estado){
-	     	if(estado.subscribed){
-		        $socket.on(estado.nombre, function(res){
-		            alert(res);
-		        });
-
-				$API.DocDocumento.Search({
-					estado : estado._id
-				}).then(function(res){
-					$scope.documents.concat(res.data);
-				});	     		
-	     	}
-	    })
-
 		$scope.units = $fileManagerService.fileSize;
-
 		$scope.COUNTER = 0;
 		$scope.CURRENT_FILENAME = '';
-
 		var _walker = null;
 
 		if($stateParams.documentacion){
