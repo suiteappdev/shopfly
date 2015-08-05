@@ -51,7 +51,7 @@
           </div>
           <div class="col-lg-12">
             <div class="form-group" >
-              <label>Plantillas</label>
+              <label>Indice</label>
               <ui-select on-select="onSelect($item, $model)" ng-model="$parent.$parent.indice" theme="bootstrap" ng-disabled="disabled">
                   <ui-select-match placeholder="Elija los indices...">{{$parent.indice.nombre}}</ui-select-match>
                   <ui-select-choices repeat="indice in indices | propsFilter: {nombre: $select.search, tipo: $select.search}">
