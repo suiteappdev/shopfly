@@ -348,7 +348,37 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                   'assets/js/directives/client_type.js',
                                   'assets/js/directives/client_status.js',
                                   'assets/js/directives/document.js',
-                                  'assets/js/directives/phoneBook.js'
+                                  'assets/js/directives/phoneBook.js',
+                                  'assets/vendor/pdfjs/pdf.js',
+                                  'assets/vendor/pdfjs/pdf.compat.js',
+                                  'assets/vendor/pdfjs/pdf.worker.js'
+                                  ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.firmar', {
+                  url: '/firmar',
+                  templateUrl: 'tpl/pages/page_firmar.html',
+                  controller : 'firmarController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(["toaster"]).then(
+                              function(){
+                                 return $ocLazyLoad.load([
+                                  'assets/js/controllers/firmarController.js',
+                                  'assets/vendor/pdfjs/pdf.js',
+                                  'assets/vendor/pdfjs/pdf.compat.js',
+                                  'assets/vendor/pdfjs/pdf.worker.js',
+                                  'assets/js/directives/draggable.js',
+                                  'assets/js/directives/resizable.js',
+                                  'assets/js/directives/pdfPageDirective.js',
+                                  'assets/vendor/signaturePad/signature_pad.min.js',
+                                  'assets/vendor/jspdf/jspdf.js',
+                                  'assets/vendor/jspdf/jspdf.plugin.addimage.js'
                                   ]);
                               }
                           );

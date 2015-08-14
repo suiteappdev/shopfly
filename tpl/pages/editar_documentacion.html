@@ -60,10 +60,10 @@
         <table class="table bg-white-only b-a" ng-show="myFiles.length > 0">
             <thead>
                 <tr>
-                    <th width="70%">Archivo</th>
-                    <th width="10%">Tamaño</th>
-                    <th>Estado</th>
-                    <th class="pull-right">Acciones</th>
+                    <th width="50%">Archivo</th>
+                    <th width="5%">Tamaño</th>
+                    <th width="15%">Estado</th>
+                    <th width="30%" class="pull-right">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -76,9 +76,10 @@
                 <span class="pull-right label bg-success inline m-t-sm" ng-show="file.estado == 'InDisk'">En Disco</span>
                 <span class="pull-right label bg-warning inline m-t-sm" ng-show="!file.estado">Pendiente</span>
                <td>
-                  <div class="pull-right">
-                    <a class="btn btn-sm btn-icon btn-danger" ng-click="removeFromDisk(file)" ng-disabled="!credential.user.permiso.formularios[12].permisos.D"><i class="fa fa-trash"></i></a>
-                  </div>
+                 <div class="pull-right">
+                      <button class="btn btn-sm btn-icon btn-danger" ng-click="removeFromDisk(file)" ng-disabled="!credential.user.permiso.formularios[12].permisos.D"><i class="fa fa-trash"></i></button>
+                      <a sref"app.page.firmar" href="#/app/page/firmar" class="btn btn-sm btn-icon btn-warning" ng-disabled="!credential.user.permiso.formularios[12].permisos.D"><i class="icon icon-note"></i></a>                 
+                 </div>
                 </td>
              </tr>
             </tbody>
@@ -95,4 +96,8 @@
 </script>
 <script type="text/ng-template" id="renombrar_archivo.html">
   <div ng-include="'tpl/modals/renombrar_archivo.html'"></div>
+</script>
+<script type="text/ng-template" id="sign.html">
+  <div ng-include="'tpl/modals/sign.html'"></div>
 </script>  
+

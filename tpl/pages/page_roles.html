@@ -69,13 +69,12 @@
   <div class="col-lg-4">
         <div class="panel panel-default">
           <div class="panel-heading font-bold">Menus</div>
-            <div class="list-group no-radius alt">
-              <a class="list-group-item" href="" ng-repeat="menu in permisos.menus" ng-click="$parent.selected = menu.id; menu.visible = menu.visible ? false: true">
-                <input type="checkbox" ng-model="menu.visible">
-                <i class="fa fa-reorder  fa-fw text-muted"></i> 
+            <ul class="list-group no-radius">
+              <li class="list-group-item" ng-repeat="menu in permisos.menus"  ng-click="$parent.selected = menu.id">
+                <span><input type="checkbox" ng-model="menu.visible"></span>
                 {{menu.nombre}}
-              </a>
-            </div>
+              </li>
+            </ul>
         </div>
   </div>
   <div class="col-lg-8">

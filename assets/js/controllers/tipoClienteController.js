@@ -11,6 +11,7 @@ angular.module('app').controller("tipoClienteController", ["$scope", "$API", "$m
 			if(res.status == 200){
 	      		toaster.pop("success","Tipo de Cliente", "Creado.");
 				$scope.tiposClientes.push(res.data);
+				delete $scope.tipoCliente.descripcion;
 			}
 		});
 	}
@@ -105,8 +106,9 @@ angular.module('app').controller("tipoClienteController", ["$scope", "$API", "$m
       				$API.TipoCliente.Delete(tipoCliente._id).then(function(res){
       					if(res.status == 200){
       						$scope.tiposClientes.splice($scope.tiposClientes.indexOf(tipoCliente), 1);
-      					}      						toaster.pop("danger","Tipo Cliente", "Eliminado");
-
+      						delete tipoCliente;
+      						toaster.pop("success","Tipo Cliente", "Eliminado");
+      					}   
       				});
       			}
       		}, 
