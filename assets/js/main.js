@@ -12,7 +12,7 @@ angular.module('app')
 
       // config
       $scope.app = {
-        name: 'DOCFLY',
+        name: 'DocFly',
         version: '1.0.0',
         // for chart colors
         color: {
