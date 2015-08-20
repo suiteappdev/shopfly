@@ -40,14 +40,14 @@ angular.module('app').controller("documentarController", [
 		$scope.COUNTER = 0;
 		$scope.CURRENT_FILENAME = '';
 		var _walker = null;
-
+		
 		if($stateParams.documentacion){
 			$API.DocDocumento.DocDocumento($stateParams.documentacion).then(function(res){
 				$scope.documentacion = res.data;
 				_walker = $fileManagerService.walker.walk($fileManagerService.path.join($docFlyConf.path, res.data.directorio));
 				
 				_walker.on('file', function (root, fileStats, next){
-					$scope.myFiles.push({name : fileStats.name, size : fileStats.size, path :$fileManagerService.path.join(root, fileStats.name), estado : "InDisk"});
+					$scope.myFiles.push({documentacion : $scope.documentacion, name : fileStats.name, size : fileStats.size, path :$fileManagerService.path.join(root, fileStats.name), estado : "InDisk"});
 					next();
 					$scope.$apply();
 				});					
@@ -74,6 +74,79 @@ angular.module('app').controller("documentarController", [
 
 	$scope.remove = function(file){
 		$scope.myFiles.splice($scope.myFiles.indexOf(file), 1);
+	}
+
+
+	$scope.correspondencia = function(documentacion){
+		$scope.documentacion = documentacion;
+		$scope.correspondencia = {};
+		$scope.correspondencia.contactos = [];
+
+ 		var modalInstance = $modal.open({
+	        templateUrl: 'correspondencia.html',
+	        scope : $scope,
+	        size : "md",
+	        controller : function($scope, $timeout){
+				$scope.formClient = function(){
+					var modalInstance = $modal.open({
+				        templateUrl: 'listado_cliente.html',
+				        scope : $scope,
+				        controller : function($scope){
+							$scope.setSelected = function(cliente){
+						 		$scope.selected = cliente;
+							}
+
+							$scope.ok = function(){
+								if($scope.$parent.correspondencia.contactos.indexOf($scope.selected.metadata.email) > -1){
+									toaster.pop("error","Error", "Ya has agregado este contacto.");
+									return;
+								}
+
+								$scope.$parent.correspondencia.contactos.push($scope.selected.metadata.email);
+								$scope.$close();
+							}
+
+							$scope.cancel = function(){
+								$scope.$close();
+							}
+
+							$scope.buscarCliente = function(){
+								$API.Cliente.Search({
+									estado 			: $rootScope.client_status ? $rootScope.client_status  :  null,
+									documento 		: $scope.filter ? $scope.filter.numero  : null,
+									cliente 		: $scope.cliente ? $scope.cliente : null,
+									tipoCliente		: $rootScope.client_type ? $rootScope.client_type : null,
+						 		}).then(function(res){
+									$scope.clientes = res.data || [];
+								});
+							}
+				        },
+				        size : 'lg',
+				        scope : $scope
+			      	});
+				}
+				
+	        	$scope.Load = function(){
+					_walker = $fileManagerService.walker.walk($fileManagerService.path.join($docFlyConf.path, $scope.documentacion.directorio));
+					
+					$scope.myFiles = [];
+
+					_walker.on('file', function (root, fileStats, next){
+						$scope.myFiles.push({documentacion : $scope.documentacion, name : fileStats.name, size : fileStats.size, path :$fileManagerService.path.join(root, fileStats.name), estado : "InDisk"});
+						next();
+						$scope.$apply();
+					});
+	        	}
+
+	        	$scope.RemoveContacto = function(contacto){
+	        		$scope.correspondencia.contactos.splice($scope.correspondencia.contactos.indexOf(contacto), 1);
+	        	}
+
+	        	$scope.removeFile = function(file){
+	        		$scope.myFiles.splice($scope.myFiles.indexOf(file), 1);
+	        	}
+	        },
+      	});
 	}
 
 	$scope.removeFromDisk = function(file){
@@ -184,8 +257,9 @@ angular.module('app').controller("documentarController", [
 						cliente : $scope.setCliente,
 						plantilla : $scope.setRuta.plantilla,
 						ruta : $scope.dest,
+						hash : _targetPath,
 						archivo : $scope.myFiles.length,
-						directorio :$fileManagerService.path.join($scope.dest.path, _targetPath)
+						directorio :$fileManagerService.path.normalize($fileManagerService.path.join($scope.dest.path, _targetPath))
 					}).then(function(res){
 						toaster.pop("success","Documentacion", "Archivos subidos");
 						$scope.$close();
@@ -240,6 +314,7 @@ angular.module('app').controller("documentarController", [
 				}
 			).then(function(res){
 				$scope.documentos = res.data || [];
+				console.log(res.data);
 		});
 	}
 

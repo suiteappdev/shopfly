@@ -11,22 +11,6 @@ angular.module('app').directive('ngPagePdf', ['$document', "$rootScope", "$q", f
 		};
 
 		$scope.ngPage.render(renderContext);
-
-
-		$rootScope.$on('doBuild', function(event, data){
-			angular.forEach(data, function(sign){
-				if($scope.ngPage.pageNumber == sign.page){
-					var img = new Image();
-
-	        		img.onload = function(){
-	        			context.drawImage(img, sign.offsetX, sign.offsetY);
-	        			context.save();
-	        		}
-
-	        		img.src = sign.sign;
-				}
-			});
-		});
     }
 
     return {
@@ -36,7 +20,7 @@ angular.module('app').directive('ngPagePdf', ['$document', "$rootScope", "$q", f
         ngPage : '=',
         ngSelector : '@'
       },
-      template : '<canvas id="cvx-{{ngSelector}}" height="1000", width="700"></canvas>',
+      template : '<canvas id="cvx-{{ngSelector}}" height="1000", width="700" style="display:none;"></canvas>',
       link : link
     }
 

@@ -78,7 +78,14 @@
                <td>
                  <div class="pull-right">
                       <button class="btn btn-sm btn-icon btn-danger" ng-click="removeFromDisk(file)" ng-disabled="!credential.user.permiso.formularios[12].permisos.D"><i class="fa fa-trash"></i></button>
-                      <a sref"app.page.firmar" href="#/app/page/firmar" class="btn btn-sm btn-icon btn-warning" ng-disabled="!credential.user.permiso.formularios[12].permisos.D"><i class="icon icon-note"></i></a>                 
+                      <a ng-show="file.name.split('.')[1] == 'pdf'"
+                        ui-sref"app.page.firmar({file : file.name, url : file.documentacion.ruta.path, hash : file.documentacion.hash, path : file.path})"  
+                        ng-href="#/app/page/firmar?file={{file.name}}&url={{file.documentacion.ruta.path}}&hash={{file.documentacion.hash}}&path={{file.path}}" 
+                        class="btn btn-sm btn-icon btn-warning" 
+                        ng-disabled="!credential.user.permiso.formularios[12].permisos.D">
+                        <i class="icon icon-note"></i>
+                      </a> 
+    
                  </div>
                 </td>
              </tr>
@@ -99,5 +106,6 @@
 </script>
 <script type="text/ng-template" id="sign.html">
   <div ng-include="'tpl/modals/sign.html'"></div>
-</script>  
+</script> 
+
 

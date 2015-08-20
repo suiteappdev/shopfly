@@ -1,11 +1,11 @@
-angular.module('app').controller("firmarController", ["$scope","$rootScope", "$modal", "toaster", "$API", function($scope, $rootScope, $modal, toaster, $API){
+angular.module('app').controller("firmarController", ["$stateParams","$scope","$rootScope", "$modal", "toaster", "$API", "$timeout", "$fileManagerService", "$docFlyConf", function($stateParams, $scope, $rootScope, $modal, toaster, $API, $timeout, $fileManagerService, $docFlyConf){
 	$scope.signs = [];
 
 	$scope.Load = function(){
 		$scope.pages = [];
 		PDFJS.workerSrc ='assets/vendor/pdfjs/pdf.worker.js';
-		
-		PDFJS.getDocument('http://HOUSE1989:3000/file/Docfly/Recursos%20Humanos/Hojas%20de%20Vida/c0f60f479ed0f6d1a5a263eb125b195414cad42e/Hoja%20de%20vida%20Andrew.pdf').then(function(pdf) {
+
+		PDFJS.getDocument($docFlyConf.base + 'file/' + $stateParams.url + '/' + $stateParams.hash + '/' + $stateParams.file).then(function(pdf) {
 			$scope.$apply(function(){
 				$scope.numPages = pdf.numPages;
 				for (var i = 0; i <= pdf.numPages; i++) {
@@ -20,18 +20,52 @@ angular.module('app').controller("firmarController", ["$scope","$rootScope", "$m
 	}
 
 	$scope.build = function(){
-		var doc = new jsPDF();
-		$rootScope.$broadcast("doBuild", $scope.signs);
+		if($scope.signs.length  == 0){
+			toaster.pop("error","Error", "Debe firmar almenos una pagina.");
+		}
 
+		var doc = new jsPDF('p','mm','a4');
+
+		$scope.draw();
+
+		$timeout(function(){
+			angular.forEach($scope.pages, function(page){
+		    	var canvas = angular.element('#cvx-' + page.pageNumber)[0];
+				var context = canvas.getContext('2d');
+		    	var imgData = canvas.toDataURL('image/jpeg');
+	        	doc.addPage();
+	        	doc.addImage(imgData, 'JPEG', 10, 10);
+			});
+
+			var buffer = new Buffer(doc.output('datauri').replace(/^data:application\/pdf;base64,/, ""), 'base64');
+			
+			$fileManagerService.fs.writeFile($stateParams.path, buffer, "binary", function (err) {
+				if(!err){
+					toaster.pop("success","Firmado", "Documento firmado.");
+				}
+			});
+
+		}, 3000)
+	}
+
+	$scope.draw = function(){
 		angular.forEach($scope.pages, function(page){
-			var cvx = angular.element('#cvx-' + page.pageNumber)[0];
-			cvx.getContext("2d");
-			doc.addPage();
-			doc.addImage(imgData, 'JPEG', 15, 40, 180, 160);
+	    	var canvas = angular.element('#cvx-' + page.pageNumber)[0];
+			var context = canvas.getContext('2d');
+        	var imgData = canvas.toDataURL('image/jpeg');
+			angular.forEach($scope.signs, function(sign){
+				if(page.pageNumber == sign.page){
+					var img = new Image();
+
+	        		img.onload = function(){
+	        			context.drawImage(img, sign.offsetX, sign.offsetY);
+	        			context.save();
+	        		}
+
+	        		img.src = sign.sign;
+				}
+			});
 		});
-
-
-
 	}
 
 	$scope.getSigns = function(page){
@@ -67,7 +101,7 @@ angular.module('app').controller("firmarController", ["$scope","$rootScope", "$m
 	        		
 	        		$scope.signs.push({
 	        			page  : $scope.selected,
-	        			sign  : $scope.signature.toDataURL(),
+	        			sign  : $scope.signature.toDataURL("image/jpg"),
 	        			offsetX : event.offsetX,
 	        			offsetY : event.offsetY
 	        		})

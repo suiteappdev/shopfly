@@ -43,7 +43,7 @@
         <div class="cell scrollable hover">
           <div class="cell-inner">
               <div class="col-lg-12 text-center m-t">
-                <div ng-click="getPosition($event)" id="canvasWrap" style="border:1px solid #ccc;height:1000px; cursor:crosshair;" >
+                <div ng-click="getPosition($event)" id="canvasWrap" style="float:left;height:1000px; cursor:crosshair;" >
                     <img 
                         ng-containment="parent"
                         ng-x="sign.offsetX"
@@ -71,8 +71,7 @@
 </div>
 <!-- /hbox layout -->
 <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
-  <script type="text/ng-template" id="sign.html">
-    <div ng-include="'tpl/modals/sign.html'"></div>
-  </script>
-
-<ng-page-pdf ng-page="page" ng-signs="signs" ng-selector="{{page.pageNumber}}" ng-repeat="page in pages" ></ng-page-pdf>  
+<ng-page-pdf ng-page="page" ng-signs="signs" ng-selector="{{page.pageNumber}}" ng-repeat="page in pages" ></ng-page-pdf> 
+<script type="text/ng-template" id="sign.html">
+  <div ng-include="'tpl/modals/sign.html'"></div>
+</script> 

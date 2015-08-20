@@ -65,14 +65,14 @@
             <input type="text" class="form-control" placeholder="Indices" ng-model="criteria" required>
         </div>
         <div class="form-group">
-          <button class="btn btn-primary" type="submit" ng-click="Search()" ng-disabled="!credential.user.permiso.formularios[12].permisos.R"><i class="fa fa-search"></i> Buscar Documentos</button>
+          <button class="btn btn-info" type="submit" ng-click="Search()" ng-disabled="!credential.user.permiso.formularios[12].permisos.R"><i class="fa fa-search"></i> Buscar Documentos</button>
         </div>
       </form>
     </div>
   </div>
   <div class="col">
       <div class="wrapper-md bg-light dk b-b">
-      <a sref="app.page.documentar" href="#/app/page/documentar" class="btn btn-success btn-xs pull-right" ng-disabled="!credential.user.permiso.formularios[12].permisos.W"><i class="icon icon-note"></i> Nueva Documentacion</a>
+      <a sref="app.page.documentar" href="#/app/page/documentar" class="btn btn-info btn-xs pull-right" ng-disabled="!credential.user.permiso.formularios[12].permisos.W"><i class="icon icon-note"></i> Nueva Documentacion</a>
         <h3 class="m-n font-thin">Documentos</h3>      
       </div>
       <div class="col-lg-12 text-center m-t" ng-show="documentos.length == 0">
@@ -94,16 +94,11 @@
                <td class="text-center"><a href="" ng-click="mostrarIndices(doc.plantilla.indice)"><i class="fa fa-eye"></i></a></td>
                <td>{{doc.created | date : 'yyyy-MM-dd' }}</td>
                <td>{{doc.estado.nombre}}</td>
-               <td>
-                  <div class="pull-right">
-                    <a class="btn" ng-click="remove(file)"><i class="fa fa-trash"></i></a>
-                  </div>
-                  <div class="pull-right">
-                    <a class="btn" ng-click="explorer(doc.directorio)"><i class="fa fa-folder"></i></a>
-                  </div>
-                  <div class="pull-right">
-                    <a class="btn" sref"app.page.editar-documentacion({documentacion : doc_id})" href="#/app/page/editar-documentacion/{{doc._id}}" ><i class="fa fa-edit"></i></a>
-                  </div>
+               <td class="pull-right">
+                    <button class="btn btn-info btn-sm btn-icon " ng-click="remove(file)"><i class="fa fa-trash"></i></button>
+                    <button class="btn btn-info btn-sm btn-icon " ng-click="explorer(doc.directorio)"><i class="fa fa-folder"></i></button>
+                    <a class="btn btn-info btn-sm btn-icon" sref"app.page.editar-documentacion({documentacion : doc_id})" href="#/app/page/editar-documentacion/{{doc._id}}" ><i class="fa fa-edit"></i></a>
+                  <button class="btn btn-sm btn-icon btn-info" ng-click="correspondencia(doc)"><i class="icon  icon-envelope-open"></i></button>       
                 </td>
              </tr>
             </tbody>
@@ -120,3 +115,6 @@
 <script type="text/ng-template" id="explorer.html">
   <div ng-include="'tpl/modals/explorer.html'"></div>
 </script>  
+<script type="text/ng-template" id="correspondencia.html">
+  <div ng-include="'tpl/modals/correspondencia.html'"></div>
+</script>    

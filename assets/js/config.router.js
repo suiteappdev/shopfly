@@ -359,7 +359,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                   }
               })
               .state('app.page.firmar', {
-                  url: '/firmar',
+                  url: '/firmar?file&url&hash&path',
                   templateUrl: 'tpl/pages/page_firmar.html',
                   controller : 'firmarController',
                   access: { requiredAuthentication: true },
@@ -378,7 +378,10 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                   'assets/js/directives/pdfPageDirective.js',
                                   'assets/vendor/signaturePad/signature_pad.min.js',
                                   'assets/vendor/jspdf/jspdf.js',
-                                  'assets/vendor/jspdf/jspdf.plugin.addimage.js'
+                                  'assets/vendor/jspdf/jspdf.plugin.addimage.js',
+                                  'assets/vendor/jspdf/libs/FileSaver/FileSaver.js',
+                                  'assets/vendor/html2canvas/html2canvas.js',
+                                  'assets/vendor/html2canvas/jspdf.debug.js'
                                   ]);
                               }
                           );
@@ -398,7 +401,13 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                  return $ocLazyLoad.load([
                                   JQ_CONFIG.moment,
                                   'assets/js/controllers/documentarController.js',
-                                  'assets/js/static/main.js'
+                                  'assets/js/static/main.js',
+                                  'assets/js/directives/client_type.js',
+                                  'assets/js/directives/client_status.js',
+                                  'assets/js/directives/document.js',
+                                  'assets/js/directives/phoneBook.js',
+                                  'assets/js/directives/client_type.js',
+                                  'assets/js/directives/document.js'
                                   ]);
                               }
                           );
