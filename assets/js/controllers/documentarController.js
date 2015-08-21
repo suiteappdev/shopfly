@@ -355,8 +355,6 @@ angular.module('app').controller("documentarController", [
 		var modalInstance = $modal.open({
 	        templateUrl: 'mostrar_indices.html',
 	        scope : $scope,
-	        controller : function($scope){
-	        },
 	        size : 'md'
       	});
 	}
