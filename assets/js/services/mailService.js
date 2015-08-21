@@ -1,8 +1,6 @@
 'use strict';
 
-angular.module('app')
-	.service('$mailService', ["$docFlyConf", function($docFlyConf){
-		
+angular.module('app').service('$mailService', ["$docFlyConf", function($docFlyConf){
 		try{
 				var nodemailer = require('nodemailer');
 				
@@ -14,7 +12,8 @@ angular.module('app')
 				    }
 				});
 
-				this.mailer = transporter;
 				   		
 		}catch(e){}
+
+		this.mailer = transporter;
 }]);

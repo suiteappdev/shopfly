@@ -317,6 +317,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                               function(){
                                  return $ocLazyLoad.load([
                                   'assets/js/controllers/documentarController.js',
+                                  'assets/js/services/mailService.js',
                                   'assets/js/directives/file.js',
                                   'assets/js/directives/path.js',
                                   'assets/js/controllers/clienteController.js',
