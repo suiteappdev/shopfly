@@ -13,6 +13,7 @@ angular.module('app').controller("documentarController", [
 		"$webkitService",
 		"$moment",
 		"$socket",
+		"$mailService",
 		 function(
 			$scope,
 			$docFlyConf,
@@ -27,11 +28,11 @@ angular.module('app').controller("documentarController", [
 			$cryptoService,
 			$webkitService,
 			$moment,
-			$socket
+			$socket,
+			$mailService
 			){
 	
 	$scope.Load = function(){
-
 		$API.EstadoDocumento.List().then(function(res){
 			$scope.estadoDocs = res.data || [];
 		});
@@ -77,7 +78,7 @@ angular.module('app').controller("documentarController", [
 	}
 
 
-	$scope.correspondencia = function(documentacion){
+	$scope.showCorrespondenciaForm = function(documentacion){
 		$scope.documentacion = documentacion;
 		$scope.correspondencia = {};
 		$scope.correspondencia.contactos = [];
@@ -87,6 +88,36 @@ angular.module('app').controller("documentarController", [
 	        scope : $scope,
 	        size : "md",
 	        controller : function($scope, $timeout){
+	        	$scope.ok = function(){
+					toaster.pop("warning","Espere...", "Enviando correspondencia...");
+
+					var mailOptions = {
+					    from: $docFlyConf.gmailUser,
+					    to: $scope.correspondencia.contactos.join(','),
+					    subject: $scope.correspondencia.asunto,
+					    text: $scope.correspondencia.mensaje ,
+					    attachments : [] 
+					};
+
+					angular.forEach($scope.myFiles, function(file){
+						mailOptions.attachments.push({
+							filename : file.name,
+							path : file.path
+						});
+					});
+
+					$mailService.mailer.sendMail(mailOptions, function(error, info){
+					    if(error){
+							toaster.pop("error","Ops!", "Hubo un error al enviar, Contacte al Admin");
+							$scope.$close();
+					        return console.log(error);
+					    }
+
+						toaster.pop("sucesss","Listo!!", "Correspondencia enviada");
+						$scope.$close();
+					});
+	        	}
+
 				$scope.formClient = function(){
 					var modalInstance = $modal.open({
 				        templateUrl: 'listado_cliente.html',

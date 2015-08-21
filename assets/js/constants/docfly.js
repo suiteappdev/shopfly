@@ -5,6 +5,8 @@ angular.module('app').constant("$docFlyConf", {
 		socketUrl : "http://HOUSE1989:8080/",
         path: "Z:\\",
         root: "#",
+        gmailUser : 'listerine1989@gmail.com',
+        gmailPwd : 'house1989*',
         fileKey : "Majoca0126*",
         scanFolder : 'F:\\'
     })

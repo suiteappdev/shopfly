@@ -401,6 +401,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                  return $ocLazyLoad.load([
                                   JQ_CONFIG.moment,
                                   'assets/js/controllers/documentarController.js',
+                                  'assets/js/services/mailService.js',
                                   'assets/js/static/main.js',
                                   'assets/js/directives/client_type.js',
                                   'assets/js/directives/client_status.js',
