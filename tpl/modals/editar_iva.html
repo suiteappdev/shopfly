@@ -8,8 +8,8 @@
           " ng-model="setIva.valor" placeholder="Valor" required>
         </div>
         <p class="pull-right">
-          <button type="submit" ng-disabled="!IvaEdit.$valid" class="btn btn-sm btn-primary" ng-click="$parent.ok()">OK</button>
-          <button type="submit" class="btn btn-sm btn-warning" ng-click="$parent.$close()">Cancel</button>
+          <button type="submit" ng-disabled="!IvaEdit.$valid || !credential.user.permiso.formularios[8].permisos.W" class="btn btn-sm btn-info" ng-click="$parent.ok()">OK</button>
+          <button type="submit" class="btn btn-sm btn-info" ng-click="$parent.$close()">Cancel</button>
         </p>
       </form>
   </div>

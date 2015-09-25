@@ -14,6 +14,18 @@ angular.module('app').controller("rolesController", ["$scope", "$API", "$modal",
 		});
 	}
 
+	$scope.permisionValue = function(value){
+		angular.forEach($scope.permisos.formularios, function(form, key){
+			if(value.id == form.parent){
+				form.permisos = {};
+				form.permisos.X = value.visible;
+				form.permisos.R = value.visible;
+				form.permisos.W = value.visible;
+				form.permisos.D = value.visible;
+			}
+		})
+	}
+
 	$scope.Create = function(){
 		$API.Rol.Create({
 			perfil : $scope.rol.perfil,

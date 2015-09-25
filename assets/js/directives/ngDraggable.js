@@ -4,8 +4,6 @@
  */
 angular.module("ngDraggable", [])
         .service('ngDraggable', [function() {
-
-
             var scope = this;
             scope.inputEvent = function(event) {
                 if (angular.isDefined(event.touches)) {

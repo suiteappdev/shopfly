@@ -2,16 +2,20 @@ angular.module("app").directive("ngLocation", function(){
 	function ctrl($rootScope, $modal, $scope, $window, $API){
 		$scope.departamentos = $window.departamentos;
 		$scope.municipios = $window.municipios;
-		
+
+		$scope.Load = function(){
+			if($rootScope.location){
+				$API.Barrio.BarrioByDepartamento($rootScope.location.municipio.code).then(function(res){
+					$rootScope.barrios = res.data || [];
+				});
+			}
+		}
+
 		$scope.open = function(){
 			var modalInstance = $modal.open({
 		        templateUrl: 'barrio_quick.html',
 		        size : 'sm',
 		        controller  : function($scope, $rootScope,toaster, $API){
-					$scope.Load = function(){
-					
-					}
-
 					$scope.Create = function(){
 						$API.Barrio.Create({
 							code : $scope.location.municipio.code,
@@ -21,6 +25,7 @@ angular.module("app").directive("ngLocation", function(){
 								toaster.pop("success","Barrio", "Barrio Agregado");
 								$rootScope.barrios.push(data.data);
 								$rootScope.location.barrio = data.data;
+								delete $scope.$parent.barrio;
 								$scope.$close();
 							}
 						});

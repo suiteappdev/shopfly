@@ -1,9 +1,14 @@
-<div class="form-group">
-  <label>{{ngLabel}}</label>
+<div ng-class="ngClear ? 'input-group' : 'form-group'">
+  <label ng-if="!ngClear">{{ngLabel}}</label>
     <ui-select ng-model="$root.enterprise" theme="bootstrap" ng-disabled="{{ngDisabled}}">
       <ui-select-match placeholder="{{ngPlaceholder}}">{{$root.enterprise.nombre}}</ui-select-match>
       <ui-select-choices group-by="'group'" repeat="enterprise in enterprises | filter: $select.search">
         <span ng-bind-html="enterprise.nombre | highlight: $select.search"></span>
       </ui-select-choices>
     </ui-select>
+    <span class="input-group-btn" ng-if="ngClear">
+      <button ng-click="$root.enterprise = undefined; $event.preventDefault();" class="btn btn-warning">
+        <span class="fa fa-eraser"></span>
+      </button>
+    </span>
 </div>

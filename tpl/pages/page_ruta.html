@@ -8,11 +8,11 @@
       <div class="panel panel-default">
         <div class="panel-heading font-bold">Rutas</div>
         <div class="panel-body">
-          <form role="form" name="indiceForm">
+          <form role="form" name="rutaForm">
           <div class="col-lg-10">
             <div class="form-group">
               <label>Plantillas</label>
-                <ui-select ng-model="$parent.plantilla" theme="bootstrap">
+                <ui-select required ng-model="$parent.plantilla" theme="bootstrap">
                   <ui-select-match placeholder="Plantillas">{{plantilla.nombre}}</ui-select-match>
                   <ui-select-choices group-by="'group'" repeat="plantilla in plantillas | filter: $select.search">
                     <span ng-bind-html="plantilla.nombre | highlight: $select.search"></span>
@@ -24,16 +24,16 @@
             <div class="form-group">
               <label>Estado</label>
                 <label class="i-switch m-t-xs m-r">
-                  <input type="checkbox" checked ng-model="estado" ng-init="estado = true">
+                  <input required type="checkbox" checked ng-model="estado" ng-init="estado = true">
                   <i></i>
                 </label>
             </div>
           </div>
           <div class="col-lg-12">
-                <ng-path ng-label="Ruta" ng-placeholder="Ruta" ng-data="paths"></ng-path>
+                <ng-path ng-label="Ruta" ng-placeholder="Ruta" ng-class="" ng-data="paths"></ng-path>
           </div>
           <div class="col-lg-12">
-            <p class="pull-right"><button ng-disabled="!credential.user.permiso.formularios[3].permisos.W" type="submit" ng-disabled="!indiceForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button></p>            
+            <p class="pull-right"><button type="submit" ng-disabled="!rutaForm.$valid || !credential.user.permiso.formularios[3].permisos.W || paths.length == 0" class="btn btn-sm btn-info" ng-click="Create()">Crear</button></p>            
           </div>
           </form>
         </div>
@@ -53,7 +53,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="!rutas" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="!rutas || rutas.length == 0" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
                     <tr ng-show="rutas.length  > 0" ng-repeat="ruta in rutas">
                         <td>{{ruta.plantilla.nombre}}</td>
                         <td>{{ruta.path[0].path}}<a href="" ng-click="showPathView(ruta.path)" ng-hide="ruta.path.length == 1"><b class="badge bg-success pull-right">+ {{ruta.path.length == 1 ? ruta.path.length : (ruta.path.length) - 1}}</b></a></td>
@@ -64,7 +64,7 @@
                           </label>
                         <td class="pull-right">
                             <button ng-disabled="!credential.user.permiso.formularios[3].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(ruta)"><i class="fa fa-edit"></i></button>
-                            <button ng-disabled="!credential.user.permiso.formularios[3].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(ruta)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[3].permisos.D" type="submit" class="btn btn-sm btn-info" ng-click="Del(ruta)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>
@@ -105,7 +105,7 @@
               </table>
             </div>
             <p class="pull-right">
-              <button type="submit" class="btn btn-sm btn-warning" ng-click="$close()">Cerrar</button>        
+              <button type="submit" class="btn btn-sm btn-info" ng-click="$close()">Cerrar</button>        
             </p>
         </form>
     </div>

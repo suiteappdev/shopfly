@@ -45,14 +45,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12" ng-show="$root.document == 'NIT'">
-                <div class="col-lg-6">
+            <div class="col-12">
+                <div class="col-lg-6" ng-show="$root.document == 'NIT' || $root.document == 'Cedula de Ciudadania'">
                     <div class="form-group">
                       <label>Razòn Social</label>
                       <input type="text" class="form-control" placeholder="Razòn Social" ng-model="cliente.razonSocial">
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" ng-show="$root.document == 'NIT'">
                     <div class="form-group">
                       <label>Representante Legal</label>
                       <input type="text" class="form-control" placeholder="Representante Legal" ng-model="cliente.representanteLegal">
@@ -69,7 +69,7 @@
                           <a href="" ng-click="tab = 'residencial'">
                               <tab-heading class="ng-scope">Informaciòn Residencial</tab-heading></a>
                       </li>
-                      <li ng-class="{active: tab == 'adicional'}">
+                      <li ng-class="{active: tab == 'adicional'}" ng-show="$root.document != 'NIT'">
                           <a href="" ng-click="tab = 'adicional'">
                           <tab-heading class="ng-scope">Informaciòn Adicional</tab-heading></a>
                       </li>
@@ -78,16 +78,16 @@
                       <div class="tab-pane active" ng-switch-when="personal">
                         <div class="col-lg-12">
                               <div class="col-sm-3">
-                              <ng-birthday ng-label="Fecha Nacimiento"></ng-birthday>
+                              <ng-birthday ng-disable="$root.document == 'NIT'" ng-label="Fecha Nacimiento"></ng-birthday>
                               </div>
                               <div class="col-sm-3">
-                                  <ng-gender ng-label="Sexo" ng-placeholder="Sexo" ng-model="cliente.genero"></ng-gender>
+                                  <ng-gender ng-disable="$root.document == 'NIT'" ng-label="Sexo" ng-placeholder="Sexo" ng-model="cliente.genero"></ng-gender>
                               </div>
                               <div class="col-sm-3">
-                                  <ng-marital-status ng-label="Estado Civil" ng-placeholder="Estado Civil" ng-model="cliente.estadoCivil"></ng-marital-status>
+                                  <ng-marital-status ng-disable="$root.document == 'NIT'" ng-label="Estado Civil" ng-placeholder="Estado Civil" ng-model="cliente.estadoCivil"></ng-marital-status>
                               </div>
                               <div class="col-sm-3">
-                                  <ng-education-level ng-label="Nivel Educativo" ng-placeholder="Nivel" ng-model="cliente.nivelEducativo"></ng-education-level>
+                                  <ng-education-level ng-disable="$root.document == 'NIT'" ng-label="Nivel Educativo" ng-placeholder="Nivel" ng-model="cliente.nivelEducativo"></ng-education-level>
                               </div>                          
                         </div>
                         <div class="col-lg-12">
@@ -203,8 +203,8 @@
             </div>
             </div>
             <footer class="panel-footer text-right bg-light lter">
-              <a sref="app.page.clientes" href="#/app/page/clientes" type="button" class="btn btn-warning">Cancelar</a>
-              <button ng-disabled="!credential.user.permiso.formularios[10].permisos.W" type="button" class="btn btn-primary" ng-click="Update()">Actualizar</button>
+              <a sref="app.page.clientes" href="#/app/page/clientes" type="button" class="btn btn-info">Cancelar</a>
+              <button ng-disabled="!credential.user.permiso.formularios[10].permisos.W" type="button" class="btn btn-info" ng-click="Update()">Actualizar</button>
             </footer>
           </div>
         </form>

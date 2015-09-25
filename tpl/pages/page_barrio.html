@@ -8,7 +8,7 @@
       <div class="panel panel-default">
         <div class="panel-heading font-bold">Barrios</div>
         <div class="panel-body">
-          <form role="form" class="ng-pristine ng-valid">
+          <form role="form">
             <ng-country-field ng-label="Pais" ng-placeholder="Elija el Pais" ng-disabled="true"></ng-country-field>
             <ng-location
                 ng-placeholder-municipio="Seleccione la Ciudad" 
@@ -37,7 +37,7 @@
                         <td>{{barrio.nombre}}</td>
                         <td class="pull-right">
                             <button ng-disabled="!credential.user.permiso.formularios[4].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(barrio)"><i class="fa fa-edit"></i></button>
-                            <button ng-disabled="!credential.user.permiso.formularios[4].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(barrio)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[4].permisos.D" type="submit" class="btn btn-sm btn-info" ng-click="Del(barrio)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>

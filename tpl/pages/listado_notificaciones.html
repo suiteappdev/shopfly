@@ -1,0 +1,29 @@
+<div ng-init="Load()">
+  <div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3 inline">Notificaciones</h1>
+    <ul class="breadcrumb">
+          <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
+          <li>Notificaciones</li>
+    </ul>
+  </div>
+  <div class="wrapper-sm">
+      <div class="row wrapper-xs">
+        <div class="list-group">
+          <a sref"app.page.editar-documentacion({documentacion : document._id})" href="#/app/page/editar-documentacion/{{document._id}}"class="media list-group-item" ng-repeat="document in documents">
+            <span class="pull-left thumb-sm">
+              <img ng-src="{{document.usuario.metadata.foto || 'assets/img/user-default-photo.jpg'}}" alt="..." class="img-circle">
+            </span>
+            <span class="media-body">
+              {{document.plantilla.nombre}}
+              <small class="pull-right text-muted">{{ document.created | fromNow }}</small>
+              <div class="hr"></div>
+              <small class="text-muted">{{document.estado.nombre}}</small>
+              <span class="label bg-info">{{document.enUso ? 'en edición' : 'disponible'}}</span>
+            </span>
+          </a>
+        </div>
+      </div>
+  </div>  
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+

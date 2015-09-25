@@ -1,0 +1,64 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Plataforma</h1>
+</div>
+<div class="wrapper-md" ng-init="Load()">
+<div class="row">
+<div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Consecutivo</div>
+        <div class="panel-body">
+         <form role="form" name="consecutivoForm">
+            <div class="form-group">
+              <label>Consecutio</label>
+              <input type="text" class="form-control" placeholder="Consecutivo" ng-model="consecutivo.nombre" required/>
+            </div>
+            <div class="form-group">
+              <label>Valor</label>
+              <input type="number" class="form-control" placeholder="Consecutivo" ng-model="consecutivo.valor" required/>
+            </div> 
+            <p class="pull-right">
+              <button type="submit" ng-disabled="!consecutivoForm.$valid" class="btn btn-sm btn-info" ng-click="Create()">Crear</button>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de Consecutivos</div>
+          <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th>Consecutivo</th>
+                      <th>Valor</th>
+                      <th class="text-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="!consecutivos || consecutivos.length  == 0" ><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="consecutivos.length  > 0" ng-repeat="consecutivo in consecutivos">
+                        <td>{{consecutivo.nombre}}</td>
+                        <td>{{consecutivo.valor}}</td>
+                        <td class="pull-right">
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Update(consecutivo)"><i class="fa fa-edit"></i></button>
+                            <button type="submit" class="btn btn-sm btn-info" ng-click="Del(consecutivo)"><i class="fa fa-trash"></i></button>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+      </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_consecutivo.html">
+  <div ng-include="'tpl/modals/editar_consecutivo.html'"></div>
+</script>    

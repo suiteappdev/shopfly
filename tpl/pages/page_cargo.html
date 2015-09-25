@@ -14,7 +14,7 @@
               <input type="text" class="form-control" placeholder="Cargo" ng-model="cargo.nombre" required/>
             </div> 
             <p class="pull-right">
-              <button ng-disabled="!credential.user.permiso.formularios[17].permisos.W" type="submit" ng-disabled="!cargoForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+              <button type="submit" ng-disabled="!cargoForm.$valid || !credential.user.permiso.formularios[17].permisos.W" class="btn btn-sm btn-info" ng-click="Create()">Crear</button>
             </p>
           </form>
         </div>
@@ -28,16 +28,16 @@
                   <thead>
                     <tr>
                       <th>Cargo</th>
-                      <th class="pull-right">Acciones</th>
+                      <th class="text-right">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr ng-show="!cargos || cargos.length == 0" ><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
                     <tr ng-show="cargos.length  > 0" ng-repeat="cargo in cargos">
                         <td>{{cargo.nombre}}</td>
-                        <td class="pull-right">
+                        <td class="text-right">
                             <button ng-disabled="!credential.user.permiso.formularios[17].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(cargo)"><i class="fa fa-edit"></i></button>
-                            <button ng-disabled="!credential.user.permiso.formularios[17].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(cargo)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[17].permisos.D" type="submit" class="btn btn-sm btn-info" ng-click="Del(cargo)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>

@@ -1,4 +1,4 @@
-angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope","$http", '$modal', "toaster", "$rootScope", "$window", "$API", function($docFlyConf, $scope, $http, $modal, toaster, $rootScope, $window, $API){
+angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope","$http", '$modal', "toaster", "$rootScope", "$window", "$API", "$timeout", function($docFlyConf, $scope, $http, $modal, toaster, $rootScope, $window, $API, $timeout){
 	$scope.load = function(){
 		$API.DocDependencia.List().then(function(res){
 			$scope.dependencias = res.data ||[];
@@ -33,16 +33,16 @@ angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope
 			parent : $scope.selectedNode ? $scope.selectedNode.node.text : null
 		}).then(function(res){
 			if(res.status == 200){
+				toaster.pop("success","Dependencia", "Creada");
 				$scope.load();
 
 				if(res.data.parent == $docFlyConf.root){
 						$window.mkdirp($docFlyConf.path + res.data.id, function (err) {
 						    if (err) console.error(err)
-	      					toaster.pop("success","Dependencia", "Creada");
-	      					delete $scope.selectedNode;
+	      					delete $scope.selectedNode;								    		
 						});	
 				}
-
+				
 				if($scope.dependencia){
 					delete $scope.dependencia;
 				} 

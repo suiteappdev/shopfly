@@ -11,10 +11,10 @@
           <form role="form" name="perfilForm">
             <div class="form-group">
               <label>Perfil</label>
-              <input type="text" class="form-control"  ng-pattern="/^(\D)+$/" name="nombre" placeholder="Perfil" ng-model="perfil.nombre" required>
+              <input type="text" class="form-control" name="nombre" placeholder="Perfil" ng-model="perfil.nombre" required>
               <span class="help-block" style="color:#ee3939;" ng-show="perfilForm.nombre.$dirty && perfilForm.nombre.$invalid"><i class="fa fa-exclamation-circle"></i> Solo se aceptan Letras.<br></span>
             </div>
-            <button ng-disabled="!credential.user.permiso.formularios[7].permisos.W" type="button" ng-disabled="!perfilForm.$valid" class="btn btn-sm btn-primary" ng-click="create()">Crear</button>
+            <button type="submit" ng-disabled="!perfilForm.$valid || !credential.user.permiso.formularios[7].permisos.W" class="btn btn-sm btn-info" ng-click="create()">Crear</button>
           </form>
         </div>
       </div>
@@ -27,15 +27,16 @@
                   <thead>
                     <tr>
                       <th>Perfil</th>
-                      <th class="pull-right">Acciones</th>
+                      <th class="text-right">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <tr ng-show="!perfiles || perfiles.length == 0" ><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
                     <tr ng-repeat="perfil in perfiles">
                         <td>{{perfil.nombre}}</td>
-                        <td class="pull-right">
+                        <td class="text-right">
                             <button ng-disabled="!credential.user.permiso.formularios[7].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(perfil)"><i class="fa fa-edit"></i></button>
-                            <button ng-disabled="!credential.user.permiso.formularios[7].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="del(perfil)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[7].permisos.D" type="submit" class="btn btn-sm btn-info" ng-click="del(perfil)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>

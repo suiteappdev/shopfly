@@ -3,7 +3,7 @@
 angular.module('app').directive('ngResizable', ['$document', function($document) {
     
     function link($scope, element, attrs){
-      $(element).resizable();
+      $($(element)[0]).resizable();
     }
 
     return {

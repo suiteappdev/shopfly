@@ -18,7 +18,7 @@
             <div class="list-group no-radius no-border no-bg m-b-none">
 
             </div>
-            <div class="list-group no-radius no-border no-bg m-b-none" ng-init="setPage(1)">
+            <div class="list-group no-radius no-border no-bg m-b-none">
               <div ng-repeat="page in pages" class="file" ng-click="setPage(page)" ng-class="{ focus : page.pageNumber == $parent.selected}">
                 <div class="icon">
                   <img src="assets/img/pdf.png">
@@ -39,26 +39,36 @@
         <button class="pull-right btn btn-sm btn-success" ng-click="build()"><i class="fa fa-edit"></i>Guardar</button>        
         <h3 class="m-n font-thin">Pagina Actual</h3>
       </div>
+      <div class="wrapper-sm bg-light dker d-b">
+      <input type="file" multiple="multiple" id="files" ng-model="myFiles" onchange="angular.element(this).scope().importSignature(this)" class="hidden" accept="image/*">
+      <label for="files" class="btn btn-xs btn-default"><i class="fa fa-upload"></i> Importar Firma</label>
+      </div>
       <div class="row-row">
         <div class="cell scrollable hover">
           <div class="cell-inner">
               <div class="col-lg-12 text-center m-t">
-                <div ng-click="getPosition($event)" id="canvasWrap" style="float:left;height:1000px; cursor:crosshair;" >
-                    <img 
-                        ng-containment="parent"
-                        ng-x="sign.offsetX"
-                        ng-y="sign.offsetY"
-                        ng-draggable ng-repeat="sign in getSigns(selected)"
-                        id="drag" 
-                        ng-src="{{sign.sign}}" 
-                        ng-style="{
+                <div ng-click="getPosition($event)" id="canvasWrap" style="float:left;height:1056px; cursor:crosshair;width:816px;" >
+                      <div ng-click="$event.stopPropagation();$event.preventDefault();"class="dragabbleItem"
+                       ng-containment="parent"
+                       ng-repeat="sign in getSigns(selected)"
+                       ng-draggable 
+                       ng-x="sign.offsetX" 
+                       ng-y="sign.offsetY"
+                       ng-style="{
                           'position' : 'absolute',
                           'display'  : 'inline-block',
                           'left'     : sign.offsetX,
-                          'top'      : sign.offsetY
+                          'top'      : sign.offsetY,
+                          'width'    : '400px',
+                          'height'    : '200px',
+                          'background-image' : 'url({{sign.sign}})'
                           }"
-                        >
-                  <canvas id="the-canvas" height="1000", width="700" >              
+                       >
+                       <div class="col-lg-12 m-t">
+                          <button class="btn btn-info btn-xs pull-right" ng-click="removeFirma($event, sign)"><i class="icon icon-trash"></i></button>
+                       </div>
+                      </div>
+                  <canvas id="the-canvas" width="816" height="1056" >              
                   </canvas>
                 </div>
               </div>

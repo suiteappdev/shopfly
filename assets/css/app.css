@@ -7,6 +7,18 @@
     background-image: url('../../assets/img/login-background.jpg');
     background-size: cover;
 }
+.dragabbleItem{
+  border: 1px solid green;
+  border-style: dashed;
+  border-width: 2px;
+  cursor: move;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.dataArea{
+  height:300px!important;
+}
 
 .files {
   padding: 0;
@@ -47,7 +59,7 @@
 }
 
 .selected{
-  background-color: rgb(155, 155, 155)!important;
+  background-color: rgb(35, 183, 229)!important;
   color: white;
 }
 
@@ -847,7 +859,7 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1005;
+  z-index: 999;
 }
 
 .app-footer.app-footer-fixed {

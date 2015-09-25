@@ -22,7 +22,8 @@ angular.module("app").directive("ngClientStatus", function(){
 		scope : {
 			ngLabel : "@",
 			ngPlaceholder : '@',
-			ngRequired : '@'
+			ngRequired : '@',
+			ngClear : '@'
 		},
 		templateUrl : "tpl/fields/client_status.html",
 		link : link

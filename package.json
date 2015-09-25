@@ -8,7 +8,8 @@
     "toolbar": true,
     "transparent": false,
     "position": "center",
-    "resizable": true
+    "resizable": true,
+    "icon":"assets/img/icono.png"
   },
   "dependencies": {
     "MD5": "^1.2.2",

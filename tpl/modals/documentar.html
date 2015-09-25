@@ -7,26 +7,67 @@
       <div class="col-lg-12" ng-repeat="indice in setRuta.plantilla.indice">
         <div class="form-group">
           <label>{{indice.nombre}}</label>
-          <input type="text" class="form-control" placeholder="{{indice.nombre}}" ng-pattern="/^[a-zA-Z\s]+$/" name="nombre" ng-model="indice.value" ng-if="indice.tipo == 'Texto'" maxlength="{{indice.longitud}}" required/>
-          <div ng-if="indice.tipo == 'Fecha'" >
+          <input 
+            type="text"
+            class="form-control"
+            tabIndex="{{$index}}"
+            placeholder="{{indice.nombre}}"
+            ng-pattern="/^[a-zA-Z\s]+$/"
+            ng-is
+            name="nombre"
+            ng-model="indice.value"
+            ng-if="indice.tipo == 'Texto'"
+            maxlength="{{indice.longitud}}"
+            ng-required="indice.requerido"
+            />
+          <div ng-if="indice.tipo == 'Fecha'">
               <p class="input-group">
-                <input type="text" class="form-control" datepicker-popup="{{format}}" ng-model="indice.value" is-open="$parent.$parent.$parent.opened" datepicker-options="dateOptions" close-text="Cerrar"/>
+                <input 
+                ng-init="field.opened = false;"
+                type="text" 
+                class="form-control" 
+                datepicker-popup="dd-MMMM-yyyy" 
+                ng-model="indice.value" 
+                is-open="field.opened" 
+                ng-required="indice.requerido"
+                datepicker-options="{formatYear: 'yy', startingDay: 1 }" close-text="Cerrar"/>
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  <button type="button" class="btn btn-default" ng-click="open($event, field)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
               </p>
           </div>
-          <input type="number" class="form-control" placeholder="{{indice.nombre}}" name="nombre" ng-model="indice.value"  ng-if="indice.tipo == 'Numero'" maxlength="{{indice.longitud}}" required/>
-          <input type="text" class="form-control" placeholder="{{indice.nombre}}" ng-pattern="/^[a-zA-Z\s]+$/" name="nombre" ng-model="indice.value" required ng-if="indice.tipo == 'Alpha'" maxlength="{{indice.longitud}}" required/>
+          <input
+          type="number" 
+          class="form-control" 
+          placeholder="{{indice.nombre}}" 
+          name="nombre" 
+          ng-model="indice.value"  
+          ng-if="indice.tipo == 'Numero'" 
+          maxlength="{{indice.longitud}}"
+          ng-is
+          ng-pattern="/^[0-9]/"
+          ng-required="indice.requerido"
+          />
+          <input
+           type="text"
+           class="form-control"
+           placeholder="{{indice.nombre}}"
+           ng-pattern="/^[a-zA-Z0-9\s]+$/"
+           name="nombre"
+           ng-model="indice.value"
+           required ng-if="indice.tipo == 'Alpha'"
+           maxlength="{{indice.longitud}}"
+           ng-required="indice.requerido"
+           />
         </div>              
       </div>
       <div class="col-lg-6">
         <div class="form-group">
           <label>Rutas</label>
             <ui-select ng-model="$parent.$parent.dest" theme="bootstrap">
-              <ui-select-match placeholder="Rutas">{{$parent.dest.path}}</ui-select-match>
-              <ui-select-choices group-by="'group'" repeat="ruta in setRuta.path | filter: $select.search">
-                <span ng-bind-html="ruta.path | highlight: $select.search"></span>
+              <ui-select-match placeholder="Rutas">{{$select.selected.path}}</ui-select-match>
+              <ui-select-choices group-by="'group'" repeat="rut in ruta.path | filter: $select.search | filter : {visible : true}">
+                <span ng-bind-html="rut.path | highlight: $select.search"></span>
               </ui-select-choices>
             </ui-select>
         </div>        
@@ -36,14 +77,29 @@
         <div class="form-group">
           <label>Estado</label>
             <ui-select ng-model="$parent.$parent.estado" theme="bootstrap">
-              <ui-select-match placeholder="Estado">{{$parent.$parent.estado.nombre}}</ui-select-match>
-              <ui-select-choices group-by="'group'" repeat="estado in estadoDocumentos | filter: $select.search">
+              <ui-select-match placeholder="Estado">{{$select.selected.nombre}}</ui-select-match>
+              <ui-select-choices group-by="'group'" repeat="estado in $root.credential.user.metadata.misEstados | filter: $select.search">
                 <span ng-bind-html="estado.nombre | highlight: $select.search"></span>
               </ui-select-choices>
             </ui-select>
         </div>        
       </div>
-      <div class="col-lg-12">
+      <div class="col-lg-12" ng-if="setRuta.plantilla.expira.expira">
+          <div class="form-group">
+            <label>Fecha de Expiración</label>
+            <input 
+            ng-init="field = {};field.opened = false;"
+            type="text" 
+            class="form-control" 
+            datepicker-popup="dd-MMMM-yyyy" 
+            ng-model="setRuta.plantilla.expira.value" 
+            is-open="field.opened" 
+            datepicker-options="{formatYear: 'yy', startingDay: 1 }" close-text="Cerrar"
+            ng-click="open($event, field)"
+            />
+          </div>
+      </div>
+      <div class="col-lg-12" ng-if="setRuta.plantilla.cliente">
           <div class="form-group" ng-if="!setCliente">
           <label>Cliente</label>
           <input type="text" class="form-control" ng-click="formClient()" placeholder="Cliente">
@@ -59,8 +115,8 @@
       </div>
       <div class="col-lg-12">
         <p class="pull-right">
-          <button type="submit" ng-disabled="!documentarForm.$valid" class="btn btn-sm btn-primary" ng-click="$parent.ok()">Subir</button>
-          <button type="submit" ng-disabled="!documentarForm.$valid" class="btn btn-sm btn-warning" ng-click="$close()">Cancelar</button>
+          <button type="submit" ng-disabled="!documentarForm.$valid" class="btn btn-sm btn-info" ng-click="$parent.ok()">Subir</button>
+          <button type="submit" ng-disabled="!documentarForm.$valid" class="btn btn-sm btn-info" ng-click="$close()">Cancelar</button>
         </p>        
       </div>
       </form>

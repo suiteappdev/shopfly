@@ -26,7 +26,7 @@
           </div>
           <div class="col-lg-12">
             <p class="pull-right">
-              <button  ng-disabled="!credential.user.permiso.formularios[14].permisos.W" type="submit" ng-disabled="!estadoForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+              <button  ng-disabled="!credential.user.permiso.formularios[14].permisos.W" type="submit" ng-disabled="!estadoForm.$valid" class="btn btn-sm btn-info" ng-click="Create()">Crear</button>
             </p>            
           </div>
           </form>
@@ -42,7 +42,7 @@
                     <tr>
                       <th>Descripciòn</th>
                       <th>Gestiòn</th>
-                      <th class="pull-right">Acciones</th>
+                      <th class="text-right">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -57,9 +57,12 @@
                                 </label>                    
                           </div>
                         </td>
-                        <td class="pull-right">
+                        <td>
+                          <div class="text-right">
                             <button  ng-disabled="!credential.user.permiso.formularios[14].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(estado)"><i class="fa fa-edit"></i></button>
-                            <button  ng-disabled="!credential.user.permiso.formularios[14].permisos.W" type="submit" class="btn btn-sm btn-danger" ng-click="Del(estado)"><i class="fa fa-trash"></i></button>
+                            <button  ng-disabled="!credential.user.permiso.formularios[14].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Del(estado)"><i class="fa fa-trash"></i></button>                            
+                          </div>
+
                         </td>
                     </tr>
                   </tbody>

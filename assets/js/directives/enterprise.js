@@ -24,7 +24,8 @@ angular.module("app").directive("ngEnterprise", function(){
 		scope : {
 			ngModel : "=ngModel",
 			ngLabel : "@",
-			ngPlaceholder : '@'
+			ngPlaceholder : '@',
+			ngClear  : '@'
 		},
 		templateUrl : "tpl/fields/enterprise.html",
 		link : link

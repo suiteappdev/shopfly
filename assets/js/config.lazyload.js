@@ -15,7 +15,8 @@ angular.module('app')
                           'bower_components/flot.tooltip/js/jquery.flot.tooltip.js',
                           'bower_components/flot.orderbars/js/jquery.flot.orderBars.js',
                           'bower_components/flot/jquery.flot.spline.js'],
-      moment:         [   'bower_components/moment/moment.js'],
+      moment:         [   'bower_components/moment/moment.js',
+                          'bower_components/moment/locale/es.js'],
       screenfull:     [   'bower_components/screenfull/dist/screenfull.min.js'],
       slimScroll:     [   'bower_components/slimscroll/jquery.slimscroll.min.js'],
       sortable:       [   'bower_components/html5sortable/jquery.sortable.js'],
@@ -85,12 +86,6 @@ angular.module('app')
                   ]
               },
               {
-                  name:'angularFileUpload',
-                  files: [
-                    'bower_components/angular-file-upload/angular-file-upload.min.js'
-                  ]
-              },
-              {
                   name: 'ngImgCrop',
                   files: [
                       'bower_components/ngImgCrop/compile/minified/ng-img-crop.js',
@@ -109,26 +104,6 @@ angular.module('app')
                   files: [
                       'bower_components/angularjs-toaster/toaster.js',
                       'bower_components/angularjs-toaster/toaster.css'
-                  ]
-              },
-              {
-                  name: 'textAngular',
-                  files: [
-                      'bower_components/textAngular/dist/textAngular-sanitize.min.js',
-                      'bower_components/textAngular/dist/textAngular.min.js'
-                  ]
-              },
-              {
-                  name: 'xeditable',
-                  files: [
-                      'bower_components/angular-xeditable/dist/js/xeditable.min.js',
-                      'bower_components/angular-xeditable/dist/css/xeditable.css'
-                  ]
-              },
-              {
-                  name: 'smart-table',
-                  files: [
-                      '../bower_components/angular-smart-table/dist/smart-table.min.js'
                   ]
               }
             ]

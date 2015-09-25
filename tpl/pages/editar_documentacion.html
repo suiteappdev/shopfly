@@ -23,27 +23,16 @@
         <p></p>
         <div class="col-lg-12">
            <div class="form-group">
-              <button class="text-center btn btn-info btn-block"  ng-click="Scan()"><i class="icon icon-printer"></i> Scannear</button>   
+              <button class="text-center btn btn-info btn-block" ng-disabled="!print" ng-click="Scan()"><i class="icon icon-printer"></i> Scannear</button>   
            </div>           
         </div>
         <div class="line line-dashed b-b line-lg pull-in"></div>
         <form class="form" name="documentacionFormUpdate">
-        <div class="col-lg-12">
-          <div class="form-group">
-            <label>Estado</label>
-              <ui-select ng-model="$parent.documentacion.estado" theme="bootstrap" required>
-                <ui-select-match placeholder="Estado">{{$parent.documentacion.estado.nombre}}</ui-select-match>
-                <ui-select-choices group-by="'group'" repeat="estado in estadoDocumentos | filter: $select.search">
-                  <span ng-bind-html="estado.nombre | highlight: $select.search"></span>
-                </ui-select-choices>
-              </ui-select>
-          </div> 
+        <div class="col-lg-6">
+            <button  ng-disabled="!credential.user.permiso.formularios[12].permisos.W" class="text-center btn-block btn btn-info" ng-disabled="!documentacionFormUpdate.$valid" ng-click="Update(documentacion)"><i class="fa fa-save"></i> Guardar</button>           
         </div>
         <div class="col-lg-6">
-            <button  ng-disabled="!credential.user.permiso.formularios[12].permisos.W" class="text-center btn-block btn btn-success"ng-disabled="!documentacionFormUpdate.$valid" ng-click="Update()"><i class="fa fa-edit"></i> Guardar</button>           
-        </div>
-        <div class="col-lg-6">
-              <button class="text-center btn-block btn btn-danger" ><i class="fa fa-close"></i> Cancelar</button>           
+              <a sref="app.page.documentaciones" href="#/app/page/documentaciones" class="text-center btn-block btn btn-info" ><i class="fa fa-close"></i> Cancelar</a>           
         </div>
         </form>
     </div>
@@ -51,7 +40,7 @@
   <div class="col">
       <div class="wrapper-md bg-light dk b-b">
         <span class="pull-right m-t-xs">Cantidad Total: <b class="badge" ng-class="{'bg-info': myFiles.length > 0 } " >{{myFiles.length}}</b></span>
-        <h3 class="m-n font-thin">Pila de Archivos por Procesar</h3>      
+        <small><button class="btn btn-info btn-xs" href="" ng-click="explorer(documentacion.directorio)" ><i class="fa  fa-search"></i> Mostrar Directorio</button></small>      
       </div>
       <div>
       <div class="col-lg-12 text-center m-t" ng-show="myFiles.length == 0">
@@ -62,30 +51,30 @@
                 <tr>
                     <th width="50%">Archivo</th>
                     <th width="5%">Tamaño</th>
-                    <th width="15%">Estado</th>
-                    <th width="30%" class="pull-right">Acciones</th>
+                    <th width="15%" class="text-center">Estado</th>
+                    <th width="35%" class="pull-right">Acciones</th>
                 </tr>
             </thead>
             <tbody>
           <tr ng-show="myFiles.length  == 0" ><td colspan="3" class="text-center"><i class="fa fa-exclamation-circle"></i> No Existen Archivos.</td></tr>
-             <tr ng-repeat="file in myFiles">
+             <tr  ng-show="file.name.split('.')[1].toLowerCase() != 'ini'" ng-repeat="file in myFiles">
                <td>{{file.name}}</td>
-               <td>{{units(file.size, true)}}</td>
+               <td class="text-center">{{units(file.size, true)}}</td>
                <td class="text-center">
-                <span class="pull-right label bg-danger inline m-t-sm" ng-show="file.estado == 'Deleted'">Por Borrar</span>
-                <span class="pull-right label bg-success inline m-t-sm" ng-show="file.estado == 'InDisk'">En Disco</span>
-                <span class="pull-right label bg-warning inline m-t-sm" ng-show="!file.estado">Pendiente</span>
+                <span class="label bg-danger inline m-t-sm" ng-show="file.estado == 'Deleted'">Por Borrar</span>
+                <span class="label bg-success inline m-t-sm" ng-show="file.estado == 'InDisk'">En Disco</span>
+                <span class="label bg-warning inline m-t-sm" ng-show="!file.estado">Pendiente</span>
                <td>
                  <div class="pull-right">
-                      <button class="btn btn-sm btn-icon btn-danger" ng-click="removeFromDisk(file)" ng-disabled="!credential.user.permiso.formularios[12].permisos.D"><i class="fa fa-trash"></i></button>
-                      <a ng-show="file.name.split('.')[1] == 'pdf'"
+                      <button class="btn btn-sm btn-icon btn-info" ng-click="removeFromDisk(file)" ng-disabled="!credential.user.permiso.formularios[12].permisos.D"><i class="fa fa-trash"></i></button>
+                      <a ng-show="file.name.split('.')[1].toLowerCase() == 'pdf'"
                         ui-sref"app.page.firmar({file : file.name, url : file.documentacion.ruta.path, hash : file.documentacion.hash, path : file.path})"  
                         ng-href="#/app/page/firmar?file={{file.name}}&url={{file.documentacion.ruta.path}}&hash={{file.documentacion.hash}}&path={{file.path}}" 
-                        class="btn btn-sm btn-icon btn-warning" 
+                        class="btn btn-sm btn-icon btn-info" 
                         ng-disabled="!credential.user.permiso.formularios[12].permisos.D">
                         <i class="icon icon-note"></i>
                       </a> 
-    
+
                  </div>
                 </td>
              </tr>
@@ -106,6 +95,15 @@
 </script>
 <script type="text/ng-template" id="sign.html">
   <div ng-include="'tpl/modals/sign.html'"></div>
-</script> 
+</script>
+<script type="text/ng-template" id="editar_documentacion.html">
+  <div ng-include="'tpl/modals/editar_documentacion.html'"></div>
+</script>
+<script type="text/ng-template" id="explorer.html">
+  <div ng-include="'tpl/modals/explorer.html'"></div>
+</script>
+<script type="text/ng-template" id="preLoad.html">
+  <div ng-include="'tpl/modals/preLoad.html'"></div>
+</script>      
 
 

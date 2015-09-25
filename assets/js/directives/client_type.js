@@ -15,7 +15,8 @@ angular.module("app").directive("ngClientType", function(){
 		scope : true,
 		scope : {
 			ngLabel : "@",
-			ngPlaceholder : '@'
+			ngPlaceholder : '@',
+			ngClear : '@'
 		},
 		templateUrl : "tpl/fields/client_type.html",
 		link : link

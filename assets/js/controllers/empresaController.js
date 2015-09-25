@@ -2,11 +2,6 @@ angular.module('app').controller("empresaController", ["$scope", "$rootScope", "
 
 	$scope.Load = function(){
 		$rootScope.clearCustomFields();
-
-		$API.Empresa.List().then(function(res){
-				$scope.empresas = res || [];
-		});
-
 		if($stateParams.id){
 			$API.Empresa.Empresa($stateParams.id).then(function(res){
 				$scope.empresa = res;
@@ -17,7 +12,6 @@ angular.module('app').controller("empresaController", ["$scope", "$rootScope", "
 				$rootScope.enterprise_status = $scope.empresa.estado;
 			});
 		}
-
 	}
 
 	$scope.Create = function(){

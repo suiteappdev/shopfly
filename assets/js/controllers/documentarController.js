@@ -1,4 +1,5 @@
 angular.module('app').controller("documentarController", [
+		"$state",
 		"$scope",
 		"$docFlyConf",
 		"$stateParams",
@@ -14,7 +15,9 @@ angular.module('app').controller("documentarController", [
 		"$moment",
 		"$socket",
 		"$mailService",
+		"$timeout",
 		 function(
+		 	$state,
 			$scope,
 			$docFlyConf,
 			$stateParams,
@@ -29,13 +32,19 @@ angular.module('app').controller("documentarController", [
 			$webkitService,
 			$moment,
 			$socket,
-			$mailService
+			$mailService,
+			$timeout
 			){
-	
 	$scope.Load = function(){
 		$API.EstadoDocumento.List().then(function(res){
 			$scope.estadoDocs = res.data || [];
 		});
+
+		$API.Consecutivo.List().then(function(res){
+			$scope.consecutivos = res.data || [];
+		});
+
+		$scope.result = {};
 
 		$scope.units = $fileManagerService.fileSize;
 		$scope.COUNTER = 0;
@@ -43,6 +52,8 @@ angular.module('app').controller("documentarController", [
 		var _walker = null;
 		
 		if($stateParams.documentacion){
+			$API.DocDocumento.enUso({_id : $stateParams.documentacion}).then(function(res){});
+
 			$API.DocDocumento.DocDocumento($stateParams.documentacion).then(function(res){
 				$scope.documentacion = res.data;
 				_walker = $fileManagerService.walker.walk($fileManagerService.path.join($docFlyConf.path, res.data.directorio));
@@ -70,14 +81,12 @@ angular.module('app').controller("documentarController", [
 		$API.EstadoDocumento.List().then(function(res){
 			$scope.estadoDocumentos = res.data || [];
 		});
-
 	}
 
 	$scope.remove = function(file){
 		$scope.myFiles.splice($scope.myFiles.indexOf(file), 1);
 	}
-
-
+	
 	$scope.showCorrespondenciaForm = function(documentacion){
 		$scope.documentacion = documentacion;
 		$scope.correspondencia = {};
@@ -88,6 +97,31 @@ angular.module('app').controller("documentarController", [
 	        scope : $scope,
 	        size : "md",
 	        controller : function($scope, $timeout){
+
+	        	$scope.nuevoContacto = function(){
+			 		var _modal = $modal.open({
+					        templateUrl: 'nuevo_contacto.html',
+					        scope : $scope,
+					        size : "md",
+					        controller : function($scope){
+					        	$scope.createContact = function(){
+					        		if($scope.newContact){
+					        			angular.forEach($scope.newContact.split(","), function(contact){
+					        				if($scope.correspondencia.contactos.indexOf(contact) > -1){
+												toaster.pop("error","Contacto", "ya existe en la lista de destinatarios");
+												return;
+					        				}
+
+						        			$scope.correspondencia.contactos.push(contact);
+					        			});
+
+						        		$scope.$close();					        			
+					        		}
+					        	}
+					        }
+				    	});
+	        	}
+
 	        	$scope.ok = function(){
 					toaster.pop("warning","Espere...", "Enviando correspondencia...");
 
@@ -257,15 +291,23 @@ angular.module('app').controller("documentarController", [
       	);
 	}
 
-	$scope.ok = function(){
+	$scope.deleteFiles = function(){
+		var _path = $fileManagerService.path.join($docFlyConf.path, $scope.dest.path, $scope._targetPath);
+		$fileManagerService.Remove(_path, function(e){
+			if (e) return console.error(e);
 
-		var _targetPath = $cryptoService.encodeHmac($scope.setRuta.plantilla.indice.map(function(v){ return v.value}).join(""), "sha1")
+			console.log("Borrado")
+		});
+	}
+
+	$scope.writeFiles = function(){
+		$scope._targetPath = $cryptoService.encodeHmac($scope.setRuta.plantilla.indice.map(function(v){ return v.value}).join(""), "sha1")
 		
 		$fileManagerService.createDir(
 			$fileManagerService.path.join(
 				$docFlyConf.path,
 				$scope.dest.path,
-				_targetPath 
+				$scope._targetPath 
 				), function(e){
 					if(e){
 						toaster.pop("error","Error", "Unidad de almacenamiento desconectada.");
@@ -274,28 +316,70 @@ angular.module('app').controller("documentarController", [
 					};
 
 					angular.forEach($scope.myFiles, function(v, k){
-						var _filename = $fileManagerService.path.join($docFlyConf.path, $scope.dest.path, _targetPath, v.name);
-						
-						$fileManagerService.copy(v.path, _filename, function(e){
-							if(e) throw(e);
-							
-							v.estado = true;
-						});
-					});
+						var _filename = $fileManagerService.path.join($docFlyConf.path, $scope.dest.path, $scope._targetPath, v.name);
+							$fileManagerService.copy(v.path, _filename, function(e){
+								if(e) {
+									v.estado = false;
+								}
 
-					$API.DocDocumento.Create({
-						estado : $scope.estado,
-						cliente : $scope.setCliente,
-						plantilla : $scope.setRuta.plantilla,
-						ruta : $scope.dest,
-						hash : _targetPath,
-						archivo : $scope.myFiles.length,
-						directorio :$fileManagerService.path.normalize($fileManagerService.path.join($scope.dest.path, _targetPath))
-					}).then(function(res){
-						toaster.pop("success","Documentacion", "Archivos subidos");
-						$scope.$close();
+								$scope.$apply(function(){
+									v.estado = true;									
+								})
+							});	
 					});
-			});			
+			});
+	}
+
+	$scope.saveDocumentacion = function(){
+		if($scope.setCliente){
+			$scope.setRuta.plantilla.cliente = $scope.setCliente;
+		}
+
+		$API.DocDocumento.Create({
+			estado : $scope.estado,
+			usuario : $rootScope.credential.user.cliente,
+			plantilla : $scope.setRuta.plantilla,
+			ruta : $scope.dest,
+			hash : $scope._targetPath,
+			archivo : $scope.myFiles.length,
+			directorio :$fileManagerService.path.normalize($fileManagerService.path.join($scope.dest.path, $scope._targetPath))
+		}).then(function(res){
+			toaster.pop("success", "# de documentacion :" +res.data.consecutivo, "Archivos subidos");
+			$scope.$close();
+			$scope.myFiles.length = 0;
+		});
+	}
+
+	$scope.ok = function(){
+ 		var modalInstance = $modal.open({
+	        templateUrl: 'preLoad.html',
+	        scope : $scope,
+	        controller : function($scope){
+	        	$scope.init = function(){
+	        		$scope.$parent.writeFiles();
+				}
+
+	        	$scope.createDocumentacion = function(){
+	        		$scope.$parent.saveDocumentacion();
+	        		$scope.$dismiss({status : true});
+	        		console.log("saving");
+	        	}
+
+	        	$scope.rollBackFiles = function(){
+	        		console.log("delete");
+	        		$scope.$parent.deleteFiles();
+	        		$scope.$close();
+	        	}
+	        }
+	    });
+
+      	modalInstance.result.then(function(val){}, function(val){
+      		if(val.status){
+      			return;
+      		}
+
+      		$scope.deleteFiles();
+  		}); 
 	}
 
 	$scope.Scan = function(){
@@ -334,23 +418,31 @@ angular.module('app').controller("documentarController", [
 	}
 
 	$scope.Search = function(){
+		if($rootScope.difusionItems && $rootScope.difusionItems.length > 0){
+			$rootScope.difusionItems.length = 0;
+		}
+
 		$API.DocDocumento.Search(
 				{
 					estado : $scope.estado ? $scope.estado._id : null,
 					id : $scope.ruta ? $scope.ruta.plantilla._id : null,
 					criteria : $scope.criteria,
+					indiceIni : $scope.indiceIni ? $scope.indiceIni.date : null ,
+					indiceEnd :$scope.indiceEnd ?  $scope.indiceEnd.date : null,
+					sucursal : $rootScope.enterprise ? $rootScope.enterprise._id : null,
 					ini : $scope.ini ? $moment($scope.ini.date).startOf('day').format() : null,
 					end : $scope.end ? $moment($scope.end.date).endOf('day').format() : null,
-					cliente : $scope.cliente ? $scope.cliente : null 
+					cliente : $scope.cliente ? $scope.cliente : null ,
+					valorConsecutivo : $scope.valorConsecutivo ? $scope.valorConsecutivo : null, 
+					consecutivo : $scope.consecutivo ? $scope.consecutivo._id : null, 
 				}
 			).then(function(res){
 				$scope.documentos = res.data || [];
-				console.log(res.data);
 		});
 	}
 
-	$scope.mostrarIndices = function(indices){
-		$scope.setIndices = indices ;
+	$scope.mostrarIndices = function(plantilla){
+		$scope.setPlantilla = angular.copy(plantilla);
 
 		var modalInstance = $modal.open({
 	        templateUrl: 'mostrar_indices.html',
@@ -358,36 +450,47 @@ angular.module('app').controller("documentarController", [
 	        size : 'md'
       	});
 	}
-
+	
 	$scope.explorer = function(directorio){
-
 		var modalInstance = $modal.open({
 	        templateUrl: 'explorer.html',
 	        scope : $scope,
 	        controller : function($scope){
 	        	$scope.Load = function(){
 				  var App = {};
-
-				  var folder = new folder_view.Folder($('#files'));
-
+				  var folder = new folder_view.Folder($('#fileView'));
 				  folder.open($docFlyConf.path + directorio);
-
 				  App.folder = folder;
 
 				  folder.on('navigate', function(dir, mime) {
 				      nwGui.Shell.openItem(mime.path);
 				  });
-
 	        	}
 	        },
 	        size : 'md'
       	});
 	}
 
-	$scope.Update = function(){
+	$scope.setDifusionItem = function(doc){
+		if(doc.difusion){
+			if($rootScope.difusionItems){
+				$rootScope.difusionItems.push(doc);
+				return;
+			}
+
+			$rootScope.difusionItems = [];
+			$rootScope.difusionItems.push(doc);
+			return;
+		}
+
+		$rootScope.difusionItems.splice($rootScope.difusionItems.indexOf(doc), 1);
+	}
+
+	$scope.Update = function(documentacion){
+		$scope.setRuta	= angular.copy(documentacion);
 		var modalInstance = $modal.open({
-	        templateUrl: 'confirm.html',
-	        size : 'sm',
+	        templateUrl: 'editar_documentacion.html',
+	        size : 'md',
 	        scope : $scope,
 	        controller : function($scope){
 	        	$scope.ok = function(){
@@ -404,62 +507,30 @@ angular.module('app').controller("documentarController", [
 						if(!v.estado){
 							$fileManagerService.copy(v.path, $fileManagerService.path.join($docFlyConf.path, $scope.documentacion.directorio, v.name), function(err){
 								if(err) return console.log(err);
+
+								v.estado = "InDisk";
+								$scope.$apply();
 							});
 						}
 					});
 
 					$scope.documentacion.archivo = $scope.myFiles.length;
-					$API.DocDocumento.Update($scope.documentacion).then(function(res){
+					$API.DocDocumento.Update($scope.setRuta).then(function(res){
 						if(res.status == 200){
-
+							$API.DocDocumento.sinUso({_id : $stateParams.documentacion}).then(function(res){});
 							toaster.pop("success","Documentacion", "Actualizada");
-							$scope.myFiles.length = 0;
-							$API.DocDocumento.DocDocumento($stateParams.documentacion).then(function(res){
-								$scope.documentacion = res.data;
-								_walker = $fileManagerService.walker.walk($fileManagerService.path.join($docFlyConf.path, res.data.directorio));
-								
-								_walker.on('file', function (root, fileStats, next){
-									$scope.myFiles.push({name : fileStats.name, size : fileStats.size, path :$fileManagerService.path.join(root, fileStats.name), estado : "InDisk"});
-									next();
-									$scope.$apply();
-								});					
-							});
 						}
 					});
 						        		
 	        		$scope.$close();
 	        	}
-
-	        	$scope.cancel  = function(){
-	        		$scope.$close();
-	        	}
 	        }
       	});
-
-
 	}
 
-	$scope.today = function() {
-		$scope.dt = new Date();
-	};
-
-	$scope.today();
-
-	$scope.clear = function () {
-	$scope.dt = null;
-	};
-
-	$scope.open = function($event) {
+	$scope.open = function($event, index) {
 		$event.preventDefault();
 		$event.stopPropagation();
-		$scope.opened = true;
+		index.opened = true;
 	};
-
-	$scope.dateOptions = {
-		formatYear: 'yy',
-		startingDay: 1
-	};
-
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  $scope.format = $scope.formats[0];
 }]);

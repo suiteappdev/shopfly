@@ -6,7 +6,6 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
           $rootScope.getScanner = $window.getScanner;
           $socket.initialize();
 
-
           $rootScope.$on('$stateChangeStart', function(event, nextRoute, toParams, fromState, fromParams){
               $rootScope.credential = $localStorage.credential;
 
@@ -85,7 +84,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                     deps: ['$ocLazyLoad',
                       function( $ocLazyLoad ){
                         return $ocLazyLoad.load([
-                          'assets/js/controllers/chart.js'
+                            JQ_CONFIG.moment
                           ]);
                     }]
                   }
@@ -196,10 +195,6 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                               function(){
                                   return $ocLazyLoad.load([
                                       'assets/js/controllers/perfilController.js'
-                                      //'assets/js/directives/country.js',
-                                      //'assets/js/directives/document.js',
-                                      //'assets/js/directives/marital_status.js',
-                                      //'assets/js/directives/location.js'
                                       ]);
                               }
                           );
@@ -316,6 +311,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                           return $ocLazyLoad.load(['toaster', 'ui.select']).then(
                               function(){
                                  return $ocLazyLoad.load([
+                                  JQ_CONFIG.moment,
                                   'assets/js/controllers/documentarController.js',
                                   'assets/js/services/mailService.js',
                                   'assets/js/directives/file.js',
@@ -325,6 +321,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                   'assets/js/directives/client_status.js',
                                   'assets/js/directives/document.js',
                                   'assets/js/directives/phoneBook.js',
+                                  'assets/js/directives/dataTypes.js'
                                   ]);
                               }
                           );
@@ -342,17 +339,44 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                           return $ocLazyLoad.load(['toaster', 'ui.select']).then(
                               function(){
                                  return $ocLazyLoad.load([
+                                  JQ_CONFIG.moment,
                                   'assets/js/controllers/documentarController.js',
+                                  'assets/js/static/main.js',
+                                  'assets/js/services/mailService.js',
                                   'assets/js/directives/file.js',
                                   'assets/js/directives/path.js',
                                   'assets/js/controllers/clienteController.js',
                                   'assets/js/directives/client_type.js',
                                   'assets/js/directives/client_status.js',
                                   'assets/js/directives/document.js',
-                                  'assets/js/directives/phoneBook.js',
-                                  'assets/vendor/pdfjs/pdf.js',
-                                  'assets/vendor/pdfjs/pdf.compat.js',
-                                  'assets/vendor/pdfjs/pdf.worker.js'
+                                  'assets/js/directives/phoneBook.js'
+                                  ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.difusion', {
+                  url: '/difusion',
+                  templateUrl: 'tpl/pages/page_difusion.html',
+                  controller : 'difusionController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['toaster', 'ui.select']).then(
+                              function(){
+                                 return $ocLazyLoad.load([
+                                  'assets/js/controllers/difusionController.js',
+                                  'assets/js/static/main.js',
+                                  'assets/js/services/mailService.js',
+                                  'assets/js/directives/file.js',
+                                  'assets/js/directives/path.js',
+                                  'assets/js/controllers/clienteController.js',
+                                  'assets/js/directives/client_type.js',
+                                  'assets/js/directives/client_status.js',
+                                  'assets/js/directives/document.js',
+                                  'assets/js/directives/phoneBook.js'
                                   ]);
                               }
                           );
@@ -376,13 +400,13 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                   'assets/vendor/pdfjs/pdf.worker.js',
                                   'assets/js/directives/draggable.js',
                                   'assets/js/directives/resizable.js',
+                                  'assets/js/directives/file.js',
                                   'assets/js/directives/pdfPageDirective.js',
                                   'assets/vendor/signaturePad/signature_pad.min.js',
-                                  'assets/vendor/jspdf/jspdf.js',
+                                  //'assets/vendor/jspdf/jspdf.js', 
+                                  'assets/vendor/html2canvas/jspdf.debug.js', 
                                   'assets/vendor/jspdf/jspdf.plugin.addimage.js',
-                                  'assets/vendor/jspdf/libs/FileSaver/FileSaver.js',
-                                  'assets/vendor/html2canvas/html2canvas.js',
-                                  'assets/vendor/html2canvas/jspdf.debug.js'
+                                  'assets/vendor/jspdf/libs/FileSaver/FileSaver.js'
                                   ]);
                               }
                           );
@@ -403,10 +427,11 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                   JQ_CONFIG.moment,
                                   'assets/js/controllers/documentarController.js',
                                   'assets/js/services/mailService.js',
+                                  'assets/js/services/moment.js',
                                   'assets/js/static/main.js',
                                   'assets/js/directives/client_type.js',
+                                  'assets/js/directives/enterprise.js',
                                   'assets/js/directives/client_status.js',
-                                  'assets/js/directives/document.js',
                                   'assets/js/directives/phoneBook.js',
                                   'assets/js/directives/client_type.js',
                                   'assets/js/directives/document.js'
@@ -433,7 +458,26 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                           );
                       }]
                   }
-              }) 
+              })
+              .state('app.page.consecutivo', {
+                  url: '/consecutivo',
+                  templateUrl: 'tpl/pages/page_consecutivo.html',
+                  controller : 'consecutivoController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                    JQ_CONFIG.moment,
+                                      'assets/js/controllers/consecutivoController.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })  
               .state('app.page.empresas', {
                   url: '/empresas',
                   templateUrl: 'tpl/pages/empresa_listado.html',
@@ -445,6 +489,7 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                           return $ocLazyLoad.load(['ui.select', 'toaster']).then(
                               function(){
                                   return $ocLazyLoad.load([
+                                      JQ_CONFIG.moment,
                                       'assets/js/controllers/empresaController.js',
                                       'assets/js/directives/country.js',
                                       'assets/js/directives/location.js',
@@ -474,6 +519,24 @@ angular.module('app').run(['$rootScope', '$state', '$stateParams', "$window", "A
                                       'assets/js/directives/phoneBook.js',
                                       'assets/js/directives/faxBook.js',
                                       'assets/js/directives/cellularPhoneBook.js'
+                                      ]);
+                              }
+                          );
+                      }]
+                  }
+              })
+              .state('app.page.notifiaciones', {
+                  url: '/notificaciones',
+                  templateUrl: 'tpl/pages/listado_notificaciones.html',
+                  controller : 'notificacionController',
+                  access: { requiredAuthentication: true },
+                  resolve:{
+                      deps: ['$ocLazyLoad',
+                        function( $ocLazyLoad ){
+                          return $ocLazyLoad.load(['ui.select', 'toaster']).then(
+                              function(){
+                                  return $ocLazyLoad.load([
+                                      'assets/js/controllers/notificacionController.js',
                                       ]);
                               }
                           );

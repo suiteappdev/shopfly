@@ -1,31 +1,31 @@
-<div class="modal-body wrapper-lg">
+<div class="modal-body wrapper">
   <div class="row">
+  <div class="col-lg-12">
       <h3 class="m-t-none m-b font-thin">Buscar Cliente</h3>
+  </div>
       <form role="form" name="clienteForm">
     	<div class="panel">
 	      <div class="row">
 		      <form name="buscarCliente" name="buscarClienteForm">
 		      <div class="col-lg-12">
-			        <div class="col-sm-2">
+			        <div class="col-lg-2">
 			            <div class="form-group">
-			              <label># Documento</label>
-			              <input type="text" class="form-control" placeholder="Numero Documento" ng-model="$parent.filter.numero">
+			              <input type="text" class="form-control" placeholder="# Documento" ng-model="$parent.filter.numero">
 			            </div>
 			        </div>
-			        <div class="col-sm-2">
-			            <ng-client-type ng-label="Tipo Cliente" ng-placeholder="Tipo"></ng-client-type>
+			        <div class="col-lg-3">
+			            <ng-client-type ng-label="Tipo Cliente" ng-clear="true" ng-placeholder="Tipo"></ng-client-type>
 			        </div>
-			        <div class="col-sm-2">
-			            <ng-client-status ng-label="Estado" ng-placeholder="Estado"></ng-client-status>
+			        <div class="col-lg-3">
+			            <ng-client-status ng-label="Estado" ng-clear="true" ng-placeholder="Estado"></ng-client-status>
 			        </div>
 			        <div>
-			        <div class="col-sm-6">
+			        <div class="col-lg-4">
 			          <div class="form-group">
-			            <label>Buscar:</label>
 			            <div class="input-group">
 			              <input type="text" class="form-control" placeholder="Cliente, Empresa, Razòn Social, Representante legal..." ng-model="$parent.cliente">
 			              <span class="input-group-btn">
-			                <button class="btn btn-info" type="submit" ng-click="buscarCliente()" >Buscar!</button>
+			                <button class="btn btn-info" type="submit" ng-click="buscarCliente()" ><i class="fa fa-search"></i></button>
 			              </span>
 			            </div>
 			        </div>
@@ -35,7 +35,7 @@
 		      </form>
 	        </div>
       </div>
-      <div class="col-lg-12">
+      <div class="col-lg-12 cell scrollable" style="height:400px;">
 	      <div class="table-responsive">
 	        <table class="table" ng-arrow-selector>
 	          <thead>
@@ -46,6 +46,7 @@
 	            </tr>
 	          </thead>
 	          <tbody>
+          		<tr ng-show="clientes.length  == 0 || !clientes" ><td colspan="3" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
 	            <tr ng-repeat="cliente in clientes" ng-click="setSelected(cliente)" ng-class="{selected : selected == cliente}">
 	              <td>{{cliente.nombre || cliente.representanteLegal}} {{cliente.apellido || ''}}</td>
 	              <td>{{cliente.metadata.email}}</td>

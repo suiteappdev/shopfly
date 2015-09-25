@@ -1,12 +1,10 @@
 angular.module('app').controller("navigationController", ["$scope", "$location", "$localStorage", "UserService", "AuthenticationService", "$API", "$rootScope", "$socket", function($scope, $location, $localStorage, UserService, AuthenticationService, $API, $rootScope, $socket){
 	$scope.Load = function(){
 		$scope.documents = [];
-
-	    angular.forEach($rootScope.credential.user.metadata.estadoDocumento, function(estado){
+	    angular.forEach($rootScope.credential.user.metadata.misEstados, function(estado){
 	     	if(estado.subscribed){
 		        $socket.on(estado.nombre, function(res){
 		        	$scope.documents.push(res);
-		        	alert("Una Nueva Documentacion a LLegado", res._id);
 		        });
 
 				$API.DocDocumento.Search({

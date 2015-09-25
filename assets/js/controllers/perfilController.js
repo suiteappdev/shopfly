@@ -13,6 +13,8 @@ angular.module('app').controller("perfilController", ["$scope", "$API", "$modal"
 			if(res.status == 200){
 	      		toaster.pop("success","Perfil", "Creado.");
 				$scope.perfiles.push(res.data);
+				$scope.perfilForm.$setPristine();
+				$scope.perfil = {};
 			}
 		});
 	}
@@ -74,7 +76,7 @@ angular.module('app').controller("perfilController", ["$scope", "$API", "$modal"
       		}, 
       		function(val){
       			console.log(val);
-  		});
+  			});
 	}
 
 }]);

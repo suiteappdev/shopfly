@@ -14,39 +14,14 @@
             <div class="form-group">
               <label>Estado</label>
                 <label class="i-switch m-t-xs m-r">
-                  <input type="checkbox" checked ng-model="setPlantilla.estado">
+                  <input type="checkbox" required checked ng-model="setPlantilla.estado">
                   <i></i>
                 </label>
             </div>
           </div>
           <div class="col-lg-12">
-          <div class="table-responsive m_b">
-                <table class="table table-striped b-t b-light">
-                  <thead>
-                    <tr>
-                      <th>Indice</th>
-                      <th>Tipo</th>
-                      <th>Longitud</th>
-                      <th class="pull-right">Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-show="!indices" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
-                    <tr ng-show="indices.length  > 0" ng-repeat="indice in $parent.setPlantilla.indice">
-                        <td>{{indice.nombre}}</td>
-                        <td>{{indice.tipo}}</td>
-                        <td>{{indice.longitud}}</td>
-                        <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-danger" ng-click="Del(indice)"><i class="fa fa-trash"></i></button>
-                        </td>
-                    </tr>
-                  </tbody>
-                </table>
-            </div>
-          </div>
-          <div class="col-lg-12">
             <div class="form-group" >
-              <label>Plantillas</label>
+              <label>Indices</label>
               <ui-select on-select="onSelect($item, $model)" ng-model="$parent.$parent.indice" theme="bootstrap" ng-disabled="disabled">
                   <ui-select-match placeholder="Elija los indices...">{{$parent.indice.nombre}}</ui-select-match>
                   <ui-select-choices repeat="indice in indices | propsFilter: {nombre: $select.search, tipo: $select.search}">
@@ -59,9 +34,70 @@
             </div>
           </div>
           <div class="col-lg-12">
-            <p class="pull-right">
-              <button type="submit" ng-disabled="!plantillasForm.$valid" class="btn btn-sm btn-primary" ng-click="ok()">Crear</button>
-              <button type="submit" ng-disabled="!plantillasForm.$valid" class="btn btn-sm btn-warning" ng-click="$close()">Cancelar</button>
+            <div class="form-group" >
+              <label>Consecutivo</label>
+                <ui-select ng-model="setPlantilla.metadata.consecutivo" theme="bootstrap" required>
+                  <ui-select-match placeholder="Consecutivo">{{$select.selected.nombre}}</ui-select-match>
+                  <ui-select-choices group-by="'group'" repeat="cons in consecutivos | filter: $select.search">
+                    <span ng-bind-html="cons.nombre | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="radio">
+                <label class="i-checks">
+                  <input type="checkbox" name="a" value="Texto" ng-model="setPlantilla.expira.expira">
+                  <i></i>
+                  Expira
+                </label>
+              </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <div class="radio">
+                <label class="i-checks">
+                  <input type="checkbox" name="a" value="Texto" ng-model="setPlantilla.cliente">
+                  <i></i>
+                  Cliente
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="cell scrollable hover" ng-class="{'dataArea': $parent.setPlantilla.indice.length > 0}" >
+                <div class="table-responsive m_b">
+                      <table class="table table-striped b-t b-light">
+                        <thead>
+                          <tr>
+                            <th>Indice</th>
+                            <th>Tipo</th>
+                            <th>Longitud</th>
+                            <th>Editable</th>
+                            <th class="pull-right">Acciones</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr ng-show="!indices" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                          <tr ng-show="indices.length  > 0" ng-repeat="indice in $parent.setPlantilla.indice">
+                              <td>{{indice.nombre}}</td>
+                              <td>{{indice.tipo}}</td>
+                              <td>{{indice.longitud}}</td>
+                              <td>{{indice.editable ? 'Si' : 'No'}}</td>
+                              <td>
+                                  <button type="submit" class="btn btn-sm btn-info pull-right" ng-click="Del(indice)"><i class="fa fa-trash"></i></button>
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                  </div>
+            </div>
+
+          </div>
+          <div class="col-lg-12">
+            <p class="pull-right m-t">
+              <button type="submit" ng-disabled="!plantillasForm.$valid || !credential.user.permiso.formularios[2].permisos.W || setPlantilla.indice.length == 0 || !setPlantilla.indice" class="btn btn-sm btn-info" ng-click="ok()">Actualizar</button>
+              <button type="submit" class="btn btn-sm btn-info" ng-click="$close()">Cancelar</button>
             </p>            
           </div>
           </form>

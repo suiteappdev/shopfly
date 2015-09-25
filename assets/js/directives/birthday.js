@@ -39,7 +39,8 @@ angular.module("app").directive("ngBirthday", function(){
 		scope : {
 			ngLabel : "@",
 			ngPlaceholder : '@',
-			ngFormat : "@"
+			ngFormat : "@",
+			ngDisable : '@'
 		},
 		templateUrl : "tpl/fields/birthday.html",
 		link : link
