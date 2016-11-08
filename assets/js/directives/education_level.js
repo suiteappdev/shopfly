@@ -13,7 +13,8 @@ angular.module("app").directive("ngEducationLevel", function(){
 		scope : true,
 		scope : {
 			ngLabel : "@",
-			ngPlaceholder : '@'
+			ngPlaceholder : '@',
+			ngDisable	: '@'
 		},
 		templateUrl : "tpl/fields/education_level.html",
 		link : link

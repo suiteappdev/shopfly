@@ -1,0 +1,142 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm ng-scope" ng-init="Load()">
+  <div class="col w-lg bg-light b-r bg-auto">
+    <div class="wrapper-md dker d-b">
+      <h3 class="m-n font-thin w-c"><i class="fa fa-folder"></i> Archivos</h3>
+    </div>
+    <div class="wrapper-sm text-center">      
+      <input type="file" multiple="multiple" id="files" ng-file class="hidden">
+      <div class="col-lg-12 m-b">
+        <label for="files" class="text-center btn btn-info btn-block"><i class="icon icon-cloud-upload"></i> Archivos</label>
+      </div>
+      <p></p>
+      <div class="col-lg-12 m-b">
+          <div class="form-group">
+            <label>Seleccione el Scanner</label>
+              <ui-select ng-model="$parent.print" theme="bootstrap">
+                <ui-select-match placeholder="Dispositivo de entrada">{{print.Name}}</ui-select-match>
+                <ui-select-choices group-by="'group'" repeat="print in prints | filter: $select.search">
+                  <span ng-bind-html="print.Name | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
+          </div>        
+      </div>
+        <p></p>
+        <div class="col-lg-12">
+           <div class="form-group">
+              <button class="text-center btn btn-info btn-block" ng-disabled="!print" ng-click="Scan()"><i class="icon icon-printer"></i> Scannear</button>   
+           </div>           
+        </div>
+        <div class="line line-dashed b-b line-lg pull-in"></div>
+        <form class="form" name="documentacionFormUpdate">
+        <div class="col-lg-12">
+            <div class="form-group">
+            <label>Seleccione el Estado</label>
+              <ui-select ng-model="$parent.estado" theme="bootstrap">
+                <ui-select-match placeholder="Estado">{{$select.selected.nombre}}</ui-select-match>
+                <ui-select-choices group-by="'group'" repeat="estado in estadoDocumentos | filter: $select.search">
+                  <span ng-bind-html="estado.nombre | highlight: $select.search"></span>
+                </ui-select-choices>
+              </ui-select>
+          </div> 
+        </div>
+        <div class="col-lg-6">
+            <button  ng-disabled="!credential.user.permiso.formularios[12].permisos.W || myFiles.length <= 0" class="text-center btn-block btn btn-info" ng-disabled="!documentacionFormUpdate.$valid" ng-click="Update()"><i class="fa fa-save"></i> Actulizar</button>           
+        </div>
+        <div class="col-lg-6">
+              <a ui-sref="app.page" href="#!page" class="text-center btn-block btn btn-info" ><i class="fa fa-close"></i> Cancelar</a>           
+        </div>
+        </form>
+    </div>
+  </div>
+  <div class="col">
+      <div class="wrapper-md bg-light dk b-b">
+        <span class="pull-right m-t-xs">Cantidad Total: <b class="badge" ng-class="{'bg-info': myFiles.length > 0 } " >{{myFiles.length}}</b></span>
+        <h3 class="m-n font-thin">Pila de Archivos por Procesar</h3>
+      </div>
+      <div style="height : 300px;overflow-x:hidden!important;" class="b-t cell scrollable hover">
+      <div class="col-lg-12 text-center m-t" ng-show="myFiles.length == 0">
+        <P><i class="fa fa-exclamation-circle"></i> No Existen Archivos.</P>
+      </div>
+        <table class="table bg-white-only b-a" ng-show="myFiles.length > 0">
+            <thead>
+                <tr>
+                    <th width="50%">Archivo</th>
+                    <th width="5%">Tamaño</th>
+                    <th width="15%" class="text-center">Estado</th>
+                    <th width="35%" class="pull-right">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+          <tr ng-show="myFiles.length  == 0" ><td colspan="3" class="text-center"><i class="fa fa-exclamation-circle"></i> No Existen Archivos.</td></tr>
+             <tr  ng-show="file.name.split('.')[1].toLowerCase() != 'ini'" ng-repeat="file in myFiles">
+               <td>{{file.name}}</td>
+               <td class="text-center">{{units(file.size, true)}}</td>
+               <td class="text-center">
+                <span class="label bg-danger inline m-t-sm" ng-show="file.estado == 'Deleted'">Por Borrar</span>
+                <span class="label bg-success inline m-t-sm" ng-show="file.estado == 'InDisk'">En Disco</span>
+                <span class="label bg-warning inline m-t-sm" ng-show="!file.estado">Pendiente</span>
+               <td>
+                 <div class="pull-right">
+                      <button class="btn btn-sm btn-icon btn-info" ng-click="remove(file)" ng-disabled="!credential.user.permiso.formularios[12].permisos.D"><i class="fa fa-trash"></i></button>
+                 </div>
+                </td>
+             </tr>
+            </tbody>
+        </table>
+      </div>
+    <div>
+      <div class="panel panel-default">
+        <div class="panel-heading font-bold">Lista de Difusiones</div>
+        <div class="panel-body-xs cell scrollable hover" style="height:250px;">
+          <div class="table-responsive">
+                <table class="table table-striped b-t b-light">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Cliente</th>
+                      <th class="text-center">Indices</th>
+                      <th class="pull-right">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-show="$root.difusionItems.length == 0 || !$root.difusionItems" ><td colspan="3" class="text-center"><i class="fa fa-exclamation-circle"></i> No hay Difusiones</td></tr>
+                    <tr ng-repeat="difusion in $root.difusionItems">
+                      <td>{{difusion.plantilla.cliente.nombre || difusion.plantilla.cliente.representanteLegal}} {{difusion.plantilla.cliente.apellido || 'No asignado'}}</td>
+                      <td class="text-center"><a href="" ng-click="mostrarIndices(difusion.plantilla)"><i class="fa fa-eye"></i></a></td>
+                        <td>
+                          <div class="pull-right">
+                              <button class="btn btn-sm btn-info" ng-click="removeDifusion(difusion)"><i class="fa fa-trash"></i></button>
+                              <button class="btn btn-info btn-sm btn-icon " ng-click="explorer(difusion.directorio)"><i class="fa fa-folder"></i></button>
+                              <a class="btn btn-info btn-sm btn-icon" sref"app.page.editar-documentacion({documentacion : difusion._id})" href="#/app/page/editar-documentacion/{{difusion._id}}" ><i class="fa fa-edit"></i></a>                          
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>          
+        </div>
+
+      </div>
+      </div>
+  </div>  
+</div>
+<toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+<script type="text/ng-template" id="documentar.html">
+  <div ng-include="'tpl/modals/documentar.html'"></div>
+</script> 
+<script type="text/ng-template" id="confirm.html">
+  <div ng-include="'tpl/modals/confirm/confirm.html'"></div>
+</script>
+<script type="text/ng-template" id="renombrar_archivo.html">
+  <div ng-include="'tpl/modals/renombrar_archivo.html'"></div>
+</script>
+<script type="text/ng-template" id="sign.html">
+  <div ng-include="'tpl/modals/sign.html'"></div>
+</script>
+<script type="text/ng-template" id="editar_documentacion.html">
+  <div ng-include="'tpl/modals/editar_documentacion.html'"></div>
+</script>
+<script type="text/ng-template" id="explorer.html">
+  <div ng-include="'tpl/modals/explorer.html'"></div>
+</script>   
+
+

@@ -35,8 +35,8 @@
         </div>
         <div class="col-lg-12">
         <p class="pull-right">
-          <button type="submit" ng-disabled="!setRetencionForm.$valid" class="btn btn-sm btn-primary" ng-click="$parent.ok()">Ok</button>
-          <button type="submit" ng-disabled="!setRetencionForm.$valid" class="btn btn-sm btn-warning" ng-click="$close()">Cancelar</button>
+          <button type="submit" ng-disabled="!setRetencionForm.$valid || !credential.user.permiso.formularios[9].permisos.W" class="btn btn-sm btn-info" ng-click="$parent.ok()">Ok</button>
+          <button type="submit" class="btn btn-sm btn-info" ng-click="$close()">Cancelar</button>
         </p>          
         </div>
     </form>

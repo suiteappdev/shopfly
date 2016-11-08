@@ -1,7 +1,7 @@
 <div ng-init="load()">
   <div class="bg-light lter b-b wrapper-md">
     <h1 class="m-n font-thin h3 inline">Lista de Clientes</h1>
-    <a ng-disabled="!credential.user.permiso.formularios[10].permisos.W" sref="app.page.cliente" href="#/app/page/cliente" class="btn btn-success btn-xs pull-right"><i class="icon icon-note"></i> Crear Nuevo Cliente</a>
+    <a ng-disabled="!credential.user.permiso.formularios[10].permisos.W" sref="app.page.cliente" href="#/app/page/cliente" class="btn btn-info btn-xs pull-right"><i class="icon icon-note"></i> Crear Nuevo Cliente</a>
     <ul class="breadcrumb">
           <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
           <li><a href="">Clientes</a></li>
@@ -13,7 +13,7 @@
       <div class="row wrapper-sm">
         <div class="col-sm-2">
             <div class="form-group">
-              <label>Numero de Documento</label>
+              <label># de Documento</label>
               <input type="text" class="form-control" placeholder="Numero Documento" ng-model="filter.numero">
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Cliente, Empresa, Razòn Social, Representante legal..." ng-model="cliente">
               <span class="input-group-btn">
-                <button ng-disabled="!credential.user.permiso.formularios[10].permisos.R" class="btn btn-primary" type="button" ng-click="Search()" >Buscar!</button>
+                <button ng-disabled="!credential.user.permiso.formularios[10].permisos.R" class="btn btn-info" type="button" ng-click="Search()" >Buscar!</button>
               </span>
             </div>
         </div>
@@ -49,7 +49,7 @@
             </tr>
           </thead>
           <tbody>
-          <tr ng-show="clientes.length  == 0" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+          <tr ng-show="clientes.length  == 0 || !clientes" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
             <tr ng-repeat="cliente in clientes">
               <td>{{cliente.nombre || cliente.representanteLegal}} {{cliente.apellido || ''}}</td>
               <td>{{cliente.metadata.email}}</td>

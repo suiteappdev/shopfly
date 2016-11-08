@@ -3,10 +3,17 @@
 angular.module('app').directive('ngDraggable', ['$document', function($document) {
     
     function link($scope, element, attrs){
-      console.log("scope offsetX", $scope.$parent.sign.offsetX)
-      console.log("scope offsetY", $scope.$parent.sign.offsetY)
-      
-      $(element).draggable({
+      $(element).resizable({
+        minHeight : 100,
+        minWidth : 200,
+        maxHeight : 200,
+        maxWidth : 400,
+        handles: 'se',
+        stop : function(e, ui){
+          $scope.$parent.sign.width = ui.size.width;
+          $scope.$parent.sign.height =  ui.size.height;
+        }
+      }).draggable({
         containment : $scope.ngContainment,
         start : function(){
         
@@ -19,7 +26,7 @@ angular.module('app').directive('ngDraggable', ['$document', function($document)
           $scope.$parent.sign.offsetX =  $(element[0]).position().left;
           $scope.$parent.sign.offsetY =  $(element[0]).position().top;
         }
-      });
+      })
     }
 
     return {
@@ -27,7 +34,9 @@ angular.module('app').directive('ngDraggable', ['$document', function($document)
       scope :{
         ngContainment : '@',
         ngX : '=',
-        ngY : '='
+        ngY : '=',
+        ngWidth : '=',
+        ngHeight : '=',
       },
       link : link
     }

@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('app').constant("$docFlyConf", {
-		base : "https://docfly-majoca10.c9.io/",
-		socketUrl : "https://docfly-majoca10.c9.io",
-        path: "Z:\\",
+		base : "http://127.0.0.1:3000/",
+		socketUrl : "http://127.0.0.1:8080/",
+        path: "C:\\",
         root: "#",
-        gmailUser : 'listerine1989@gmail.com',
-        gmailPwd : 'house1989*',
+        gmailUser : 'docflyapp@gmail.com',
+        gmailPwd : 'Majoca0126*',
         fileKey : "Majoca0126*",
-        scanFolder : 'F:\\'
+        scanFolder : 'C:\\scanner'	
     })

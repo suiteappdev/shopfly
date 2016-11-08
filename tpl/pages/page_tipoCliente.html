@@ -19,13 +19,13 @@
             <div class="form-group">
               <label>Estado</label>
                 <label class="i-switch m-t-xs m-r">
-                  <input type="checkbox" checked ng-model="tipoCliente.estado" ng-init="tipoCliente.estado = true">
+                  <input type="checkbox" required checked ng-model="tipoCliente.estado" ng-init="tipoCliente.estado = true">
                   <i></i>
                 </label>
             </div>
           </div>
             <p class="pull-right">
-              <button ng-disabled="!credential.user.permiso.formularios[6].permisos.W" type="submit" ng-disabled="!tipoClientesForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+              <button type="submit" ng-disabled="!tipoClientesForm.$valid || !credential.user.permiso.formularios[6].permisos.W" class="btn btn-sm btn-info" ng-click="Create()">Crear</button>
             </p>
           </form>
         </div>
@@ -40,11 +40,11 @@
                     <tr>
                       <th>Descripciòn</th>
                       <th>Estado</th>
-                      <th class="pull-right">Acciones</th>
+                      <th class="text-right">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="!tiposClientes" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="!tiposClientes || tiposClientes.length == 0" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
                     <tr ng-show="tiposClientes.length  > 0" ng-repeat="tipo in tiposClientes">
                         <td>{{tipo.descripcion}}</td>
                         <td>
@@ -55,7 +55,7 @@
                         </td>
                         <td class="pull-right">
                             <button ng-disabled="!credential.user.permiso.formularios[6].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(tipo)"><i class="fa fa-edit"></i></button>
-                            <button ng-disabled="!credential.user.permiso.formularios[6].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(tipo)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[6].permisos.D" type="submit" class="btn btn-sm btn-info" ng-click="Del(tipo)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>

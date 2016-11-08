@@ -22,6 +22,7 @@ window.permisos = {
 						{"parent":"mnuDocumentacion","nombre":"Estados de Documentos"},
 						{"parent":"mnuUsuario","nombre":"Permiso"},
 						{"parent":"mnuUsuario","nombre":"Roles"},
-						{"parent":"mnuConfiguracion","nombre":"Cargo"}
+						{"parent":"mnuConfiguracion","nombre":"Cargo"},
+						{"parent":"mnuDocumentacion","nombre":"Consecutivo"},
 					]
 }

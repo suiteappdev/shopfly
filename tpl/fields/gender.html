@@ -1,6 +1,6 @@
 <div class="form-group">
   <label>{{ngLabel}}</label>
-    <ui-select ng-model="$root.gender" theme="bootstrap" ng-disabled="{{ngDisabled}}">
+    <ui-select ng-model="$root.gender" theme="bootstrap" ng-disabled="{{ngDisable}}">
       <ui-select-match placeholder="{{ngPlaceholder}}">{{$root.gender}}</ui-select-match>
       <ui-select-choices group-by="'group'" repeat="gen in gender | filter: $select.search">
         <span ng-bind-html="gen | highlight: $select.search"></span>

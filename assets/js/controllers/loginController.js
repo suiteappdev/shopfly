@@ -1,4 +1,4 @@
-angular.module('app').controller("loginController", ["$scope", "$location", "$window", "UserService", "AuthenticationService", "$rootScope", "$localStorage", function($scope, $location, $window, UserService, AuthenticationService, $rootScope, $localStorage){
+angular.module('app').controller("loginController", ["$scope", "$location", "$window", "UserService", "AuthenticationService", "$rootScope", "$localStorage", "toaster", function($scope, $location, $window, UserService, AuthenticationService, $rootScope, $localStorage, toaster){
 
 	$scope.login = function(){
         UserService.signIn($scope.user.usuario, $scope.user.password).then(function(res) {
@@ -6,9 +6,10 @@ angular.module('app').controller("loginController", ["$scope", "$location", "$wi
             	AuthenticationService.isAuthenticated = true;
                 $localStorage.credential = res.data; 
             	$location.path("/app/panel");        		
-        	}else{
-            	$location.path("/login");        		
         	}
+        }, function(){
+            toaster.pop("error","Credenciales", "Usuario/Contraseña Incorrectas");
+            $location.path("/login");     
         })
 	}
 

@@ -44,23 +44,16 @@ angular.module('app').controller("rutaController", ["$scope","$rootScope", "$mod
 	        scope : $scope,
 	        controller : function($scope){
 	        	$scope.ok = function(){
-	        		$scope.$close(true);
-	        	}
-	        }
-      	});
-
-      	modalInstance.result.then(
-      		function(val){
-      			if(val){
 	      			$API.Ruta.Update($scope.setRuta).then(function(res){
 	      				if(res.status == 200){
 	      					toaster.pop("success","Ruta", "Actualizado");
 	      					$scope.rutas[$scope.rutas.indexOf(ruta)] = res.data;
 	      				}
-	      			});      				
-      			}
-      		}
-		);
+	      			}); 
+	        		$scope.$close(true);
+	        	}
+	        }
+      	});
 	}
 
 	$scope.showPathView = function(paths){

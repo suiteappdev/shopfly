@@ -1,10 +1,7 @@
-angular.module('app').controller("clienteController", ["$scope", "$API", "$modal", "toaster", "$rootScope", "$stateParams", "$location", "$socket", function($scope, $API, $modal, toaster, $rootScope, $stateParams, $location, $socket){
+angular.module('app').controller("clienteController", ["$scope", "$API", "$modal", "toaster", "$rootScope", "$stateParams", "$location", "$socket", "$timeout", function($scope, $API, $modal, toaster, $rootScope, $stateParams, $location, $socket, $timeout){
 
 	$scope.load = function(){
 		$scope.tab = "personal";
-		$API.Cliente.List().then(function(res){
-			$scope.clientes = res.data || [];
-		});
 
 		$API.Perfil.List().then(function(res){
 			$scope.perfiles = res.data;
@@ -73,10 +70,13 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 
 		}).then(function(data){
 			if(data.status == 200){
-				toaster.pop("success","Cliente", "Cliente Actualizado");
-				delete $scope.cliente;
-				$rootScope.clearCustomFields();
-				$scope.tab = "personal";
+				$timeout(function(){
+					toaster.pop("success","Cliente", "Cliente Actualizado");
+					delete $scope.cliente;
+					$rootScope.clearCustomFields();
+					$scope.tab = "personal";
+				}, 2000)
+
 				$location.path("app/page/clientes");
 			}
 		});
@@ -127,7 +127,6 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 			$scope.formCliente.$setPristine();
 			$rootScope.clearCustomFields();
 			$scope.tab = "personal";
-			$location.path("/app/page/clientes");
 		})
 	}
 

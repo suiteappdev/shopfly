@@ -1,6 +1,36 @@
 <div class="modal-body">
+<h3 class="m-t-none m-b font-thin">Indices</h3>
+<p>Indices que estan configurados para la plantilla.</p>
+<div class="col-lg-12">
+</div>
   <div class="row">
     <form role="form" name="renombrarForm">
+      <div class="col-lg-4">
+          <div class="radio">
+            <label class="i-checks">
+              <input type="checkbox" name="a" value="Texto" ng-if="setPlantilla.expira.expira" ng-model="setPlantilla.expira.expira">
+              <i></i>
+              Expira
+            </label>
+          </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="form-group">
+          <div class="radio" ng-if="setPlantilla.cliente">
+            <label class="i-checks" >
+              <input type="checkbox" name="a" value="Texto" ng-checked="true">
+              <i></i>
+              Cliente
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4" ng-if="setPlantilla.metadata.consecutivo.nombre">
+            <div class="form-group">
+              <label>Consecutivo</label>
+              <input type="text" class="form-control" disabled="true" placeholder="Consecutivo" ng-model="setPlantilla.metadata.consecutivo.nombre"/>
+            </div> 
+      </div>
     <div class="col-lg-12">
     <div class="table-responsive">
       <table class="table table-striped b-t b-light">
@@ -8,15 +38,19 @@
           <tr>
             <th>Nombre</th>
             <th>Tipo</th>
+            <th>Editable</th>
+            <th>Requerido</th>
             <th>Valor</th>
           </tr>
         </thead>
         <tbody>
-          <tr ng-repeat="indice in setIndices">
+          <tr ng-repeat="indice in setPlantilla.indice">
             <td>{{indice.nombre}}</td>
             <td>{{indice.tipo}}</td>
-            <td ng-show="indice.tipo == 'Fecha'">{{indice.value | date : 'yyyy-MM-dd'}}</td>
-            <td ng-show="indice.tipo != 'Fecha'">{{indice.value}}</td>
+            <td>{{indice.editable ? 'Si' : 'No'}}</td>
+            <td>{{indice.requerido ? 'Si' : 'No'}}</td>
+            <td ng-show="indice.tipo == 'Fecha'">{{indice.value ? indice.value : 'no determinado'  | date : 'yyyy-MM-dd'}}</td>
+            <td ng-show="indice.tipo != 'Fecha'">{{indice.value || 'no determinado'}}</td>
           </tr>
         </tbody>
       </table>
@@ -24,7 +58,7 @@
     </div>
       <div class="col-lg-12">
         <p class="text-center">
-          <button type="submit" ng-disabled="!renombrarForm.$valid" class="btn btn-sm btn-primary" ng-click="$close()">OK</button>
+          <button type="submit" ng-disabled="!renombrarForm.$valid" class="btn btn-sm btn-info" ng-click="$close()">OK</button>
         </p>            
       </div>
     </form>

@@ -12,41 +12,16 @@
           <div class="col-lg-10">
             <div class="form-group">
               <label>Plantilla</label>
-              <input type="text" class="form-control" placeholder="Plantilla" ng-model="plantilla.nombre"/>
+              <input type="text" class="form-control" placeholder="Plantilla" ng-model="plantilla.nombre" required/>
             </div>               
           </div>
           <div class="col-lg-2">
             <div class="form-group">
               <label>Estado</label>
                 <label class="i-switch m-t-xs m-r">
-                  <input type="checkbox" checked ng-model="plantilla.estado" ng-init="plantilla.estado = true">
+                  <input type="checkbox" required checked ng-model="plantilla.estado" ng-init="plantilla.estado = true">
                   <i></i>
                 </label>
-            </div>
-          </div>
-          <div class="col-lg-12">
-          <div class="table-responsive m_b">
-                <table class="table table-striped b-t b-light">
-                  <thead>
-                    <tr>
-                      <th>Indice</th>
-                      <th>Tipo</th>
-                      <th>Longitud</th>
-                      <th class="pull-right">Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr ng-show="!plantilla.indice" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No has agregado indices a esta plantilla.</td></tr>
-                    <tr ng-show="indices.length  > 0" ng-repeat="indice in plantilla.indice">
-                        <td>{{indice.nombre}}</td>
-                        <td>{{indice.tipo}}</td>
-                        <td>{{indice.longitud}}</td>
-                        <td class="pull-right">
-                            <button type="submit" class="btn btn-sm btn-danger" ng-click="removeIndice(indice)"><i class="fa fa-trash"></i></button>
-                        </td>
-                    </tr>
-                  </tbody>
-                </table>
             </div>
           </div>
           <div class="col-lg-12">
@@ -64,8 +39,70 @@
             </div>
           </div>
           <div class="col-lg-12">
-            <p class="pull-right">
-              <button ng-disabled="!credential.user.permiso.formularios[2].permisos.W" type="submit" ng-disabled="!plantillasForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+            <div class="form-group" >
+              <label>Consecutivo</label>
+                <ui-select ng-model="$parent.plantilla.metadata.consecutivo" theme="bootstrap">
+                  <ui-select-match placeholder="Consecutivo">{{$select.selected.nombre}}</ui-select-match>
+                  <ui-select-choices group-by="'group'" repeat="cons in consecutivos | filter: $select.search">
+                    <span ng-bind-html="cons.nombre | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+              <div class="radio">
+                <label class="i-checks">
+                  <input type="checkbox" name="a" value="Texto" ng-model="plantilla.expira">
+                  <i></i>
+                  Expira
+                </label>
+              </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <div class="radio">
+                <label class="i-checks">
+                  <input type="checkbox" name="a" value="Texto" ng-model="plantilla.cliente">
+                  <i></i>
+                  Cliente
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12">
+          <div class="cell scrollable hover" ng-class="{'dataArea': plantilla.indice.length > 0}" >
+            <div class="table-responsive m_b">
+                  <table class="table table-striped b-t b-light">
+                    <thead>
+                      <tr>
+                        <th>Indice</th>
+                        <th>Tipo</th>
+                        <th>Longitud</th>
+                        <th>Editable</th>
+                        <th class="pull-right">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-show="!plantilla.indice || plantilla.indice.length == 0" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No has agregado indices a esta plantilla.</td></tr>
+                      <tr ng-show="indices.length  > 0" ng-repeat="indice in plantilla.indice">
+                          <td>{{indice.nombre}}</td>
+                          <td>{{indice.tipo}}</td>
+                          <td>{{indice.longitud || 'No Definida'}}</td>
+                          <td>{{indice.editable ? 'Si' : 'No'}}</td>
+                          <td class="pull-right">
+                              <button type="submit" class="btn btn-sm btn-info" ng-click="removeIndice(indice)"><i class="fa fa-trash"></i></button>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>            
+          </div>
+
+          </div>
+
+          <div class="col-lg-12">
+            <p class="pull-right m-t">
+              <button type="submit" ng-disabled="!plantillasForm.$valid || !credential.user.permiso.formularios[2].permisos.W || plantilla.indice.length == 0 || !plantilla.indice" class="btn btn-sm btn-info" ng-click="Create()">Crear</button>
             </p>            
           </div>
           </form>
@@ -86,10 +123,10 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="!plantillas" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="!plantillas || plantillas.length == 0" ><td colspan="4" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
                     <tr ng-show="plantillas.length  > 0" ng-repeat="plantilla in plantillas">
                         <td>{{plantilla.nombre}}</td>
-                        <td>{{plantilla.indice[0].nombre}}<a ng-hide="plantilla.indice.length == 1" href=""><b class="badge bg-success pull-right">+ {{plantilla.indice.length == 1 ? plantilla.indice.length : (plantilla.indice.length) - 1}}</b></a></td>
+                        <td>{{plantilla.indice[0].nombre}}<a ng-hide="plantilla.indice.length == 1" href=""><b class="badge bg-success pull-right" ng-click="mostrarIndices(plantilla)">+ {{plantilla.indice.length == 1 ? plantilla.indice.length : (plantilla.indice.length) - 1}}</b></a></td>
                         <td>
                           <label class="i-switch m-t-xs m-r">
                             <input ng-disabled="!credential.user.permiso.formularios[1].permisos.W"type="checkbox" checked ng-model="plantilla.estado" ng-click="changeState(plantilla)">
@@ -98,7 +135,7 @@
                         </td>
                         <td class="pull-right">
                             <button ng-disabled="!credential.user.permiso.formularios[2].permisos.W"type="submit" class="btn btn-sm btn-info" ng-click="Update(plantilla)"><i class="fa fa-edit"></i></button>
-                            <button ng-disabled="!credential.user.permiso.formularios[2].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(plantilla)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[2].permisos.D" type="submit" class="btn btn-sm btn-info" ng-click="Del(plantilla)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>
@@ -116,4 +153,7 @@
 </script>
 <script type="text/ng-template" id="editar_plantilla.html">
   <div ng-include="'tpl/modals/editar_plantilla.html'"></div>
+</script> 
+<script type="text/ng-template" id="mostrar_indices.html">
+  <div ng-include="'tpl/modals/mostrar_indices.html'"></div>
 </script>    

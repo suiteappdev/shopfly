@@ -3,11 +3,11 @@
   <div class="col-lg-12">
       <h3 class="m-t-none m-b font-thin">Ediciòn Rutas</h3>
   </div>
-    <form role="form" name="indiceForm">
+    <form role="form" name="rutaForm">
       <div class="col-lg-10">
         <div class="form-group">
           <label>Plantillas</label>
-            <ui-select ng-model="setRuta.plantilla" theme="bootstrap">
+            <ui-select required ng-model="setRuta.plantilla" theme="bootstrap">
               <ui-select-match placeholder="Plantillas">{{setRuta.plantilla.nombre}}</ui-select-match>
               <ui-select-choices group-by="'group'" repeat="plantilla in plantillas | filter: $select.search">
                 <span ng-bind-html="plantilla.nombre | highlight: $select.search"></span>
@@ -19,7 +19,7 @@
         <div class="form-group">
           <label>Estado</label>
             <label class="i-switch m-t-xs m-r">
-              <input type="checkbox" checked ng-model="setRuta.estado">
+              <input type="checkbox" checked ng-model="setRuta.estado" required>
               <i></i>
             </label>
         </div>
@@ -28,7 +28,7 @@
             <ng-path ng-label="Ruta" ng-placeholder="Ruta" ng-data="setRuta.path"></ng-path>
       </div>
       <div class="col-lg-12">
-        <p class="pull-right"><button type="submit" ng-disabled="!indiceForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button></p>            
+        <p class="pull-right"><button type="submit" ng-disabled="!rutaForm.$valid || !credential.user.permiso.formularios[3].permisos.W || setRuta.path.length == 0" class="btn btn-sm btn-info" ng-click="ok()">Actualizar</button></p>            
       </div>
     </form>
   </div>

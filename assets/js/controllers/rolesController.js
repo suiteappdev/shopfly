@@ -14,7 +14,35 @@ angular.module('app').controller("rolesController", ["$scope", "$API", "$modal",
 		});
 	}
 
+	$scope.extenciones = [
+		{ext : 'pdf', value:false},
+		{ext : 'jpeg', value:false},
+		{ext : 'tif', value:false},
+		{ext : 'docx', value:false},
+		{ext : 'gif', value:false},
+		{ext : 'png', value:false},
+		{ext : 'txt', value:false},
+		{ext : 'zip', value:false},
+		{ext : 'rar', value:false},
+		{ext : 'xlsx', value:false},
+		{ext : 'xls', value:false}
+	];
+
+	$scope.permisionValue = function(value){
+		angular.forEach($scope.permisos.formularios, function(form, key){
+			if(value.id == form.parent){
+				form.permisos = {};
+				form.permisos.X = value.visible;
+				form.permisos.R = value.visible;
+				form.permisos.W = value.visible;
+				form.permisos.D = value.visible;
+			}
+		})
+	}
+
 	$scope.Create = function(){
+		$scope.permisos.extention = $scope.extenciones;
+
 		$API.Rol.Create({
 			perfil : $scope.rol.perfil,
 			permiso : $scope.permisos

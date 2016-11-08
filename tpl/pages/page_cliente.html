@@ -18,10 +18,6 @@
             <div class="panel-body">
             <div class="col-sm-3">
                 <ng-document  ng-label="Documento" ng-placeholder="Tipo de Documento" ng-required="true"
-                  tooltip="Campo Requerido"
-                  tooltip-placement="bottom"
-                  tooltip-trigger="mouseenter"
-                  tooltip-enable="!$root.document"
                 ></ng-document>
             </div>
             <div class="col-sm-3">
@@ -34,10 +30,6 @@
                       required
                       placeholder="Numero" 
                       ng-model="cliente.numero" 
-                      tooltip="Campo Requerido!"
-                      tooltip-placement="top"
-                      tooltip-trigger="mouseenter"
-                      tooltip-enable="formCliente.numero.$invalid"
                       >
                 </div>
             </div>
@@ -52,10 +44,6 @@
                     <div class="form-group">
                       <label>Nombres</label>
                       <input type="text" class="form-control" name="nombre" placeholder="nombres" ng-model="cliente.Nombres" ng-required="$root.document != 'NIT'"
-                      tooltip="Campo Requerido!"
-                      tooltip-placement="top"
-                      tooltip-trigger="mouseenter"
-                      tooltip-enable="formCliente.nombre.$invalid"
                       >
                     </div>
                 </div>
@@ -63,34 +51,22 @@
                     <div class="form-group">
                       <label>Apellidos</label>
                       <input type="text" class="form-control" name="apellidos" placeholder="Apellidos" ng-model="cliente.Apellidos" ng-required="$root.document != 'NIT'"
-                      tooltip="Campo Requerido!"
-                      tooltip-placement="top"
-                      tooltip-trigger="mouseenter"
-                      tooltip-enable="formCliente.apellidos.$invalid"
                       >
                     </div>
                 </div>
             </div>
-            <div class="col-12" ng-show="$root.document == 'NIT'">
-                <div class="col-lg-6">
+            <div class="col-12" >
+                <div class="col-lg-6" ng-show="$root.document == 'NIT' || $root.document == 'Cedula de Ciudadania'">
                     <div class="form-group">
                       <label>Razòn Social</label>
                       <input type="text" class="form-control" name="razon" placeholder="Razòn Social" ng-model="cliente.razonSocial" ng-required="$root.document == 'NIT'"
-                      tooltip="Campo Requerido!"
-                      tooltip-placement="top"
-                      tooltip-trigger="mouseenter"
-                      tooltip-enable="formCliente.razon.$invalid"
                       >
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" ng-show="$root.document == 'NIT'">
                     <div class="form-group">
                       <label>Representante Legal</label>
                       <input type="text" class="form-control" name="representante" placeholder="Representante Legal" ng-model="cliente.representanteLegal" ng-required="$root.document == 'NIT'"
-                      tooltip="Campo Requerido!"
-                      tooltip-placement="top"
-                      tooltip-trigger="mouseenter"
-                      tooltip-enable="formCliente.representante.$invalid"
                       >
                     </div>
                 </div>
@@ -105,7 +81,7 @@
                           <a href="" ng-click="tab = 'residencial'">
                               <tab-heading class="ng-scope">Informaciòn Residencial</tab-heading></a>
                       </li>
-                      <li ng-class="{active: tab == 'adicional'}">
+                      <li ng-class="{active: tab == 'adicional'}"  ng-show="$root.document != 'NIT'" >
                           <a href="" ng-click="tab = 'adicional'">
                           <tab-heading class="ng-scope">Informaciòn Adicional</tab-heading></a>
                       </li>
@@ -114,16 +90,16 @@
                       <div class="tab-pane active" ng-switch-when="personal">
                         <div class="col-lg-12">
                               <div class="col-sm-3">
-                                <ng-birthday ng-label="Fecha Nacimiento" ng-format="dd-MMMM-yyyy"></ng-birthday>
+                                <ng-birthday ng-label="Fecha Nacimiento" ng-disable="$root.document == 'NIT'" ng-format="dd-MMMM-yyyy"></ng-birthday>
                               </div>
                               <div class="col-sm-3">
-                                  <ng-gender ng-label="Sexo" ng-placeholder="Sexo" ng-model="cliente.genero"></ng-gender>
+                                  <ng-gender ng-label="Sexo" ng-disable="$root.document == 'NIT'" ng-placeholder="Sexo" ng-model="cliente.genero"></ng-gender>
                               </div>
                               <div class="col-sm-3">
-                                  <ng-marital-status ng-label="Estado Civil" ng-placeholder="Estado Civil" ng-model="cliente.estadoCivil"></ng-marital-status>
+                                  <ng-marital-status  ng-disable="$root.document == 'NIT'" ng-label="Estado Civil" ng-placeholder="Estado Civil" ng-model="cliente.estadoCivil"></ng-marital-status>
                               </div>
                               <div class="col-sm-3">
-                                  <ng-education-level ng-label="Nivel Educativo" ng-placeholder="Nivel" ng-model="cliente.nivelEducativo"></ng-education-level>
+                                  <ng-education-level ng-disable="$root.document == 'NIT'" ng-label="Nivel Educativo" ng-placeholder="Nivel" ng-model="cliente.nivelEducativo"></ng-education-level>
                               </div>                          
                         </div>
                         <div class="col-lg-12">
@@ -136,22 +112,14 @@
                               <div class="col-sm-4">
                                   <div class="form-group">
                                     <label>Correo</label>
-                                    <input type="email" class="form-control" name="email" placeholder="Correo" ng-model="cliente.email"
-                                      tooltip="Campo Incorrecto! Ejemplo: juan@example.com"
-                                      tooltip-placement="top"
-                                      tooltip-trigger="mouseenter"
-                                      tooltip-enable="formCliente.email.$invalid"
+                                    <input type="text" class="form-control" name="email" placeholder="Correo" ng-model="cliente.email"
                                     >
                                   </div>
                               </div>
                               <div class="col-sm-3">
                                   <div class="form-group">
                                     <label>Sitio Web</label>
-                                    <input type="url" class="form-control" name="sitioWeb" placeholder="Sitio Web" ng-model="cliente.website"
-                                      tooltip="Campo Incorrecto! Ejemplo: http://www.example.com"
-                                      tooltip-placement="top"
-                                      tooltip-trigger="mouseenter"
-                                      tooltip-enable="formCliente.sitioWeb.$invalid"
+                                    <input type="text" class="form-control" name="sitioWeb" placeholder="Sitio Web" ng-model="cliente.website"
                                     >
                                   </div>
                               </div>
@@ -202,7 +170,7 @@
                       <div class="tab-pane active" ng-switch-when="adicional">
                       <div class="col-lg-12">
                             <div class="col-sm-3">
-                              <ng-enterprise ng-model="cliente.empresa" ng-label="Empresa" ng-placeholder="Empresa"></ng-enterprise>
+                              <ng-enterprise ng-model="cliente.empresa" ng-label="Sucursal" ng-placeholder="Sucursal"></ng-enterprise>
                             </div>
                             <div class="col-sm-3">
                               <div class="form-group">
@@ -246,8 +214,8 @@
             </div>
             </div>
             <footer class="panel-footer text-right bg-light lter">
-              <a sref="app.page.clientes" href="#/app/page/clientes" type="button" class="btn btn-warning">Cancelar</a>
-              <button type="submit" ng-disabled="!formCliente.$valid" class="btn btn-primary" ng-click="create()">Crear</button>
+              <a sref="app.page.clientes" href="#/app/page/clientes" type="button" class="btn btn-info">Cancelar</a>
+              <button type="submit" ng-disabled="!formCliente.$valid" class="btn btn-info" ng-click="create()">Crear</button>
             </footer>
           </div>
         </form>

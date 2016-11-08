@@ -3,11 +3,11 @@ angular.module('app')
   .filter('fromNow', function($window) {
       return function(date) {
         if($window.moment){
-          return $window.moment(date).fromNow();
+          return $window.moment(date).locale("es").fromNow();
         }
 
         try{
-            var moment = require('moment');
+            var moment = require('moment').locale("es");
             return global.moment(date).fromNow();
         }catch(e){
 

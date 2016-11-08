@@ -21,7 +21,8 @@ angular.module("app").directive("ngGender", function(){
 		controller : ctrl,
 		scope : {
 			ngLabel : "@",
-			ngPlaceholder : '@'
+			ngPlaceholder : '@',
+			ngDisable : '@'
 		},
 		templateUrl : "tpl/fields/gender.html",
 		link : link

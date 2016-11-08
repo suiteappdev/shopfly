@@ -3,33 +3,19 @@
     <div class="wrapper-md dker d-b">
       <h3 class="m-n font-thin w-c"><i class="fa fa-filter"></i> Filtros</h3>
     </div>
-    <div class="wrapper-md text-center">      
+    <div class="wrapper-sm text-center">      
       <form role="form" name="searchDocumentForm">
-      <div class="form-group">
-        <label>Estado</label>
-          <ui-select ng-model="$parent.estado" theme="bootstrap">
-            <ui-select-match placeholder="Estado">{{$select.selected.nombre}}</ui-select-match>
-            <ui-select-choices group-by="'group'" repeat="estado in estadoDocs | filter: $select.search">
-              <span ng-bind-html="estado.nombre | highlight: $select.search"></span>
-            </ui-select-choices>
-          </ui-select>
-      </div>
-      <div class="form-group">
-        <label>Plantillas</label>
-          <ui-select ng-model="$parent.ruta" theme="bootstrap">
-            <ui-select-match placeholder="Plantillas">{{$parent.ruta.plantilla.nombre}}</ui-select-match>
-            <ui-select-choices group-by="'group'" repeat="ruta in rutas | filter: $select.search">
-              <span ng-bind-html="ruta.plantilla.nombre | highlight: $select.search"></span>
-            </ui-select-choices>
-          </ui-select>
-      </div>
+      <!-- accordion -->      
+      <div>
+        <accordion close-others="false">
+          <accordion-group heading="Fechas de Sistema">
         <div class="form-group">
             <label>Fecha Inicial</label>
             <input type="text"
              placeholder="Fecha Inicial" 
              class="form-control"
              datepicker-popup="dd-MMMM-yyyy"
-             ng-model="ini.date"
+             ng-model="$parent.$parent.$parent.ini.date"
              is-open="ini.open"
              ng-click = "ini.open = true"
              max-date="maxDate"
@@ -46,7 +32,7 @@
              placeholder="Fecha Final" 
              class="form-control"
              datepicker-popup="dd-MMMM-yyyy"
-             ng-model="end.date"
+             ng-model="$parent.$parent.$parent.end.date"
              is-open="end.open"
              ng-click = "end.open = true"
              max-date="maxDate"
@@ -56,14 +42,97 @@
              close-text="Cerrar"
              />
         </div>
-        <div class="form-group">
-          <label>Cliente</label>
-          <input type="text" class="form-control" placeholder="Cliente" ng-model="cliente" />
-        </div>
-        <div class="form-group">
-            <label>Buscar Por:</label>
-            <input type="text" class="form-control" placeholder="Indices" ng-model="criteria" required>
-        </div>
+          </accordion-group>
+          <accordion-group heading="Plantilla">
+            <div class="form-group">
+              <label>Plantillas</label>
+                <ui-select ng-model="$parent.$parent.$parent.$parent.ruta" theme="bootstrap">
+                  <ui-select-match placeholder="Plantillas">{{$select.selected.plantilla.nombre}}</ui-select-match>
+                  <ui-select-choices group-by="'group'" repeat="ruta in rutas | filter: $select.search">
+                    <span ng-bind-html="ruta.plantilla.nombre | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+            </div>
+          </accordion-group>
+          <accordion-group heading="Estados">
+            <div class="form-group">
+              <label>Estado</label>
+                <ui-select ng-model="$parent.$parent.$parent.$parent.estado" theme="bootstrap">
+                  <ui-select-match placeholder="Estado">{{$select.selected.nombre}}</ui-select-match>
+                  <ui-select-choices group-by="'group'" repeat="estado in estadoDocs | filter: $select.search">
+                    <span ng-bind-html="estado.nombre | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+            </div>
+          </accordion-group>
+          <accordion-group heading="Cliente">
+            <div class="form-group">
+              <label>Cliente</label>
+              <input type="text" class="form-control" placeholder="Cliente" ng-model="$parent.$parent.$parent.cliente" />
+            </div>
+          </accordion-group>
+          <accordion-group heading="Consecutivo">
+            <div class="form-group">
+              <label>Consecutivo</label>
+                <ui-select ng-model="$parent.$parent.$parent.$parent.consecutivo" theme="bootstrap">
+                  <ui-select-match placeholder="Estado">{{$select.selected.nombre}}</ui-select-match>
+                  <ui-select-choices group-by="'group'" repeat="consecutivo in consecutivos | filter: $select.search">
+                    <span ng-bind-html="consecutivo.nombre | highlight: $select.search"></span>
+                  </ui-select-choices>
+                </ui-select>
+            </div>
+            <div class="form-group">
+                <label>Valor:</label>
+                <input type="text" class="form-control" placeholder="Valor" ng-model="$parent.$parent.$parent.valorConsecutivo" required>
+            </div>
+          </accordion-group>
+            <accordion-group heading="Sucursales">
+              <ng-enterprise ng-model="cliente.empresa" ng-label="Empresa" ng-placeholder="Empresa"></ng-enterprise>
+            </accordion-group>
+          <accordion-group heading="Indices">
+            <div class="form-group">
+                <label>Buscar Por:</label>
+                <input type="text" class="form-control" placeholder="Indices" ng-model="$parent.$parent.$parent.criteria" required>
+            </div>
+          </accordion-group>
+          <accordion-group heading="Indice Fechas">
+            <div class="form-group">
+                <label>Fecha Inicial</label>
+                <input type="text"
+                 placeholder="Fecha Inicial" 
+                 class="form-control"
+                 datepicker-popup="dd-MMMM-yyyy"
+                 ng-model="$parent.$parent.$parent.indiceIni.date"
+                 is-open="indiceIni.open"
+                 ng-click = "indiceIni.open = true"
+                 max-date="maxDate"
+                 datepicker-options="dateOptions"
+                 date-disabled="disabled(date, mode)" 
+                 ng-required="true"
+                 close-text="Cerrar"
+                 />
+            </div> 
+            <p></p>
+            <div class="form-group">
+                <label>Fecha Final</label>
+                <input type="text"
+                 placeholder="Fecha Final" 
+                 class="form-control"
+                 datepicker-popup="dd-MMMM-yyyy"
+                 ng-model="$parent.$parent.$parent.indiceEnd.date"
+                 is-open="indiceEnd.open"
+                 ng-click = "indiceEnd.open = true"
+                 max-date="maxDate"
+                 datepicker-options="dateOptions"
+                 date-disabled="disabled(date, mode)" 
+                 ng-required="true"
+                 close-text="Cerrar"
+                 />
+            </div>
+          </accordion-group>
+        </accordion>
+      </div>
+      <!-- / accordion -->
         <div class="form-group">
           <button class="btn btn-info" type="submit" ng-click="Search()" ng-disabled="!credential.user.permiso.formularios[12].permisos.R"><i class="fa fa-search"></i> Buscar Documentos</button>
         </div>
@@ -73,25 +142,40 @@
   <div class="col">
       <div class="wrapper-md bg-light dk b-b">
       <a sref="app.page.documentar" href="#/app/page/documentar" class="btn btn-info btn-xs pull-right" ng-disabled="!credential.user.permiso.formularios[12].permisos.W"><i class="icon icon-note"></i> Nueva Documentacion</a>
+      <a sref="app.page.difusion" href="#/app/page/difusion" class="btn btn-info btn-xs pull-right m-r" ng-disabled="$root.difusionItems.length  == 0 || !$root.difusionItems" ><i class="icon icon-note"></i> Nueva Difusión</a>
         <h3 class="m-n font-thin">Documentos</h3>      
       </div>
-      <div class="col-lg-12 text-center m-t" ng-show="documentos.length == 0">
+      <div class="col-lg-12 text-center m-t" ng-show="documentos.length == 0 || !documentos">
         <P><i class="fa fa-exclamation-circle"></i> No Existen Documentos.</P>
       </div>
+      <div style="width:100%;height:500px;" class="cell scrollable hover">
         <table class="table bg-white-only b-a" ng-show="documentos.length > 0">
             <thead>
                 <tr>
+                    <th class="text-center">Difusión</th>
+                    <th class="text-center">Consecutivo</th>
                     <th width="">Cliente</th>
                     <th class="text-center">Indice</th>
-                    <th width="">Fecha</th>
+                    <th>Fecha</th>
                     <th>Estado</th>
                     <th class="pull-right">Acciones</th>
                 </tr>
             </thead>
             <tbody>
              <tr ng-repeat="doc in documentos">
-               <td>{{doc.cliente.nombre || doc.cliente.representanteLegal}} {{doc.cliente.apellido || ''}}</td>
-               <td class="text-center"><a href="" ng-click="mostrarIndices(doc.plantilla.indice)"><i class="fa fa-eye"></i></a></td>
+               <td class="text-center">
+                <div class="radio" style="margin-top:0px;margin-bottom:0px;">
+                  <label class="i-checks" >
+                    <input type="checkbox" ng-model="doc.difusion" ng-change="setDifusionItem(doc)" name="a">
+                    <i></i>
+                  </label>
+                </div>
+               </td>
+               <td class="text-center">
+                 {{doc.consecutivo || 'No Definido'}}
+               </td>
+               <td>{{doc.plantilla.cliente.nombre || doc.plantilla.cliente.representanteLegal}} {{doc.plantilla.cliente.apellido || 'No asignado'}}</td>
+               <td class="text-center"><a href="" ng-click="mostrarIndices(doc.plantilla)"><i class="fa fa-eye"></i></a></td>
                <td>{{doc.created | date : 'yyyy-MM-dd' }}</td>
                <td>{{doc.estado.nombre}}</td>
                <td class="pull-right">
@@ -102,7 +186,9 @@
                 </td>
              </tr>
             </tbody>
-        </table>
+        </table>        
+      </div>
+
   </div>  
 </div>
 <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>

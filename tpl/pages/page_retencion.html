@@ -20,7 +20,7 @@
               <label>Estado</label>
               <div>
                     <label class="i-switch m-t-xs m-r">
-                      <input type="checkbox" checked ng-model="retencion.estado">
+                      <input type="checkbox" ng-init="retencion.estado = true" required checked ng-model="retencion.estado">
                       <i></i>
                     </label>                    
               </div>
@@ -39,7 +39,7 @@
                 </div>                 
               </div>
             <p class="pull-right">
-              <button ng-disabled="!credential.user.permiso.formularios[9].permisos.W" type="submit" ng-disabled="!retencionForm.$valid" class="btn btn-sm btn-primary" ng-click="Create()">Crear</button>
+              <button type="submit" ng-disabled="!retencionForm.$valid || !credential.user.permiso.formularios[9].permisos.W" class="btn btn-sm btn-info" ng-click="Create()">Crear</button>
             </p>
           </form>
         </div>
@@ -60,7 +60,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-show="!retenciones" ><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
+                    <tr ng-show="!retenciones || retenciones.length == 0 " ><td colspan="2" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
                     <tr ng-show="retenciones.length  > 0" ng-repeat="retencion in retenciones">
                         <td>{{retencion.nombre}}</td>
                         <td>{{retencion.valor}} <strong>%</strong></td>
@@ -75,7 +75,7 @@
                         </td>
                         <td class="pull-right">
                             <button ng-disabled="!credential.user.permiso.formularios[9].permisos.W" type="submit" class="btn btn-sm btn-info" ng-click="Update(retencion)"><i class="fa fa-edit"></i></button>
-                            <button ng-disabled="!credential.user.permiso.formularios[8].permisos.D" type="submit" class="btn btn-sm btn-danger" ng-click="Del(retencion)"><i class="fa fa-trash"></i></button>
+                            <button ng-disabled="!credential.user.permiso.formularios[8].permisos.D" type="submit" class="btn btn-sm btn-info" ng-click="Del(retencion)"><i class="fa fa-trash"></i></button>
                         </td>
                     </tr>
                   </tbody>

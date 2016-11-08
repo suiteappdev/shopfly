@@ -19,7 +19,8 @@ angular.module("app").directive("ngMaritalStatus", function(){
 		scope:true,
 		scope : {
 			ngLabel : "@",
-			ngPlaceholder : '@'
+			ngPlaceholder : '@',
+			ngDisable : '@'
 		},
 		templateUrl : "tpl/fields/marital_status.html",
 		link : link

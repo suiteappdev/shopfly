@@ -11,8 +11,21 @@ angular.module('app').controller("plantillaController", ["$scope","$rootScope", 
 		$API.Indice.List().then(function(res){
 			$scope.indices = res.data || [];
 		});
+
+		$API.Consecutivo.List().then(function(res){
+			$scope.consecutivos = res.data || [];
+		});
 	}
 
+	$scope.mostrarIndices = function(plantilla){
+		$scope.setPlantilla = angular.copy(plantilla);
+
+		var modalInstance = $modal.open({
+	        templateUrl: 'mostrar_indices.html',
+	        scope : $scope,
+	        size : 'md'
+      	});
+	}
 
     $scope.someGroupFn = function (item){
         if (item.nombre[0] >= 'A' && item.nombre[0] <= 'M')
@@ -33,6 +46,12 @@ angular.module('app').controller("plantillaController", ["$scope","$rootScope", 
 	}
 
 	$scope.onSelect = function($item, $model){
+		var modalInstance = $modal.open({
+	        templateUrl: 'agregar_rutas.html',
+	        size : 'md',
+	        scope : $scope
+	    })
+
 		var _exist = false;
 
 		if(!$scope.plantilla.indice){

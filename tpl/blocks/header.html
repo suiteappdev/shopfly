@@ -59,19 +59,20 @@
               <div class="list-group">
                 <a sref"app.page.editar-documentacion({documentacion : document._id})" href="#/app/page/editar-documentacion/{{document._id}}"class="media list-group-item" ng-repeat="document in documents">
                   <span class="pull-left thumb-sm">
-                    <img ng-src="{{document.cliente.metadata.foto}}" alt="..." class="img-circle">
+                    <img ng-src="{{document.usuario.metadata.foto || 'assets/img/user-default-photo.jpg'}}" class="img-circle">
                   </span>
                   <span class="media-body">
                     {{document.plantilla.nombre}}
                     <small class="pull-right text-muted">{{ document.created | fromNow }}</small>
                     <div class="hr"></div>
                     <small class="text-muted">{{document.estado.nombre}}</small>
+                    <span class="label bg-info">{{document.enUso ? 'en edición' : 'disponible'}}</span>
                   </span>
                 </a>
               </div>
               <div class="panel-footer text-sm">
                 <a href class="pull-right"><i class="fa fa-cog"></i></a>
-                <a href="#notes" data-toggle="class:show animated fadeInRight">Ver todas las notificaciones</a>
+                <a sref="app.page.notificaciones" href="#/app/page/notificaciones" data-toggle="class:show animated fadeInRight">Ver todas las notificaciones</a>
               </div>
             </div>
           </div>
@@ -80,7 +81,7 @@
         <li class="dropdown" dropdown>
           <a href class="dropdown-toggle clear" dropdown-toggle>
             <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-              <img ng-src="{{credential.user.cliente.metadata.foto}}" alt="...">
+              <img ng-src="{{credential.user.cliente.metadata.foto || 'assets/img/user-default-photo.jpg' }}" alt="...">
               <i class="on md b-white bottom"></i>
             </span>
             <span class="hidden-sm hidden-md">{{credential.user.cliente.nombreCompleto}}</span> <b class="caret"></b>

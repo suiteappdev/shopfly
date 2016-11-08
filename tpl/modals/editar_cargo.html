@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <h3 class="m-t-none m-b font-thin">Ediciòn de Cargo</h3>
     </div>
-      <form role="form" name="bancoEdit">
+      <form role="form" name="cargoEdit">
       <div class="col-lg-12">
           <div class="form-group">
             <label>Cargo</label>
@@ -12,8 +12,8 @@
       </div>
       <div class="col-lg-12">
         <p class="pull-right">
-          <button type="submit" ng-disabled="!bancoEdit.$valid" class="btn btn-sm btn-primary" ng-click="$parent.ok()">OK</button>
-          <button type="submit" class="btn btn-sm btn-warning" ng-click="$parent.$close()">Cancelar</button>
+          <button type="submit" ng-disabled="!cargoEdit.$valid || !credential.user.permiso.formularios[17].permisos.W" class="btn btn-sm btn-info" ng-click="$parent.ok()">OK</button>
+          <button type="submit" class="btn btn-sm btn-info" ng-click="$parent.$close()">Cancelar</button>
         </p>        
       </div>
       </form>

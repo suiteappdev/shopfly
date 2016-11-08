@@ -13,6 +13,8 @@ angular.module('app').controller("perfilController", ["$scope", "$API", "$modal"
 			if(res.status == 200){
 	      		toaster.pop("success","Perfil", "Creado.");
 				$scope.perfiles.push(res.data);
+				$scope.perfilForm.$setPristine();
+				$scope.perfil = {};
 			}
 		});
 	}
@@ -45,6 +47,22 @@ angular.module('app').controller("perfilController", ["$scope", "$API", "$modal"
 		);
 	}
 
+	$scope.addExtention = function(){
+		if(this.add){
+			if($scope.permisos.extention){
+				$scope.permisos.extention.push(this.ext);
+			}else{
+				$scope.permisos.extention = [];
+				$scope.permisos.extention.push(this.ext);
+			}
+
+      		toaster.pop("success","Extencion", "has agregado una nueva extencion.");
+			return;
+		}
+		
+		$scope.permisos.extention.splice($scope.permisos.extention.indexOf(this.ext), 1);
+	}
+
 	$scope.del = function(perfil){
 		var modalInstance = $modal.open({
 	        templateUrl: 'confirm.html',
@@ -74,7 +92,7 @@ angular.module('app').controller("perfilController", ["$scope", "$API", "$modal"
       		}, 
       		function(val){
       			console.log(val);
-  		});
+  			});
 	}
 
 }]);

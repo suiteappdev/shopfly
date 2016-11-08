@@ -1,6 +1,6 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-n font-thin h3">Plataforma</h1>
-  <button class="btn btn-success btn-xs pull-right" ng-click="Create()"><i class="icon icon-note"></i> Crear Usuario</button>
+  <button type="submit" ng-disabled="!userForm.$valid" class="btn btn-success btn-xs pull-right" ng-click="Create()"><i class="icon icon-note"></i> Crear Usuario</button>
   <ul class="breadcrumb">
           <li><a href=""><i class="fa fa-home"></i> Panel</a></li>
           <li><a href="">Clientes</a></li>
@@ -16,23 +16,19 @@
             <div class="col-lg-4">
               <div class="form-group" ng-if="!setCliente">
                 <label>Cliente</label>
-                <input type="text" class="form-control" ng-click="formClient()" placeholder="Cliente">
+                <input type="text" class="form-control" ng-click="formClient()" placeholder="Cliente" required="true">
               </div>
               <div class="form-group" ng-if="setCliente.nombre">
                 <label>Cliente</label>
-                <input type="text" class="form-control" ng-click="formClient()" placeholder="Cliente" ng-model="setCliente.nombre">
+                <input type="text" class="form-control" ng-click="formClient()" placeholder="Cliente" ng-model="setCliente.nombre" required="true">
               </div>
-              <div class="form-group" ng-if="setCliente.representanteLegal || setCliente.razonSocial">
-                <label>Cliente</label>
-                <input type="text" class="form-control" ng-click="formClient()" placeholder="Cliente" ng-model="setCliente.representanteLegal">
-              </div>      
             </div>
             <div class="col-lg-4">
-              <ng-client-status ng-placeholder="estado" ng-label="Estado"><ng-client-status>
+              <ng-client-status ng-placeholder="estado" ng-required="true" ng-label="Estado"><ng-client-status>
             </div>
             <div class="col-lg-4">
             <div class="form-group">
-            <label>Perfil</label>
+            <label>Rol</label>
                   <div class="input-group">
                       <ui-select ng-model="$parent.usuario.perfil" theme="bootstrap" on-select="onSelect($item, $model)">
                         <ui-select-match placeholder="Perfil">{{$select.selected.perfil.nombre}}</ui-select-match>
@@ -51,50 +47,94 @@
             <div class="col-lg-4">
               <div class="form-group">
                   <label>Usuario</label>
-                  <input type="text" class="form-control" placeholder="Cliente" ng-model="usuario.usuario">              
+                  <input type="text" class="form-control" placeholder="Usuario" ng-model="usuario.usuario" ng-required="true">              
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group">
                   <label>Contraseña</label>
-                  <input type="password" class="form-control" placeholder="Contraseña" ng-model="usuario.password">              
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="form-group">
-                  <label>Repita la Contraseña</label>
-                  <input type="password" class="form-control" placeholder="Repita la contraseña" ng-model="rePassword">              
+                  <input type="password" class="form-control" placeholder="Contraseña" ng-model="usuario.password" required = "true">              
               </div>
             </div>
             </form>            
           </div>
         </div>
   </div>
-  <div class="col-lg-12">
+  <div class="col-lg-6">
     <div class="panel panel-default">
-      <div class="panel-heading font-bold"><i class="icon icon-bell"></i> Notificaciones</div>
-      <div class="list-group no-radius alt">
-        <a class="list-group-item" href="" ng-repeat="estado in estadoDocumentos" ng-click="estado.subscribed = estado.subscribed ? false : true">
-          <input type="checkbox" ng-model="estado.subscribed">
-          <i class="fa fa-reorder  fa-fw text-muted"></i> 
-          {{estado.nombre}}
-        </a>
+      <div class="panel-heading font-bold"><i class="icon icon-bell"></i> Estados
+      <button class="btn btn-xs btn-info pull-right" ng-click="agregarEstados()"><i class="fa fa-add"></i>Agregar estados</button>
+      </div>
+      <div class="panel-body">
+          <div class="cell scrollable hover" ng-class="{'dataArea': misEstados.length > 0}" >
+            <div class="table-responsive m_b">
+                  <table class="table table-striped b-t b-light">
+                    <thead>
+                      <tr>
+                        <th>Estado</th>
+                        <th class="pull-right">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-show="!misEstados || misEstados.length  == 0" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No has agregado Rutas al Usuario.</td></tr>
+                      <tr ng-show="misEstados.length  > 0" ng-repeat="estado in misEstados">
+                          <td>{{estado.nombre}}</td>
+                          <td>
+                              <button type="submit" class="btn btn-sm btn-info pull-right" ng-click="removeEstado(estado)" name="a"><i class="fa fa-trash"></i></button>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>            
+          </div>                  
       </div>
     </div>
   </div>
-  <div class="col-lg-4">
+  <div class="col-lg-6">
+    <div class="panel panel-default">
+      <div class="panel-heading font-bold">
+      <i class="icon icon-bell"></i> Plantillas
+        <button class="btn btn-xs btn-info pull-right" ng-click="agregarPlantillas()"><i class="fa fa-add"></i>Agregar Plantillas</button>
+      </div>
+      <div class="panel-body">
+          <div class="cell scrollable hover" ng-class="{'dataArea': misPlantillas.length > 0}" >
+            <div class="table-responsive m_b">
+                  <table class="table table-striped b-t b-light">
+                    <thead>
+                      <tr>
+                        <th>Plantilla</th>
+                        <th>Ruta</th>
+                        <th class="pull-right">Acciones</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-show="!misPlantillas || misPlantillas.length  == 0" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No has agregado Rutas al Usuario.</td></tr>
+                      <tr ng-show="misPlantillas.length  > 0" ng-repeat="plan in misPlantillas">
+                          <td>{{plan.plantilla.nombre}}</td>
+                          <td><a href="" ng-click="mostrarRutas(plan.path)"><i class="fa fa-eye"></td>
+                          <td>
+                              <button type="submit" class="btn btn-sm btn-info pull-right" ng-click="removePlantilla(plan)" name="a"><i class="fa fa-trash"></i></button>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>            
+          </div>                  
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3">
         <div class="panel panel-default">
           <div class="panel-heading font-bold">Menus</div>
             <ul class="list-group no-radius">
-              <li class="list-group-item" ng-repeat="menu in permisos.menus"  ng-click="$parent.selected = menu.id">
-                <span><input type="checkbox" ng-model="menu.visible"></span>
-                {{menu.nombre}}
+              <li class="list-group-item" style="height:40px;" ng-repeat="menu in permisos.menus"  >
+              <div class="col-lg-2"><span><input type="checkbox" ng-model="menu.visible" ng-change="permisionValue(menu)"></span></div>
+              <div class="col-lg-10" ng-init="$parent.selected = 'mnuConfiguracion'"  ng-click="$parent.selected = menu.id">{{menu.nombre}}</div>
               </li>
             </ul>
         </div>
   </div>
-
-  <div class="col-lg-8">
+  <div class="col-lg-5">
         <div class="panel panel-default">
           <div class="panel-heading font-bold">Formulario</div>
           <div class="table-responsive m_b">
@@ -131,7 +171,17 @@
             </div>
         </div>
   </div>
-
+  <div class="col-lg-3">
+        <div class="panel panel-default">
+          <div class="panel-heading font-bold">Extenciones</div>
+            <ul class="list-group no-radius">
+              <li class="list-group-item" style="height:40px;" ng-repeat="ext in extenciones"  >
+              <div class="col-lg-2"><span><input type="checkbox"  ng-model="ext.value"></span></div>
+              <div class="col-lg-10">{{ext.ext}}</div>
+              </li>
+            </ul>
+        </div>
+  </div>
 </div>
 </div>
 <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
@@ -143,4 +193,10 @@
 </script>
 <script type="text/ng-template" id="listado_cliente.html">
   <div ng-include="'tpl/modals/listado_cliente.html'"></div>
+</script>
+<script type="text/ng-template" id="agregar_plantillas.html">
+  <div ng-include="'tpl/modals/agregar_plantillas.html'"></div>
+</script>
+<script type="text/ng-template" id="agregar_estados.html">
+  <div ng-include="'tpl/modals/agregar_estados.html'"></div>
 </script>

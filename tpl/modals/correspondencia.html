@@ -15,7 +15,7 @@
       </div>
       <div class="col-lg-3">
           <div class="form-group">
-            <a href="" class="text-info" >[+] Nuevo Contacto</a>
+            <a href="" class="text-info" ng-click="nuevoContacto()">[+] Nuevo Contacto</a>
           </div>        
       </div>
       <div class="col-lg-3">
@@ -25,12 +25,12 @@
       </div>
       <div class="col-lg-3">
         <div class="form-group">
-            <a href="" class="text-info" ng-click="showFiles = showFiles ? false : true">[+] Ver Adjuntos</a>
+            <a href="" class="text-info" ng-click="showFiles = showFiles ? false : true"></i> Ver Adjuntos</a>
         </div>
       </div>
       <div class="col-lg-3">
         <div class="form-group">
-            <a href="" class="text-info" ng-click="showContactos = showContactos ? false : true">[+] Ver Contacto<span class="badge badge-sm up bg-success pull-right-xs ng-binding">{{correspondencia.contactos.length}}</span></a>
+            <a href="" class="text-info" ng-click="showContactos = showContactos ? false : true">Ver Contacto<span class="badge badge-sm up bg-success pull-right-xs ng-binding">{{correspondencia.contactos.length}}</span></a>
         </div>
       </div>
       <div class="col-lg-12" ng-show="showContactos">
@@ -76,6 +76,8 @@
               </tbody>
             </table>
         </div>
+      </div>
+      <div class="col-lg-12">
         <div class="form-group">
           <label for="mensaje">Mensaje:</label>
           <textarea class="form-control" style="resize:none;" rows="5" ng-model="correspondencia.mensaje" id="mensaje"></textarea>
@@ -92,4 +94,7 @@
 </div>
 <script type="text/ng-template" id="listado_cliente.html">
   <div ng-include="'tpl/modals/listado_cliente.html'"></div>
+</script>
+<script type="text/ng-template" id="nuevo_contacto.html">
+  <div ng-include="'tpl/modals/nuevo_contacto.html'"></div>
 </script>

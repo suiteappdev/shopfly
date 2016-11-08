@@ -2,17 +2,27 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 
 	$scope.Load = function(){
 		$scope.permisos = $window.permisos;
-
+		$scope.misPlantillas = [];
+		$scope.misEstados = [];
+	
 		$API.EstadoDocumento.List().then(function(res){
-			$scope.estadoDocumentos = res.data.filter(function(estado){
+			/*$scope.estadoDocumentos = res.data.filter(function(estado){
 				return estado.gestion;
-			});
+			});*/
+
+			$scope.estadoDocumentos = res.data || [];
+		});
+
+		$API.Ruta.List().then(function(res){
+			$scope.rutas = res.data || [];
 		});
 
 		if($stateParams.usuario){
 			$API.Usuario.Usuario($stateParams.usuario).then(function(res){
 				if(res.status == 200){
+					console.log("user permisos", res.data.permiso);
 					$scope.permisos = res.data.permiso || [];
+					$scope.extenciones = res.data.permiso.extention;
 					$scope.setCliente = res.data.cliente;
 					$scope.usuario = res.data;
 					$rootScope.client_status = res.data.estado;
@@ -25,12 +35,199 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 		});
 
 	}
+	
+	$scope.extenciones = [
+		{ext : 'pdf', value:false},
+		{ext : 'jpeg', value:false},
+		{ext : 'tif', value:false},
+		{ext : 'docx', value:false},
+		{ext : 'gif', value:false},
+		{ext : 'png', value:false},
+		{ext : 'txt', value:false},
+		{ext : 'zip', value:false},
+		{ext : 'rar', value:false},
+		{ext : 'xlsx', value:false},
+		{ext : 'xls', value:false}
+	];
+
+	$scope.removePlantilla = function(plantilla){
+		if(!$stateParams.usuario){
+			$scope.misPlantillas.splice($scope.misPlantillas.indexOf(plantilla), 1);
+			return;
+		}
+		
+		$scope.usuario.metadata.misPlantillas.splice($scope.usuario.metadata.misPlantillas.indexOf(plantilla), 1);
+	}
+
+	$scope.removeEstado = function(estado){
+		if(!$stateParams.usuario){
+			$scope.misEstados.splice($scope.misEstados.indexOf(estado), 1);
+			return;
+		}
+
+		$scope.usuario.metadata.misEstados.splice($scope.usuario.metadata.misEstados.indexOf(estado), 1);
+	}
+
+	$scope.agregarEstados= function(){
+		var modalInstance = $modal.open({
+	        templateUrl: 'agregar_estados.html',
+	        size : 'md',
+	        scope : $scope,
+	        controller : function($scope){
+
+	        	$scope.Load = function(){
+					$API.EstadoDocumento.List().then(function(res){
+						/*$scope.estadoDocumentos = res.data.filter(function(estado){
+							return estado.gestion;
+						});*/
+
+						$scope.estadoDocumentos = res.data || []
+					});
+	        	}
+
+	        	$scope.agregarEstado = function(add, estado){
+	        		var exist = false;
+
+	        		if($stateParams.usuario){
+	        			estado.subscribed = true;
+		        		if(add){
+		        			angular.forEach($scope.$parent.usuario.metadata.misEstados, function(value, key){
+		        				if(value._id == estado._id){
+		        					exist = true;
+		        				}
+		        			});
+
+			        		if(exist) return;
+			        		$scope.$parent.usuario.metadata.misEstados.push(estado);	        			
+		        		}else{
+							$scope.$parent.usuario.metadata.misEstados.splice($scope.$parent.usuario.metadata.misEstados.indexOf(estado), 1);	        			
+		        		}	
+	        		}else{
+	        			estado.subscribed = true;
+		        		if(add){
+		        			angular.forEach($scope.$parent.misEstados, function(value, key){
+		        				if(value._id == estado._id){
+		        					exist = true;
+		        				}
+		        			});
+
+			        		if(exist) return;
+			        		$scope.$parent.misEstados.push(estado);	        			
+		        		}else{
+							$scope.$parent.misEstados.splice($scope.$parent.misEstados.indexOf(estado), 1);	        			
+		        		}	        			
+	        		}
+	        	}
+	        }
+	    })
+	}
+
+	$scope.editarPlantillaUsuario = function(plantilla){
+		$scope.setPlantilla = angular.copy(plantilla);
+		
+		var modalInstance = $modal.open({
+	        templateUrl: 'editar_plantilla_usuario.html',
+	        size : 'md',
+	        scope : $scope,
+	        controller : function($scope){
+
+	        	$scope.Load = function(){
+					$API.Ruta.List().then(function(res){
+						$scope.rutas = res.data.filter(function(ruta){
+							return ruta.plantilla._id == $scope.setPlantilla.plantilla._id;
+						});
+					});
+	        	}
+
+	        	$scope.exist = function(index){
+	        		return $scope.setPlantilla.path[index] ? $scope.setPlantilla.path[index].visible  : false;
+	        	}
+
+	        	$scope.agregarPlantilla = function(){
+	        		if($stateParams.usuario){
+	        			angular.forEach($scope.$parent.usuario.metadata.misPlantillas, function(value, key){
+	        				if($scope.setPlantilla.plantilla._id == value.plantilla._id){
+	        					$scope.$parent.usuario.metadata.misPlantillas[key] = $scope.rutas[0];
+	        					console.log($scope.$parent.usuario.metadata.misPlantillas[key])
+	        				}
+	        			});
+	        		}
+
+	        		$scope.$close();
+	        	}
+
+	        }
+	    })
+	}
+
+	$scope.agregarPlantillas= function(){
+		var modalInstance = $modal.open({
+	        templateUrl: 'agregar_plantillas.html',
+	        size : 'md',
+	        scope : $scope,
+	        controller : function($scope){
+
+	        	$scope.Load = function(){
+					$API.Ruta.List().then(function(res){
+						$scope.rutas = res.data || [];
+					});
+	        	}
+
+	        	$scope.agregarPlantilla = function(plantilla){
+	        		var exist = false;
+	        		if($stateParams.usuario){
+	        			angular.forEach($scope.$parent.usuario.metadata.misPlantillas, function(value, key){
+	        				if( plantilla.plantilla._id == value.plantilla._id){
+	        					exist = true;
+	        				}
+	        			})
+
+	        			if(exist) return;
+		        		$scope.$parent.usuario.metadata.misPlantillas.push(plantilla);	        			
+
+	        		}else{
+	        			angular.forEach($scope.$parent.misPlantillas, function(value, key){
+	        				if( plantilla.plantilla._id == value.plantilla._id){
+	        					exist = true;
+	        				}
+	        			})
+
+	        			if(exist) return;
+		        		$scope.$parent.misPlantillas.push(plantilla);	        			
+	        		}
+
+	        		$scope.$close();
+	        	}
+
+	        }
+	    })
+	}
+
+	$scope.removeDependencia = function(dependencia){
+		$scope.misDependencias.splice($scope.misDependencias.indexOf(dependencia), 1);
+
+	}
+
+	$scope.permisionValue = function(value){
+		angular.forEach($scope.permisos.formularios, function(form, key){
+			if(value.id == form.parent){
+				form.permisos = {};
+				form.permisos.X = value.visible;
+				form.permisos.R = value.visible;
+				form.permisos.W = value.visible;
+				form.permisos.D = value.visible;
+			}
+		})
+	}
 
 	$scope.onSelect = function($item, $model){
 		$scope.permisos = $item.permiso;
 	}
 
+
 	$scope.Create = function(){
+		$scope.permisos.extention = $scope.extenciones;
+
 		$API.Usuario.Create(angular.toJson({
 			usuario : $scope.usuario.usuario,
 			perfil : $scope.usuario.perfil,
@@ -38,27 +235,43 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 			cliente : $scope.setCliente,
 			estado : $rootScope.client_status,
 			permiso : $scope.permisos,
-			metadata : {estadoDocumento : $scope.estadoDocumentos}
+			metadata : {misEstados : $scope.misEstados, misPlantillas : $scope.misPlantillas}
 		})).then(function(res){
 			if(res.status == 200){
 				toaster.pop("success","Usuario", "Creado");
+				$scope.userForm.$setPristine();
+				$scope.usuario = {};
+				delete $scope.setCliente;
+				delete $rootScope.client_status;
+				$scope.misEstados.length = 0;
+				$scope.misPlantillas.length = 0;
+				$scope.Load();
 			}
 		});
 	}
 
 	$scope.Update = function(){
+		$scope.permisos.extention = $scope.extenciones;
 		$API.Usuario.Update(angular.fromJson({
 			_id : $scope.usuario._id,
 			usuario : $scope.usuario.usuario,
 			perfil  : $scope.usuario.perfil,
-			password : $scope.usuario.password,
+			password : $scope.usuario.password ? $scope.usuario.password  : null,
 			cliente : $scope.setCliente,
 			estado : $rootScope.client_status,
-			metadata : {estadoDocumento : $scope.usuario.metadata.estadoDocumento},
+			metadata : {misEstados : $scope.usuario.metadata.misEstados, misPlantillas :$scope.usuario.metadata.misPlantillas},
 			permiso : $scope.permisos
 		})).then(function(res){
 			if(res.status == 200){
 				toaster.pop("success","Usuario", "Actualizado");
+				$scope.formUserUpdate.$setPristine();
+				$scope.usuario = {};
+				delete $scope.setCliente;
+				delete $rootScope.client_status;
+				$scope.misEstados.length = 0;
+				$scope.misPlantillas.length = 0;
+				$scope.Load();
+				$scope.$apply();
 			}
 		});
 	}
