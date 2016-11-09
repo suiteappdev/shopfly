@@ -22,7 +22,7 @@
         <div class="panel panel-default">
           <div class="panel-heading font-bold">Menus</div>
             <div class="list-group no-radius alt">
-              <li class="list-group-item" style="height:40px;" ng-repeat="menu in setRol.permisos.menus"  >
+              <li class="list-group-item" style="height:40px;" ng-repeat="menu in setRol.permiso.menus"  >
               <div class="col-lg-2"><span><input type="checkbox" ng-model="menu.visible"></span></div>
               <div class="col-lg-10" ng-init="$parent.selected = 'mnuConfiguracion'"  ng-click="$parent.selected = menu.id">{{menu.nombre}}</div>
               </li>
@@ -44,21 +44,21 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="form in setRol.permisos.formularios | filter : { parent : selected }">
+                    <tr ng-repeat="form in setRol.permiso.formularios | filter : { parent : selected }">
                         <td>
                           {{form.nombre}}
                         </td>
                         <td>
-                          <input type="checkbox" ng-model="form.permisos.X" ng-init="form.permisos.X = false;" >
+                          <input type="checkbox" ng-model="form.permisos.X">
                         </td>
                         <td>
-                          <input type="checkbox" ng-model="form.permisos.R" ng-init="form.permisos.R = false;" >
+                          <input type="checkbox" ng-model="form.permisos.R">
                         </td>
                         <td>
-                          <input type="checkbox" ng-model="form.permisos.W" ng-init="form.permisos.W = false;" >
+                          <input type="checkbox" ng-model="form.permisos.W">
                         </td>
                         <td>
-                          <input type="checkbox" ng-model="form.permisos.D" ng-init="form.permisos.D = false;" >
+                          <input type="checkbox" ng-model="form.permisos.D">
                         </td>
                     </tr>
                   </tbody>
