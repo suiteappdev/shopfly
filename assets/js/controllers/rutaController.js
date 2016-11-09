@@ -18,15 +18,15 @@ angular.module('app').controller("rutaController", ["$scope","$rootScope", "$mod
 
 	$scope.Create = function(){
 		$API.Ruta.Create({
-			plantilla : $scope.plantilla,
+			plantilla : $scope.plantilla._id,
 			path : $scope.paths,
 			estado : $scope.estado
 		}).then(function(res){
 			if(res.status == 200){
 				toaster.pop("success","Ruta", "Creada");
-				$scope.rutas.push(res.data)
 				$scope.plantilla = null;
 				$scope.paths = [];
+				$scope.Load();
 			}else if(res.status == 409){
 				toaster.pop("danger","Ruta", "Ya existe esta ruta.");
 				$scope.plantilla = null;
@@ -44,10 +44,12 @@ angular.module('app').controller("rutaController", ["$scope","$rootScope", "$mod
 	        scope : $scope,
 	        controller : function($scope){
 	        	$scope.ok = function(){
+	        		$scope.setRuta.plantilla = $scope.setRuta.plantilla._id;
 	      			$API.Ruta.Update($scope.setRuta).then(function(res){
 	      				if(res.status == 200){
 	      					toaster.pop("success","Ruta", "Actualizado");
-	      					$scope.rutas[$scope.rutas.indexOf(ruta)] = res.data;
+	      					$scope.Load();
+	      					//$scope.rutas[$scope.rutas.indexOf(ruta)] = res.data;
 	      				}
 	      			}); 
 	        		$scope.$close(true);

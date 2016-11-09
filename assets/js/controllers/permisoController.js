@@ -20,7 +20,7 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 		if($stateParams.usuario){
 			$API.Usuario.Usuario($stateParams.usuario).then(function(res){
 				if(res.status == 200){
-					console.log("user permisos", res.data.permiso);
+					console.log("user permisos", res.data);
 					$scope.permisos = res.data.permiso || [];
 					$scope.extenciones = res.data.permiso.extention;
 					$scope.setCliente = res.data.cliente;
@@ -91,16 +91,16 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 	        		if($stateParams.usuario){
 	        			estado.subscribed = true;
 		        		if(add){
-		        			angular.forEach($scope.$parent.usuario.metadata.misEstados, function(value, key){
+		        			angular.forEach($scope.$parent.usuario.misEstados, function(value, key){
 		        				if(value._id == estado._id){
 		        					exist = true;
 		        				}
 		        			});
 
 			        		if(exist) return;
-			        		$scope.$parent.usuario.metadata.misEstados.push(estado);	        			
+			        		$scope.$parent.usuario.misEstados.push(estado);	        			
 		        		}else{
-							$scope.$parent.usuario.metadata.misEstados.splice($scope.$parent.usuario.metadata.misEstados.indexOf(estado), 1);	        			
+							$scope.$parent.usuario.misEstados.splice($scope.$parent.usuario.misEstados.indexOf(estado), 1);	        			
 		        		}	
 	        		}else{
 	        			estado.subscribed = true;
@@ -170,20 +170,22 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 	        	$scope.Load = function(){
 					$API.Ruta.List().then(function(res){
 						$scope.rutas = res.data || [];
+						console.log($scope.rutas);
 					});
 	        	}
 
 	        	$scope.agregarPlantilla = function(plantilla){
 	        		var exist = false;
 	        		if($stateParams.usuario){
-	        			angular.forEach($scope.$parent.usuario.metadata.misPlantillas, function(value, key){
+	        			angular.forEach($scope.$parent.usuario.misPlantillas, function(value, key){
 	        				if( plantilla.plantilla._id == value.plantilla._id){
 	        					exist = true;
 	        				}
 	        			})
 
 	        			if(exist) return;
-		        		$scope.$parent.usuario.metadata.misPlantillas.push(plantilla);	        			
+		        		$scope.$parent.usuario.misPlantillas.push(plantilla);
+		        		$scope.$parent.misPlantillas.push(plantilla);
 
 	        		}else{
 	        			angular.forEach($scope.$parent.misPlantillas, function(value, key){
@@ -193,7 +195,7 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 	        			})
 
 	        			if(exist) return;
-		        		$scope.$parent.misPlantillas.push(plantilla);	        			
+		        		$scope.$parent.misPlantillas.push(plantilla);
 	        		}
 
 	        		$scope.$close();
@@ -234,8 +236,9 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 			password : $scope.usuario.password,
 			cliente : $scope.setCliente,
 			estado : $rootScope.client_status,
+			misPlantillas : $scope.misPlantillas.map(function(obj){return obj._id}),
 			permiso : $scope.permisos,
-			metadata : {misEstados : $scope.misEstados, misPlantillas : $scope.misPlantillas}
+			misEstados : $scope.misEstados.map(function(obj){return obj._id})
 		})).then(function(res){
 			if(res.status == 200){
 				toaster.pop("success","Usuario", "Creado");
@@ -259,7 +262,8 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 			password : $scope.usuario.password ? $scope.usuario.password  : null,
 			cliente : $scope.setCliente,
 			estado : $rootScope.client_status,
-			metadata : {misEstados : $scope.usuario.metadata.misEstados, misPlantillas :$scope.usuario.metadata.misPlantillas},
+			misPlantillas : $scope.usuario.misPlantillas.map(function(obj){return obj._id}),
+			misEstados : $scope.usuario.misEstados.map(function(obj){return obj._id}), 
 			permiso : $scope.permisos
 		})).then(function(res){
 			if(res.status == 200){

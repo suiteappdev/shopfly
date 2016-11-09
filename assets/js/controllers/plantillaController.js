@@ -1,4 +1,4 @@
-angular.module('app').controller("plantillaController", ["$scope","$rootScope", "$modal", "toaster", "$API", function($scope, $rootScope, $modal, toaster, $API){
+angular.module('app').controller("plantillaController", ["$scope","$rootScope", "$modal", "toaster", "$API","$timeout", function($scope, $rootScope, $modal, toaster, $API, $timeout){
 
 	$scope.Load = function(){
 		
@@ -36,21 +36,23 @@ angular.module('app').controller("plantillaController", ["$scope","$rootScope", 
     };
 
 	$scope.Create = function(){
+		$scope.plantilla.indice = $scope.plantilla.indice.map(function(obj){ return obj._id})
 		$API.Plantilla.Create($scope.plantilla).then(function(res){
 			if(res.status == 200){
 				toaster.pop("success","Plantilla", "Creada");
-				$scope.plantillas.push(res.data)
+				console.log($scope);
+				$scope.Load();
 				delete $scope.plantilla;
 			}
 		});
 	}
 
 	$scope.onSelect = function($item, $model){
-		var modalInstance = $modal.open({
+		/*var modalInstance = $modal.open({
 	        templateUrl: 'agregar_rutas.html',
 	        size : 'md',
 	        scope : $scope
-	    })
+	    })*/
 
 		var _exist = false;
 
@@ -67,6 +69,7 @@ angular.module('app').controller("plantillaController", ["$scope","$rootScope", 
 
 		if(_exist){return}
 
+		console.log($item);
 		$scope.plantilla.indice.push($item);
 	}
 
@@ -83,6 +86,12 @@ angular.module('app').controller("plantillaController", ["$scope","$rootScope", 
 	        	$scope.Load = function(){
 	        		$scope.setPlantilla = angular.copy(plantilla);
 	        		$scope.selectedIndices = $scope.setPlantilla.indice;
+	        	}
+
+	        	$scope.reload = function(){
+					$API.Plantilla.List().then(function(res){
+						$scope.plantillas = res.data || [];
+					});	
 	        	}
 
 				$scope.onSelect = function($item, $model){
@@ -105,10 +114,11 @@ angular.module('app').controller("plantillaController", ["$scope","$rootScope", 
 				}
 
 	        	$scope.ok = function(){
+	        		$scope.setPlantilla.indice = $scope.setPlantilla.indice.map(function(obj){return obj._id});
 	      			$API.Plantilla.Update($scope.setPlantilla).then(function(res){
 	      				if(res.status == 200){
 	      					toaster.pop("success","Plantilla", "Actualizada");
-	      					$scope.$parent.plantillas[$scope.$parent.plantillas.indexOf(plantilla)] = res.data;
+	      					$scope.$parent.Load();
 	        				$scope.$close(true);
 
 	      				}

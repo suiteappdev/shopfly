@@ -37,25 +37,24 @@
               </p>
           </div>
           <input
-          type="number" 
-          class="form-control" 
-          placeholder="{{indice.nombre}}" 
-          name="{{indice.nombre}}" 
-          ng-model="indice.value"  
-          ng-if="indice.tipo == 'Numero'" 
-          maxlength="{{indice.longitud}}"
-          ng-is
-          ng-pattern="/^[0-9]/"
-          ng-required="indice.requerido"
-          />
-          <input
            type="text"
            class="form-control"
            placeholder="{{indice.nombre}}"
            ng-pattern="/^[a-zA-Z0-9\s]+$/"
            name="nombre"
            ng-model="indice.value"
-           required ng-if="indice.tipo == 'Alpha'"
+           ng-if="indice.tipo == 'Alpha'"
+           maxlength="{{indice.longitud}}"
+           ng-required="indice.requerido"
+           />
+          <input
+           type="text"
+           class="form-control"
+           placeholder="{{indice.nombre}}"
+           ng-pattern="/^[0-9]+$/"
+           name="nombre"
+           ng-model="indice.value"
+           ng-if="indice.tipo == 'Numerico'"
            maxlength="{{indice.longitud}}"
            ng-required="indice.requerido"
            />
@@ -66,7 +65,7 @@
           <label>Rutas</label>
             <ui-select ng-model="$parent.$parent.dest" theme="bootstrap">
               <ui-select-match placeholder="Rutas">{{$select.selected.path}}</ui-select-match>
-              <ui-select-choices group-by="'group'" repeat="rut in ruta.path | filter: $select.search | filter : {visible : true}">
+              <ui-select-choices group-by="'group'" repeat="rut in setRuta.path | filter: $select.search">
                 <span ng-bind-html="rut.path | highlight: $select.search"></span>
               </ui-select-choices>
             </ui-select>
@@ -78,7 +77,7 @@
           <label>Estado</label>
             <ui-select ng-model="$parent.$parent.estado" theme="bootstrap">
               <ui-select-match placeholder="Estado">{{$select.selected.nombre}}</ui-select-match>
-              <ui-select-choices group-by="'group'" repeat="estado in $root.credential.user.metadata.misEstados | filter: $select.search">
+              <ui-select-choices group-by="'group'" repeat="estado in $root.credential.user.misEstados | filter: $select.search">
                 <span ng-bind-html="estado.nombre | highlight: $select.search"></span>
               </ui-select-choices>
             </ui-select>

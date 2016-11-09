@@ -36,6 +36,7 @@ angular.module('app').controller("documentarController", [
 			$timeout
 			){
 	$scope.Load = function(){
+		console.log($rootScope);
 		$API.EstadoDocumento.List().then(function(res){
 			$scope.estadoDocs = res.data || [];
 		});
@@ -236,7 +237,7 @@ angular.module('app').controller("documentarController", [
 
 	$scope.onSelect = function($item, $model){
 		$scope.setRuta = angular.copy($item);
-
+		console.log($item);
 		var modalInstance = $modal.open({
 	        templateUrl: 'documentar.html',
 	        size : 'md',

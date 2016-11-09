@@ -13,54 +13,50 @@
             tabIndex="{{$index}}"
             placeholder="{{indice.nombre}}"
             ng-pattern="/^[a-zA-Z\s]+$/"
-            name="{{indice.nombre}}"
+            ng-is
+            name="nombre"
             ng-model="indice.value"
             ng-if="indice.tipo == 'Texto'"
             maxlength="{{indice.longitud}}"
-            required
+            ng-required="indice.requerido"
             />
-          <div ng-if="indice.tipo == 'Fecha'" >
+          <div ng-if="indice.tipo == 'Fecha'">
               <p class="input-group">
                 <input 
-                type="text"
-                class="form-control"
-                datepicker-popup="{{format}}"
-                ng-model="indice.value"
-                is-open="$parent.$parent.$parent.opened"
-                datepicker-options="dateOptions"
-                close-text="Cerrar"
-                ng-disabled="{{indice.editable}}"
-
-                />
+                ng-init="field.opened = false;"
+                type="text" 
+                class="form-control" 
+                datepicker-popup="dd-MMMM-yyyy" 
+                ng-model="indice.value" 
+                is-open="field.opened" 
+                ng-required="indice.requerido"
+                datepicker-options="{formatYear: 'yy', startingDay: 1 }" close-text="Cerrar"/>
                 <span class="input-group-btn">
-                  <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                  <button type="button" class="btn btn-default" ng-click="open($event, field)"><i class="glyphicon glyphicon-calendar"></i></button>
                 </span>
               </p>
           </div>
-          <input
-          type="text" 
-          class="form-control" 
-          placeholder="{{indice.nombre}}" 
-          name="{{indice.nombre}}" 
-          ng-model="indice.value"  
-          ng-if="indice.tipo == 'Numero'" 
-          maxlength="{{indice.longitud}}"
-          ng-is
-          required
-          ng-disabled="{{indice.editable}}"
-          />
           <input
            type="text"
            class="form-control"
            placeholder="{{indice.nombre}}"
            ng-pattern="/^[a-zA-Z0-9\s]+$/"
-           name="{{indice.nombre}}"
+           name="nombre"
            ng-model="indice.value"
-           required ng-if="indice.tipo == 'Alpha'"
-           ng-disabled="{{indice.editable}}"
-
+           ng-if="indice.tipo == 'Alpha'"
            maxlength="{{indice.longitud}}"
-           required
+           ng-required="indice.requerido"
+           />
+          <input
+           type="text"
+           class="form-control"
+           placeholder="{{indice.nombre}}"
+           ng-pattern="/^[0-9]+$/"
+           name="nombre"
+           ng-model="indice.value"
+           ng-if="indice.tipo == 'Numerico'"
+           maxlength="{{indice.longitud}}"
+           ng-required="indice.requerido"
            />
         </div>              
       </div>

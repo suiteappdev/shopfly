@@ -23,7 +23,7 @@
         <label>Plantillas</label>
           <ui-select ng-model="$parent.ruta" theme="bootstrap" on-select="onSelect($item, $model)">
             <ui-select-match allow-clear="true" placeholder="Plantillas">{{$parent.ruta.plantilla.nombre}}</ui-select-match>
-            <ui-select-choices group-by="'group'" repeat="ruta in $root.credential.user.metadata.misPlantillas | filter: $select.search">
+            <ui-select-choices group-by="'group'" repeat="ruta in $root.credential.user.misPlantillas | filter: $select.search">
               <span ng-bind-html="ruta.plantilla.nombre | highlight: $select.search"></span>
             </ui-select-choices>
           </ui-select>
