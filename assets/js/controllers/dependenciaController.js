@@ -89,14 +89,16 @@ angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope
 	}
 }]);
 
-angular.module('app').controller("dependenciaModalController", ["$scope","$http", '$modal', "toaster","$rootScope", function($scope, $http, $modal, toaster, $rootScope){
+angular.module('app').controller("dependenciaModalController", ["$scope","$http", '$modal', "toaster","$rootScope","$API", function($scope, $http, $modal, toaster, $rootScope, $API){
 	$scope.Update = function(){
-		$http.put("http://boruto:3000/docdependencia/" + $scope.selectedNode.node.id, {
-			text : $scope.selectedNode.node.text
-		}).success(function(data){
+		$API.DocDependencia.Update({
+			_id : $scope.selectedNode.node.id,
+			text:$scope.selectedNode.node.text
+		}).then(function(res){
         	toaster.pop("success","Actualizado", "se ha actualizado Correctamente");
         	$scope.$close();
-        	$rootScope.$broadcast("updated_dependencia", data);
+        	$rootScope.$broadcast("updated_dependencia", true);
+        	
 		});
 	}
 }]);
