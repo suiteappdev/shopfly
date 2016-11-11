@@ -67,6 +67,7 @@ angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope
         scope : $scope,
         controller : function($scope){
         	$scope.ok = function(){
+        		console.log($scope.selectedNode.node);
         		if($scope.selectedNode.node.children.length > 0){
 		        	toaster.pop("warning","Eliminado", "No Puede eliminar un elemento padre si contiene Hijos");
         			return;
@@ -78,6 +79,10 @@ angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope
 		        	delete $scope.selectedNode;
 		        	$scope.$close();
         		});
+        	}
+
+        	$scope.cancel  = function(){
+        		$scope.$close();
         	}
         }
       });

@@ -20,7 +20,7 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 		if($stateParams.usuario){
 			$API.Usuario.Usuario($stateParams.usuario).then(function(res){
 				if(res.status == 200){
-					console.log("user permisos", res.data);
+					console.log("plantillas del usuer", res.data)
 					$scope.permisos = res.data.permiso || [];
 					$scope.extenciones = res.data.permiso.extention;
 					$scope.setCliente = res.data.cliente;
@@ -56,7 +56,7 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 			return;
 		}
 		
-		$scope.usuario.metadata.misPlantillas.splice($scope.usuario.metadata.misPlantillas.indexOf(plantilla), 1);
+		$scope.usuario.misPlantillas.splice($scope.usuario.misPlantillas.indexOf(plantilla), 1);
 	}
 
 	$scope.removeEstado = function(estado){
@@ -65,7 +65,7 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 			return;
 		}
 
-		$scope.usuario.metadata.misEstados.splice($scope.usuario.metadata.misEstados.indexOf(estado), 1);
+		$scope.usuario.misEstados.splice($scope.usuario.misEstados.indexOf(estado), 1);
 	}
 
 	$scope.agregarEstados= function(){
@@ -145,10 +145,10 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 
 	        	$scope.agregarPlantilla = function(){
 	        		if($stateParams.usuario){
-	        			angular.forEach($scope.$parent.usuario.metadata.misPlantillas, function(value, key){
+	        			angular.forEach($scope.$parent.usuario.misPlantillas, function(value, key){
 	        				if($scope.setPlantilla.plantilla._id == value.plantilla._id){
-	        					$scope.$parent.usuario.metadata.misPlantillas[key] = $scope.rutas[0];
-	        					console.log($scope.$parent.usuario.metadata.misPlantillas[key])
+	        					$scope.$parent.usuario.misPlantillas[key] = $scope.rutas[0];
+	        					console.log($scope.$parent.usuario.misPlantillas[key])
 	        				}
 	        			});
 	        		}
@@ -170,7 +170,6 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 	        	$scope.Load = function(){
 					$API.Ruta.List().then(function(res){
 						$scope.rutas = res.data || [];
-						console.log($scope.rutas);
 					});
 	        	}
 
@@ -178,18 +177,17 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 	        		var exist = false;
 	        		if($stateParams.usuario){
 	        			angular.forEach($scope.$parent.usuario.misPlantillas, function(value, key){
-	        				if( plantilla.plantilla._id == value.plantilla._id){
+	        				if(plantilla.plantilla._id == value._id){
 	        					exist = true;
 	        				}
 	        			})
 
 	        			if(exist) return;
 		        		$scope.$parent.usuario.misPlantillas.push(plantilla);
-		        		$scope.$parent.misPlantillas.push(plantilla);
 
 	        		}else{
 	        			angular.forEach($scope.$parent.misPlantillas, function(value, key){
-	        				if( plantilla.plantilla._id == value.plantilla._id){
+	        				if( plantilla.plantilla._id == value._id){
 	        					exist = true;
 	        				}
 	        			})
@@ -275,7 +273,7 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 				$scope.misEstados.length = 0;
 				$scope.misPlantillas.length = 0;
 				$scope.Load();
-				$scope.$apply();
+				window.history.back();
 			}
 		});
 	}
