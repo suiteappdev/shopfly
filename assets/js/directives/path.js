@@ -5,7 +5,7 @@ angular.module("app").directive("ngPath", function($modal, $rootScope){
 		})
 
 	$scope.addPath = function(path){
-		var _exist = false;
+		/*var _exist = false;
 
 			$scope.ngData.forEach(function(value){
 			if(value.path == $rootScope.selectedNode.path){
@@ -16,7 +16,9 @@ angular.module("app").directive("ngPath", function($modal, $rootScope){
 
 		if(!_exist){
 			$scope.ngData.push({path : $rootScope.selectedNode.path});
-		}			
+		}
+		*/			
+		$scope.ngData.push({path : $rootScope.selectedNode.path});
 		
 	}
 
