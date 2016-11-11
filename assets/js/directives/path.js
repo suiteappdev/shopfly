@@ -4,7 +4,7 @@ angular.module("app").directive("ngPath", function($modal, $rootScope){
 			$scope.dependencias = res.data || [];
 		})
 
-	$scope.addPath = function(path){
+	$scope.addPath = function(){
 		/*var _exist = false;
 
 			$scope.ngData.forEach(function(value){
@@ -17,8 +17,10 @@ angular.module("app").directive("ngPath", function($modal, $rootScope){
 		if(!_exist){
 			$scope.ngData.push({path : $rootScope.selectedNode.path});
 		}
-		*/			
+		*/
+		console.log("nodo actual", $rootScope.selectedNode.path)
 		$scope.ngData.push({path : $rootScope.selectedNode.path});
+		delete $rootScope.selectedNode;
 		
 	}
 
@@ -33,7 +35,7 @@ angular.module("app").directive("ngPath", function($modal, $rootScope){
 		        scope : $scope,
 		        controller : function($scope){
 		        	$scope.ok = function(){
-			        	$scope.$parent.addPath({path : $rootScope.selectedNode.path});
+			        	$scope.$parent.addPath();
 			        	$scope.$close();
 		        	}
 		        }

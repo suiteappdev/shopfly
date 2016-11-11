@@ -18,7 +18,7 @@
             ng-model="indice.value"
             ng-if="indice.tipo == 'Texto'"
             maxlength="{{indice.longitud}}"
-            ng-required="indice.requerido"
+            ng-required="{{indice.requerido}}"
             />
           <div ng-if="indice.tipo == 'Fecha'">
               <p class="input-group">
@@ -45,7 +45,7 @@
            ng-model="indice.value"
            ng-if="indice.tipo == 'Alpha'"
            maxlength="{{indice.longitud}}"
-           ng-required="indice.requerido"
+           ng-required="{{indice.requerido}}"
            />
           <input
            type="text"
@@ -54,9 +54,9 @@
            ng-pattern="/^[0-9]+$/"
            name="nombre"
            ng-model="indice.value"
-           ng-if="indice.tipo == 'Numerico'"
+           ng-if="indice.tipo == 'Numero'"
            maxlength="{{indice.longitud}}"
-           ng-required="indice.requerido"
+           ng-required="{{indice.requerido}}"
            />
         </div>              
       </div>

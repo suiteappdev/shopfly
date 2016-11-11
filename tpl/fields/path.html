@@ -33,6 +33,7 @@
           <h3 class="m-t-none m-b font-thin">Dependencias</h3>
           <form role="form" name="pathForm">
             <js-tree tree-data="scope" tree-model="dependencias"></js-tree>
+            <pre>{{$root.selectedNode.node}}</pre>
               <p class="pull-right">
                 <button type="submit" ng-disabled="!pathForm.$valid"class="btn btn-sm btn-primary" ng-click="ok()">Agregar</button>
                 <button type="submit" class="btn btn-sm btn-warning" ng-click="$close()">Cerrar</button>        
