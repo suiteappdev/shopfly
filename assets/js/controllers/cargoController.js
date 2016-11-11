@@ -9,7 +9,7 @@ angular.module('app').controller("cargoController", ["$scope","$rootScope", "$mo
 	$scope.Create = function(){
 		$API.Cargo.Create($scope.cargo).then(function(res){
 			if(res.status == 200){
-				$scope.cargos.push(res.data);
+				$scope.Load();
 	      		toaster.pop("success","Cargo", "Creado");
 	      		delete $scope.cargo;
 			}
@@ -51,7 +51,14 @@ angular.module('app').controller("cargoController", ["$scope","$rootScope", "$mo
 	        scope : $scope,
 	        controller : function($scope){
 	        	$scope.ok = function(){
-	        		$scope.$close(true);
+	      				$API.Cargo.Delete(cargo._id).then(function(res){
+	      					if(res.status == 200){
+	      						$scope.cargos.splice($scope.cargos.indexOf(cargo), 1);
+	      						toaster.pop("warning","Cargo", "Borrado");
+								$scope.$close();
+
+	      					}
+	      				});
 	        	}
 
 	        	$scope.cancel  = function(){
@@ -59,18 +66,5 @@ angular.module('app').controller("cargoController", ["$scope","$rootScope", "$mo
 	        	}
 	        }
       	});
-
-      	modalInstance.result.then(
-	      		function(val){
-	      			if(val){
-	      				$API.Cargo.Delete(cargo._id).then(function(res){
-	      					if(res.status == 200){
-	      						$scope.cargos.splice($scope.cargos.indexOf(cargo), 1);
-	      						toaster.pop("warning","Cargo", "Borrado");
-	      					}
-	      				});
-	      			}
-	      		}
-  			);
 	}
 }]);

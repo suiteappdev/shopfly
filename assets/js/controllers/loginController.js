@@ -2,14 +2,16 @@ angular.module('app').controller("loginController", ["$scope", "$location", "$wi
 
 	$scope.login = function(){
         UserService.signIn($scope.user.usuario, $scope.user.password).then(function(res) {
-        	if(res.status == 200){
+        	console.log("login req", res);
+            if(res.status == 200){
             	AuthenticationService.isAuthenticated = true;
                 $localStorage.credential = res.data; 
             	$location.path("/app/panel");        		
-        	}
-        }, function(){
-            toaster.pop("error","Credenciales", "Usuario/Contraseña Incorrectas");
-            $location.path("/login");     
+        	}else if(res.status == 404){
+               toaster.pop("error","Credenciales", "Este usuario no existe"); 
+            }else if(res.status == 400){
+               toaster.pop("error","Credenciales", "Contraseña incorrecta"); 
+            }
         })
 	}
 

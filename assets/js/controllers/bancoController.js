@@ -37,8 +37,8 @@ angular.module('app').controller("bancoController", ["$scope","$rootScope", "$mo
       			if(val){
 	      			$API.Banco.Update($scope.setBanco).then(function(res){
 	      				if(res.status == 200){
-	      					//$rootScope.barrios[$rootScope.barrios.indexOf(barrio)] = res.data;
 	      					toaster.pop("success","Banco", "Actualizado");
+	      					$scope.Load();
 	      				}
 	      			});      				
       			}
