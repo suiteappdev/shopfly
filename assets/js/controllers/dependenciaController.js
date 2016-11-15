@@ -30,7 +30,7 @@ angular.module('app').controller("dependenciaController", ["$docFlyConf","$scope
 	$scope.Create = function(){
 		$API.DocDependencia.Create({
 			id : $scope.dependencia.nombre,
-			parent : $scope.selectedNode ? $scope.selectedNode.node.text : null
+			parent : $scope.selectedNode ? $scope.selectedNode.node.id : null
 		}).then(function(res){
 			if(res.status == 200){
 				toaster.pop("success","Dependencia", "Creada");
