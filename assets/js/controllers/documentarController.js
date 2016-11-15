@@ -349,8 +349,13 @@ angular.module('app').controller("documentarController", [
 			ruta : $scope.dest,
 			hash : $scope._targetPath,
 			archivo : $scope.myFiles.length,
+			empresa : $rootScope.credential.user.cliente.empresa,
 			directorio :$fileManagerService.path.normalize($fileManagerService.path.join($scope.dest.path, $scope._targetPath))
 		}).then(function(res){
+			if(res.status == 409){
+				return toaster.pop("error", "Indice Duplicado :" +res.data.indice[0].nombre, "Error al crear la documentacion");
+			}
+
 			toaster.pop("success", "# de documentacion :" +res.data.consecutivo, "Archivos subidos");
 			$scope.$close();
 			$scope.myFiles.length = 0;
@@ -428,6 +433,8 @@ angular.module('app').controller("documentarController", [
 		if($rootScope.difusionItems && $rootScope.difusionItems.length > 0){
 			$rootScope.difusionItems.length = 0;
 		}
+		
+		console.log($scope);
 
 		$API.DocDocumento.Search(
 				{
@@ -436,14 +443,20 @@ angular.module('app').controller("documentarController", [
 					criteria : $scope.criteria,
 					indiceIni : $scope.indiceIni ? $scope.indiceIni.date : null ,
 					indiceEnd :$scope.indiceEnd ?  $scope.indiceEnd.date : null,
-					sucursal : $rootScope.enterprise ? $rootScope.enterprise._id : null,
+					empresa : $rootScope.enterprise ? $rootScope.enterprise._id : null,
 					ini : $scope.ini ? $moment($scope.ini.date).startOf('day').format() : null,
 					end : $scope.end ? $moment($scope.end.date).endOf('day').format() : null,
 					cliente : $scope.cliente ? $scope.cliente : null ,
 					valorConsecutivo : $scope.valorConsecutivo ? $scope.valorConsecutivo : null, 
-					consecutivo : $scope.consecutivo ? $scope.consecutivo._id : null, 
+					consecutivo : $scope.consecutivo ? $scope.consecutivo._id : null
 				}
 			).then(function(res){
+				if(res.data.length == 0){
+					toaster.pop("error","Sin Resultados", "No se encontraron resultados para su busqueda.");
+					$scope.documentos = [];
+					return;
+				}
+
 				$scope.documentos = res.data || [];
 		});
 	}

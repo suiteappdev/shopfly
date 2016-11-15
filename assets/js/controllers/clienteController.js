@@ -28,7 +28,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 				$rootScope.profile = $scope.cliente.metadata.perfil;
 				$rootScope.office = $scope.cliente.metadata.cargo;
 				$rootScope.line_price = $scope.cliente.metadata.lineaPrecio;
-				$rootScope.enterprise = $scope.cliente.metadata.empresa;
+				$rootScope.enterprise = $scope.cliente.empresa;
 			});
 		}
 	}
@@ -44,6 +44,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 			representanteLegal	: $scope.cliente.representanteLegal ? $scope.representanteLegal : null ,
 			tipoCliente 		: $rootScope.client_type,
 			estado 				: $rootScope.client_status,
+			empresa				: $rootScope.enterprise._id,
 			metadata			:{
 				pais 				: $rootScope.country,
 				direccion 			: $scope.cliente.metadata.direccion,
@@ -93,6 +94,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 			representanteLegal	: $scope.cliente.representanteLegal ? $scope.cliente.representanteLegal : null ,
 			tipoCliente 		: $rootScope.client_type,
 			estado 				: $rootScope.client_status,
+			empresa				: $rootScope.enterprise._id,
 			metadata			:{
 				pais 				: $rootScope.country,
 				direccion 			: $scope.cliente.direccion,

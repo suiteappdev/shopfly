@@ -65,7 +65,16 @@
                 <label class="i-checks">
                   <input type="checkbox" name="b" value="Texto" ng-model="indice.requerido">
                   <i></i>
-                  Requirido
+                  Requerido
+                </label>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="radio">
+                <label class="i-checks">
+                  <input type="checkbox" ng-model="indice.unico">
+                  <i></i>
+                  Unico
                 </label>
               </div>
             </div>
@@ -90,6 +99,7 @@
                       <th>Longitud</th>
                       <th>Editable</th>
                       <th>Requerido</th>
+                      <th>Unico</th>
                       <th class="text-right">Acciones</th>
                     </tr>
                   </thead>
@@ -101,6 +111,7 @@
                         <td>{{indice.longitud ? indice.longitud : 'No Asignado'}}</td>
                         <td>{{indice.editable ? 'Si' : 'No'}}</td>
                         <td>{{indice.requerido ? 'Si' : 'No'}}</td>
+                        <td>{{indice.unico ? 'Si' : 'No'}}</td>
                         <td>
                         <div class="pull-right">
                             <button ng-disabled="!credential.user.permiso.formularios[1].permisos.W"type="submit" class="btn btn-sm btn-info" ng-click="Update(indice)"><i class="fa fa-edit"></i></button>

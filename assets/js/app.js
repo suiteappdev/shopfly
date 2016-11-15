@@ -14,5 +14,6 @@ angular.module('app', [
     'oc.lazyLoad',
     'pascalprecht.translate',
     'shopfly',
-    'jsTree.directive'
+    'jsTree.directive',
+    'angularUtils.directives.dirPagination'
 ]);

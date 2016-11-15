@@ -64,6 +64,15 @@
         </label>
       </div>
     </div>
+    <div class="col-lg-3">
+      <div class="radio">
+        <label class="i-checks">
+          <input type="checkbox" name="a" ng-model="setIndice.unico">
+          <i></i>
+          Unico
+        </label>
+      </div>
+    </div>
     <div class="col-lg-12">
       <p class="pull-right">
         <button type="submit" ng-disabled="!indiceForm.$valid || !credential.user.permiso.formularios[1].permisos.W" class="btn btn-sm btn-info" ng-click="ok()">Actualizar</button>
