@@ -19,6 +19,8 @@
             ng-if="indice.tipo == 'Texto'"
             maxlength="{{indice.longitud}}"
             ng-required="{{indice.requerido}}"
+            autocomplete="on"
+
             />
           <div ng-if="indice.tipo == 'Fecha'">
               <p class="input-group">
@@ -46,6 +48,8 @@
            ng-if="indice.tipo == 'Alpha'"
            maxlength="{{indice.longitud}}"
            ng-required="{{indice.requerido}}"
+           autocomplete="on"
+
            />
           <input
            type="text"
@@ -57,6 +61,7 @@
            ng-if="indice.tipo == 'Numero'"
            maxlength="{{indice.longitud}}"
            ng-required="{{indice.requerido}}"
+
            />
         </div>              
       </div>

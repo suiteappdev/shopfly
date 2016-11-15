@@ -16,6 +16,7 @@
             ng-pattern="/^[a-zA-Z\s]+$/"
             ng-is
             name="nombre"
+            autocomplete="on"
             ng-model="indice.value"
             maxlength="{{indice.longitud}}"
             ng-required="{{indice.requerido}}"
@@ -46,6 +47,8 @@
            ng-if="indice.tipo == 'Alpha'"
            maxlength="{{indice.longitud}}"
            ng-required="indice.requerido"
+          autocomplete="on"
+
            />
           <input
            type="text"
