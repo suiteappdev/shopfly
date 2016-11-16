@@ -34,7 +34,8 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 	}
 
 	$scope.Update  = function(){
-		$API.Cliente.Update({
+		console.log("cliente", $scope.cliente)
+		/*$API.Cliente.Update({
 			_id 				: $scope.cliente._id,
 			tipoDocumento 		: $rootScope.document,
 			documento 			: $scope.cliente.documento,
@@ -80,7 +81,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 
 				$location.path("app/page/clientes");
 			}
-		});
+		});*/
 	}
 
 	$scope.create = function(){
