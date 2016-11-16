@@ -94,7 +94,7 @@ angular.module('app').controller("clienteController", ["$scope", "$API", "$modal
 			representanteLegal	: $scope.cliente.representanteLegal ? $scope.cliente.representanteLegal : null ,
 			tipoCliente 		: $rootScope.client_type,
 			estado 				: $rootScope.client_status,
-			empresa				: $rootScope.enterprise ? $rootScope.enterprise._id : null,,
+			empresa				: $rootScope.enterprise ? $rootScope.enterprise._id : null,
 			metadata			:{
 				pais 				: $rootScope.country,
 				direccion 			: $scope.cliente.direccion,
