@@ -63,16 +63,14 @@
            ng-required="{{indice.requerido}}"
 
            />
-           
-            <selectize 
-              ng-init="makeOptions(indice.opciones)"
-              config='{placeholder:"Elija una opción", labelField: "item", valueField: "item", maxItems:1, delimiter :","}' 
-              options='options' 
-
-              ng-model="indice.value"
-              ng-required ='indice.requerido'
-              ng-if="indice.tipo == 'Seleccionable'">
-            </selectize>
+          <selectize 
+            ng-init="makeOptions(indice)"
+            config='{placeholder:"Elija una opción", labelField: "item", valueField: "item", maxItems:1, delimiter :","}' 
+            options='$parent[indice._id]' 
+            ng-model="indice.value"
+            ng-required ='indice.requerido'
+            ng-if="indice.tipo == 'Seleccionable'">
+          </selectize>
         </div>              
       </div>
       <div class="col-lg-6">

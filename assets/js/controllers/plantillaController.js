@@ -48,11 +48,11 @@ angular.module('app').controller("plantillaController", ["$scope","$rootScope", 
 	}
 
 	$scope.onSelect = function($item, $model){
-		var modalInstance = $modal.open({
+		/*var modalInstance = $modal.open({
 	        templateUrl: 'agregar_rutas.html',
 	        size : 'md',
 	        scope : $scope
-	    })
+	    })*/
 
 		var _exist = false;
 

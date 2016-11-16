@@ -238,9 +238,9 @@ angular.module('app').controller("documentarController", [
 	$scope.onSelect = function($item, $model){
 		$scope.setRuta = angular.copy($item);
 		
-		$scope.makeOptions = function(options){
-			if(options){
-				$scope.options = options.map(function(opt){ return { item : opt}});
+		$scope.makeOptions = function(indice){
+			if(indice.opciones){
+				$scope[indice._id] = indice.opciones.map(function(opt){ return { item : opt}});
 			//	$scope.options = options.map(function(opt){ return { item : opt}});
 			}
 		}
@@ -515,9 +515,9 @@ angular.module('app').controller("documentarController", [
 	$scope.Update = function(documentacion){
 		$scope.setRuta	= angular.copy(documentacion);
 
-		$scope.makeOptions = function(options){
-			if(options){
-				$scope.options = options.map(function(opt){ return { item : opt}});
+		$scope.makeOptions = function(indice){
+			if(indice.opciones){
+				$scope[indice._id] = indice.opciones.map(function(opt){ return { item : opt}});
 			//	$scope.options = options.map(function(opt){ return { item : opt}});
 			}
 		}

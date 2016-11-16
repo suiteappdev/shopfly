@@ -18,6 +18,13 @@ angular.module('app').controller("indiceController", ["$scope","$rootScope", "$m
 
 	$scope.Update = function(indice){
 		$scope.setIndice = angular.copy(indice);
+		
+		$scope.makeOptions = function(indice){
+			if(indice.opciones){
+				$scope.opciones = indice.opciones.map(function(opt){ return { item : opt}});
+			//	$scope.options = options.map(function(opt){ return { item : opt}});
+			}
+		}
 
 		var modalInstance = $modal.open({
 	        templateUrl: 'editar_indice.html',

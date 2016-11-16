@@ -10,7 +10,7 @@
       <input type="text" class="form-control" placeholder="Indice" ng-model="setIndice.nombre" required/>
     </div>               
   </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
       <div class="radio">
       <label class="i-checks">
         <input type="radio" required name="a" value="Texto" ng-model="setIndice.tipo">
@@ -19,31 +19,49 @@
       </label>
     </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <div class="radio">
           <label class="i-checks">
             <input type="radio" required name="a" value="Numerico" ng-model="setIndice.tipo"><i></i>Numerico
           </label>
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <div class="radio">
           <label class="i-checks">
             <input type="radio" required name="a" value="Fecha" ng-model="setIndice.tipo"><i></i>Fecha
           </label>
         </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <div class="radio">
           <label class="i-checks">
             <input type="radio" required name="a" value="Alpha" ng-model="setIndice.tipo"><i></i>alpha.
           </label>
         </div>
     </div>
-    <div class="col-lg-12" ng-if="setIndice.tipo != 'Fecha'">
+    <div class="col-lg-2">
+        <div class="radio">
+          <label class="i-checks">
+            <input type="radio" name="a" value="Seleccionable" ng-model="setIndice.tipo"><i></i>Seleccionable
+          </label>
+        </div>
+    </div>
+    <div class="col-lg-12" ng-show="setIndice.tipo == 'Seleccionable'">
+    <div class="form-group">
+      <label>Opciones</label>
+      <selectize 
+      ng-init="makeOptions(setIndice)"
+      config='{create: true, placeholder:"Elija una opción", labelField: "item", valueField: "item", placeholder:"Escriba el valor y presione ENTER" }' 
+      options='$parent.opciones' 
+      ng-model="setIndice.opciones">
+      </selectize>  
+    </div>
+    </div>
+    <div class="col-lg-12" ng-hide="setIndice.tipo == 'Fecha' || setIndice.tipo == 'Seleccionable'">
         <div class="form-group">
           <label>Tamaño</label>
-          <input type="text" class="form-control" placeholder="Tamaño de caracteres" ng-model="setIndice.longitud" required/>
+          <input type="text" class="form-control" placeholder="Tamaño de caracteres" ng-model="setIndice.longitud" />
         </div>                 
     </div>
     <div class="col-lg-3">
@@ -64,7 +82,7 @@
         </label>
       </div>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3" ng-show="setIndice.tipo != 'Seleccionable'">
       <div class="radio">
         <label class="i-checks">
           <input type="checkbox" name="a" ng-model="setIndice.unico">
