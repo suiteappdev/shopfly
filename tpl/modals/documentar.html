@@ -3,7 +3,7 @@
     <div class="col-lg-12">
       <h3 class="m-t-none m-b font-thin">Documentar</h3>
     </div>
-      <form role="form" name="documentarForm">
+      <form role="form" name="documentarForm" autocomplete="on">
       <div class="col-lg-12" ng-repeat="indice in setRuta.plantilla.indice">
         <div class="form-group">
           <label>{{indice.nombre}}</label>
@@ -16,7 +16,6 @@
             ng-pattern="/^[a-zA-Z\s]+$/"
             ng-is
             name="nombre"
-            autocomplete="on"
             ng-model="indice.value"
             maxlength="{{indice.longitud}}"
             ng-required="{{indice.requerido}}"
@@ -47,7 +46,6 @@
            ng-if="indice.tipo == 'Alpha'"
            maxlength="{{indice.longitud}}"
            ng-required="indice.requerido"
-          autocomplete="on"
 
            />
           <input
@@ -61,6 +59,15 @@
            maxlength="{{indice.longitud}}"
            ng-required="indice.requerido"
            />
+              <selectize 
+                ng-init="makeOptions(indice.opciones)"
+                config='{placeholder:"Elija una opción", labelField: "item", valueField: "item", maxItems:1, delimiter :","}' 
+                options='options' 
+
+                ng-model="indice.value"
+                ng-required ='indice.requerido'
+                ng-if="indice.tipo == 'Seleccionable'">
+              </selectize>
         </div>              
       </div>
       <div class="col-lg-12">

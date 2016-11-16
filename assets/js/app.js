@@ -15,5 +15,6 @@ angular.module('app', [
     'pascalprecht.translate',
     'shopfly',
     'jsTree.directive',
-    'angularUtils.directives.dirPagination'
+    'angularUtils.directives.dirPagination',
+    'selectize'
 ]);

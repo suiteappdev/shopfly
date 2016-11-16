@@ -238,7 +238,13 @@ angular.module('app').controller("documentarController", [
 	$scope.onSelect = function($item, $model){
 		$scope.setRuta = angular.copy($item);
 		
-		console.log($item);
+		$scope.makeOptions = function(options){
+			if(options){
+				$scope.options = options.map(function(opt){ return { item : opt}});
+			//	$scope.options = options.map(function(opt){ return { item : opt}});
+			}
+		}
+
 		var modalInstance = $modal.open({
 	        templateUrl: 'documentar.html',
 	        size : 'md',
@@ -508,6 +514,14 @@ angular.module('app').controller("documentarController", [
 
 	$scope.Update = function(documentacion){
 		$scope.setRuta	= angular.copy(documentacion);
+
+		$scope.makeOptions = function(options){
+			if(options){
+				$scope.options = options.map(function(opt){ return { item : opt}});
+			//	$scope.options = options.map(function(opt){ return { item : opt}});
+			}
+		}
+
 		var modalInstance = $modal.open({
 	        templateUrl: 'editar_documentacion.html',
 	        size : 'md',

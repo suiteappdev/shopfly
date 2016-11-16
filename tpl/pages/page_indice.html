@@ -15,7 +15,7 @@
               <input type="text" class="form-control" placeholder="Indice" ng-model="indice.nombre" required />
             </div>               
           </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
               <div class="radio">
                 <label class="i-checks">
                   <input type="radio" name="a" value="Texto" ng-model="indice.tipo" >
@@ -24,26 +24,40 @@
                 </label>
               </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="radio">
                   <label class="i-checks">
                     <input type="radio" name="a" value="Numero" ng-model="indice.tipo" ><i></i>Numerico
                   </label>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="radio">
                   <label class="i-checks">
                     <input type="radio" name="a" value="Fecha" ng-model="indice.tipo"><i></i>Fecha
                   </label>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="radio">
                   <label class="i-checks">
                     <input type="radio" name="a" value="Alpha" ng-model="indice.tipo"><i></i>Alpha.
                   </label>
                 </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="radio">
+                  <label class="i-checks">
+                    <input type="radio" name="a" value="Seleccionable" ng-model="indice.tipo"><i></i>Seleccionable
+                  </label>
+                </div>
+            </div>
+            <div class="col-lg-12" ng-show="indice.tipo == 'Seleccionable'">
+            <div class="form-group">
+              <label>Opciones</label>
+              <selectize 
+              config='{create: true, persist: false, delimiter: ",", placeholder:"Escriba el valor y presione ENTER" }' options='[]' ng-model="indice.opciones"></selectize>              
+            </div>
             </div>
             <div class="col-lg-12" ng-show="indice.tipo != 'Fecha'">
                 <div class="form-group">
