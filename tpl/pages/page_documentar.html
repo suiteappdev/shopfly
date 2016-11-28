@@ -7,7 +7,7 @@
       <input type="file" multiple="multiple" id="files" ng-file class="hidden">
       <label for="files" class="text-center btn btn-info"><i class="icon icon-cloud-upload"></i> Archivos</label>
       <p></p>
-        <div class="form-group">
+        <div class="form-group hidden">
           <label>Seleccione el Scanner</label>
             <ui-select ng-model="$parent.print" theme="bootstrap">
               <ui-select-match placeholder="Dispositivo de entrada">{{print.Name}}</ui-select-match>
