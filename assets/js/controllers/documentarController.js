@@ -419,7 +419,7 @@ angular.module('app').controller("documentarController", [
 
 	$scope.Scan = function(){
 	   $webkitService.win.minimize();
-
+	   console.log("impresora", $scope.print);
 		$printerService.Scan()($scope.print.Id, function(_err, _result){
 			console.log("_err[scan]", _err);
 			console.log("_result[scan]", _result);
