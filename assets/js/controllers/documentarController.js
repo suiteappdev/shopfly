@@ -50,7 +50,7 @@ angular.module('app').controller("documentarController", [
 				});				
 			})
 		});
-		
+
 		$API.EstadoDocumento.List().then(function(res){
 			$scope.estadoDocs = res.data || [];
 		});
@@ -421,6 +421,8 @@ angular.module('app').controller("documentarController", [
 	   $webkitService.win.minimize();
 
 		$printerService.Scan()($scope.print.Id, function(_err, _result){
+			console.log("_err[scan]", _err);
+			console.log("_result[scan]", _result);
 			$fileManagerService.fs.stat(_result[0], function(_err, _res){
 				var _parsed = $fileManagerService.path.parse(_result[0]);
 
