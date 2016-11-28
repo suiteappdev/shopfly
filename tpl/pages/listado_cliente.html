@@ -52,8 +52,8 @@
           <tr ng-show="clientes.length  == 0 || !clientes" ><td colspan="5" class="text-center"><i class="fa fa-exclamation-circle"></i> No se produjeron resultados.</td></tr>
             <tr pagination-id="clientes" dir-paginate="cliente in clientes | filter:search |itemsPerPage: 15 ">
               <td>{{cliente.nombre || cliente.representanteLegal}} {{cliente.apellido || ''}}</td>
-              <td>{{cliente.metadata.email}}</td>
-              <td><a href="" class="success" ng-click="showPhoneBookView(cliente.metadata.telefono)">{{cliente.metadata.telefono[0]}}</a></td>
+              <td>{{cliente.metadata.email || 'no definido'}}</td>
+              <td><a href="" class="success" ng-click="showPhoneBookView(cliente.metadata.telefono)">{{cliente.metadata.telefono[0] || 'no definido'}}</a></td>
               <td>
                 <div>
                       <label class="i-switch m-t-xs m-r">

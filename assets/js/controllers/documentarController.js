@@ -36,7 +36,21 @@ angular.module('app').controller("documentarController", [
 			$timeout
 			){
 	$scope.Load = function(){
-		console.log($rootScope);
+		$scope.myFiles = [];
+
+		var watcher = $fileManagerService.chokidar.watch($docFlyConf.scanFolder, 'file', {
+		  ignored: /[\/\\]\./
+		});
+
+		watcher.on('add', function(file, info){
+			$scope.$apply(function(){
+				$fileManagerService.fs.stat($fileManagerService.path.normalize(file), function(error, stats){
+					$scope.myFiles.push({name : $fileManagerService.path.basename($fileManagerService.path.normalize(file)), size : info.size, path :$fileManagerService.path.normalize(file), scanner : true});
+					$scope.$apply();
+				});				
+			})
+		});
+		
 		$API.EstadoDocumento.List().then(function(res){
 			$scope.estadoDocs = res.data || [];
 		});
@@ -84,6 +98,7 @@ angular.module('app').controller("documentarController", [
 		$API.EstadoDocumento.List().then(function(res){
 			$scope.estadoDocumentos = res.data || [];
 		});
+
 	}
 
 	$scope.remove = function(file){
@@ -195,11 +210,13 @@ angular.module('app').controller("documentarController", [
 				}
 				
 	        	$scope.Load = function(){
+	        		console.log("scope documentacion", $scope.documentacion)
 					_walker = $fileManagerService.walker.walk($fileManagerService.path.join($docFlyConf.path, $scope.documentacion.directorio));
 					
 					$scope.myFiles = [];
 
 					_walker.on('file', function (root, fileStats, next){
+						console.log("fileStats", fileStats);
 						$scope.myFiles.push({documentacion : $scope.documentacion, name : fileStats.name, size : fileStats.size, path :$fileManagerService.path.join(root, fileStats.name), estado : "InDisk"});
 						next();
 						$scope.$apply();

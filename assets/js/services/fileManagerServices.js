@@ -7,7 +7,8 @@ angular.module('app')
 			var fs = require('fs');
 			var path = require('path'); 
 			var walk = require('walk')
-
+			var chokidar = require('chokidar');
+			this.chokidar = chokidar;
 			this.walker = walk;
 			this.path = path;
 			this.fs = fs;
@@ -21,6 +22,8 @@ angular.module('app')
 		}catch(e){
 
 		}
+
+
 
 		this.fileSize = function(bytes, si){
 		    var thresh = si ? 1000 : 1024;
