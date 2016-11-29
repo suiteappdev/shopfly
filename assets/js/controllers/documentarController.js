@@ -379,7 +379,7 @@ angular.module('app').controller("documentarController", [
 				return toaster.pop("error", "Indice Duplicado :" +res.data.indice[0].nombre, "Error al crear la documentacion");
 			}
 
-			toaster.pop("success", "# de documentacion :" +res.data.consecutivo, "Archivos subidos");
+			toaster.pop("success", "se ha guardado la documentacion", "Archivos subidos");
 			$scope.$close();
 			$scope.myFiles.length = 0;
 		});
