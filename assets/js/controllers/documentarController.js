@@ -101,6 +101,8 @@ angular.module('app').controller("documentarController", [
 
 	}
 
+
+
 	$scope.remove = function(file){
 		$scope.myFiles.splice($scope.myFiles.indexOf(file), 1);
 	}
@@ -380,8 +382,22 @@ angular.module('app').controller("documentarController", [
 			}
 
 			toaster.pop("success", "se ha guardado la documentacion", "Archivos subidos");
+			
+			angular.forEach($scope.myFiles, function(v, k){
+				if(v.scanner){
+					$fileManagerService.fse.remove($fileManagerService.path.normalize(v.path), function(err){
+						if (err) return console.error(err)
+						
+						$scope.myFiles.splice($scope.myFiles.indexOf(v), 1);
+						$scope.$apply();
+						return;
+					})						
+				}else{
+					$scope.myFiles.splice($scope.myFiles.indexOf(v), 1);
+				}
+			});
+			
 			$scope.$close();
-			$scope.myFiles.length = 0;
 		});
 	}
 
