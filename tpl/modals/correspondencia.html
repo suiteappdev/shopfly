@@ -61,7 +61,7 @@
                 <tr>
                   <th>Archivo</th>
                   <th>Tamaño</th>
-                  <th class="pull-right">Acciones</th>
+                  <th style="text-align:right;">Acciones</th>
                 </tr>
               </thead>
               <tbody>
@@ -71,6 +71,9 @@
                     <td>{{file.size}}</td>
                     <td class="pull-right">
                         <button type="submit" class="btn btn-sm btn-info" ng-click="removeFile(file)"><i class="fa fa-trash"></i></button>
+                    </td>
+                    <td class="pull-right">
+                        <button type="button" class="btn btn-sm btn-info" ng-click="exec()"><i class="fa fa-eye"></i></button>
                     </td>
                 </tr>
               </tbody>

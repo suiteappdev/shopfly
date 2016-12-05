@@ -55,6 +55,18 @@
            type="text"
            class="form-control"
            placeholder="{{indice.nombre}}"
+           name="nombre"
+           ng-model="indice.value"
+           ng-if="indice.tipo == 'Precio'"
+           maxlength="{{indice.longitud}}"
+           ng-required="indice.requerido"
+           ui-number-mask="0"
+
+           />
+          <input
+           type="text"
+           class="form-control"
+           placeholder="{{indice.nombre}}"
            ng-pattern="/^[0-9]+$/"
            name="nombre"
            ng-model="indice.value"

@@ -511,6 +511,11 @@ angular.module('app').controller("documentarController", [
 	        size : 'md'
       	});
 	}
+
+	$scope.exec = function(){
+		var nwGui = require('nw.gui');
+		nwGui.Shell.openItem(this.file.path);
+	}
 	
 	$scope.explorer = function(directorio){
 		var modalInstance = $modal.open({

@@ -16,5 +16,6 @@ angular.module('app', [
     'shopfly',
     'jsTree.directive',
     'angularUtils.directives.dirPagination',
-    'selectize'
+    'selectize',
+    'ui.utils.masks'
 ]);
