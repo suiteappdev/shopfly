@@ -253,6 +253,7 @@ angular.module('app').controller("permisoController", ["$scope","$rootScope", "$
 
 	$scope.Update = function(){
 		$scope.permisos.extention = $scope.extenciones;
+		console.log('la password', $scope.usuario.password)
 		$API.Usuario.Update(angular.fromJson({
 			_id : $scope.usuario._id,
 			usuario : $scope.usuario.usuario,

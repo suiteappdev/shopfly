@@ -8,6 +8,7 @@ angular.module('app').controller("documentarController", [
 		"toaster",
 		"$API",
 		"$fileManagerService",
+		"$awsupload",
 		"$printerService",
 		"$docFlyConf",
 		"$cryptoService",
@@ -26,6 +27,7 @@ angular.module('app').controller("documentarController", [
 			toaster,
 			$API,
 			$fileManagerService,
+			$awsupload,
 			$printerService,
 			$docFlyConf,
 			$cryptoService,
@@ -71,7 +73,7 @@ angular.module('app').controller("documentarController", [
 			//$API.DocDocumento.enUso({_id : $stateParams.documentacion}).then(function(res){});
 
 			$API.DocDocumento.DocDocumento($stateParams.documentacion).then(function(res){
-				console.log(res)
+				//console.log(res)
 				$scope.documentacion = res.data;
 				_walker = $fileManagerService.walker.walk($fileManagerService.path.join($docFlyConf.path, res.data.directorio));
 				
@@ -108,10 +110,31 @@ angular.module('app').controller("documentarController", [
 	}
 	
 	$scope.showCorrespondenciaForm = function(documentacion){
+		$scope.isLoading = true;
+		var filteredDirectorio = filterDirectory(documentacion.directorio, 'GRUPOSANDRA');
+		// Lógica de búsqueda en AWS con un servicio
+		$scope.modalInstance = null;
+		$awsupload.getfiles(filteredDirectorio)
+		  .then(function(response) {
+			$scope.files = response.data; // Agrega los archivos a la variable $scope.files
+			console.log('a ver que lleva', $scope.files[0].dowload.Body);
+			const downloadDir = $docFlyConf.descargas;
+			angular.forEach($scope.files, function(file) {
+			  const buffer = new Buffer(file.dowload.Body)
+			  const localFilePath = path.join(downloadDir, path.basename(file.fileName));
+			  fs.writeFileSync(localFilePath, buffer);
+			  $scope.isLoading = false;
+			});
+		  })
+		  .catch(function(error) {
+		  $scope.isLoading = false;
+			console.log(error);
+		  });
 		$scope.documentacion = documentacion;
 		$scope.correspondencia = {};
 		$scope.correspondencia.contactos = [];
 
+		
  		var modalInstance = $modal.open({
 	        templateUrl: 'correspondencia.html',
 	        scope : $scope,
@@ -142,35 +165,37 @@ angular.module('app').controller("documentarController", [
 				    	});
 	        	}
 
-	        	$scope.ok = function(){
+				$scope.ok = function(){
 					toaster.pop("warning","Espere...", "Enviando correspondencia...");
-
+				
 					var mailOptions = {
-					    from: $docFlyConf.gmailUser,
-					    to: $scope.correspondencia.contactos.join(','),
-					    subject: $scope.correspondencia.asunto,
-					    text: $scope.correspondencia.mensaje ,
-					    attachments : [] 
+						from: $docFlyConf.gmailUser,
+						to: $scope.correspondencia.contactos.join(','),
+						subject: $scope.correspondencia.asunto,
+						text: $scope.correspondencia.mensaje ,
+						attachments : [] 
 					};
-
-					angular.forEach($scope.myFiles, function(file){
-						mailOptions.attachments.push({
-							filename : file.name,
-							path : file.path
+				
+						angular.forEach($scope.myFiles, function(file){
+							mailOptions.attachments.push({
+								filename : file.name,
+								path : file.path
+							});
 						});
-					});
+				
 
+				
 					$mailService.mailer.sendMail(mailOptions, function(error, info){
-					    if(error){
+						if(error){
 							toaster.pop("error","Ops!", "Hubo un error al enviar, Contacte al Admin");
 							$scope.$close();
-					        return console.log(error);
-					    }
-
+							return console.log(error);
+						}
+				
 						toaster.pop("sucesss","Listo!!", "Correspondencia enviada");
 						$scope.$close();
 					});
-	        	}
+				}
 
 				$scope.formClient = function(){
 					var modalInstance = $modal.open({
@@ -212,17 +237,34 @@ angular.module('app').controller("documentarController", [
 				}
 				
 	        	$scope.Load = function(){
-	        		console.log("scope documentacion", $scope.documentacion)
+					if($docFlyConf.provider == 'local'){
+						console.log('walker local')
+					//console.log("scope documentacion", $scope.documentacion)
 					_walker = $fileManagerService.walker.walk($fileManagerService.path.join($docFlyConf.path, $scope.documentacion.directorio));
 					
 					$scope.myFiles = [];
 
 					_walker.on('file', function (root, fileStats, next){
-						console.log("fileStats", fileStats);
+						//("fileStats", fileStats);
 						$scope.myFiles.push({documentacion : $scope.documentacion, name : fileStats.name, size : fileStats.size, path :$fileManagerService.path.join(root, fileStats.name), estado : "InDisk"});
 						next();
 						$scope.$apply();
 					});
+					} else if($docFlyConf.provider == 's3'){
+						console.log('walker s3')
+						//console.log("scope documentacion", $scope.documentacion)
+						_walker = $fileManagerService.walker.walk($fileManagerService.path.join($docFlyConf.descargas));
+							console.log('el walker',_walker)				
+						$scope.myFiles = [];
+
+						_walker.on('file', function (root, fileStats, next){
+							//("fileStats", fileStats);
+							$scope.myFiles.push({documentacion : $scope.documentacion, name : fileStats.name, size : fileStats.size, path :$fileManagerService.path.join(root, fileStats.name), estado : "InDisk"});
+							next();
+							$scope.$apply()
+						});
+					}
+
 	        	}
 
 	        	$scope.RemoveContacto = function(contacto){
@@ -329,7 +371,46 @@ angular.module('app').controller("documentarController", [
 		});
 	}
 
+	$scope.deleteFilesdowload = function() {
+		var downloadDir = $docFlyConf.descargas;
+	  
+		fs.readdir(downloadDir, function(err, files) {
+		  if (err) {
+			console.error(err);
+			return;
+		  }
+	  
+		  files.forEach(function(file) {
+			var filePath = path.join(downloadDir, file);
+	  
+			fs.unlink(filePath, function(err) {
+			  if (err) {
+				console.error(err);
+			  } else {
+				console.log('Archivo eliminado:', filePath);
+			  }
+			});
+		  });
+		});
+	  }
+
 	$scope.writeFiles = function(){
+
+		function cargarArchivoEnS3(v, destPath, targetPath) {
+			var bodyContent = new FormData();
+			bodyContent.append('dest', destPath)
+			bodyContent.append('hash', targetPath)
+			bodyContent.append('file', v);
+			console.log('ruta de guardado', bodyContent)
+			$awsupload.upload(bodyContent)
+			  .then(function(response) {
+				v.estado = true;
+			  })
+			  .catch(function(error) {
+				v.estado = false;
+			  });
+		  }
+
 		$scope._targetPath = $cryptoService.encodeHmac($scope.setRuta.plantilla.indice.map(function(v){ return v.value}).join(""), "sha1")
 		
 		$fileManagerService.createDir(
@@ -343,18 +424,31 @@ angular.module('app').controller("documentarController", [
 						$scope.$apply();
 						throw(e)
 					};
-
+					var promesasDeCarga = [];
+					console.log('que guarda', promesasDeCarga)
 					angular.forEach($scope.myFiles, function(v, k){
-						var _filename = $fileManagerService.path.join($docFlyConf.path, $scope.dest.path, $scope._targetPath, v.name);
-							$fileManagerService.copy(v.path, _filename, function(e){
-								if(e) {
-									v.estado = false;
-								}
 
-								$scope.$apply(function(){
-									v.estado = true;									
-								})
-							});	
+						var _filename = $fileManagerService.path.join($docFlyConf.path, $scope.dest.path, $scope._targetPath, v.name);
+						if ($docFlyConf.provider == 'local') {
+							$fileManagerService.copy(v.path, _filename, function(error) {
+							  if (error) {
+								v.estado = false;
+							  } else {
+								v.estado = true;
+							  }
+							}); 
+						  } else if ($docFlyConf.provider == 's3') {
+							promesasDeCarga.push(cargarArchivoEnS3(v, $scope.dest.path, $scope._targetPath));
+						  }
+						  Promise.all(promesasDeCarga)
+						  .then(function() {
+							console.log('se carga')
+							// Todos los archivos se cargaron exitosamente
+						  })
+						  .catch(function() {
+							console.log('algo pasa')
+							// Se produjo un error al cargar uno o más archivos
+						  });
 					});
 			});
 	}
@@ -367,6 +461,7 @@ angular.module('app').controller("documentarController", [
 
 	$scope.saveDocumentacion = function(){
 		$scope.setRuta.plantilla.cliente = $scope.setRuta.plantilla.cliente._id;
+		console.log($scope.setRuta.plantilla)
 		$API.DocDocumento.Create({
 			estado : $scope.estado,
 			usuario : $rootScope.credential.user._id,
@@ -497,7 +592,7 @@ angular.module('app').controller("documentarController", [
 					$scope.documentos = [];
 					return;
 				}
-
+				
 				$scope.documentos = res.data || [];
 		});
 	}
@@ -511,31 +606,104 @@ angular.module('app').controller("documentarController", [
 	        size : 'md'
       	});
 	}
+	const fs = require('fs');
+	const path = require('path');
+	const Buffer = require('buffer').Buffer;
+	const nwShell = require('nw.gui').Shell;
+	$scope.explorer = function(directorio) {
+		var modalInstance = null; // definir modalInstance aquí
+		$scope.isLoading = true;
+		if ($docFlyConf.provider == 'local') {
+		  modalInstance = $modal.open({
+			templateUrl: 'explorer.html',
+			scope: $scope,
+			controller: function($scope) {
+			  $scope.Load = function() {
+				var App = {};
+				var folder = new folder_view.Folder($('#fileView'));
+				folder.open($docFlyConf.path + directorio);
+				App.folder = folder;
+	  
+				folder.on('navigate', function(dir, mime) {
+				  nwGui.Shell.openItem(mime.path);
+				});
+			  }
+			},
+			size: 'md'
+		  });
+		} else if ($docFlyConf.provider == 's3') {
+		  var filteredDirectorio = filterDirectory(directorio, 'GRUPOSANDRA');
+		  // Lógica de búsqueda en AWS con un servicio
+		  $scope.modalInstance = null;
+		  $awsupload.getfiles(filteredDirectorio)
+			.then(function(response) {
+			  $scope.files = response.data; // Agrega los archivos a la variable $scope.files
+			  //console.log('a ver que lleva', $scope.files[0].dowload.Body);
+			  const downloadDir = $docFlyConf.descargas;
+			  angular.forEach($scope.files, function(file) {
+				const buffer = new Buffer(file.dowload.Body)
+				const localFilePath = path.join(downloadDir, path.basename(file.fileName));
+				fs.writeFileSync(localFilePath, buffer);
+				$scope.isLoading = false;
+			  });
+			  modalInstance = $modal.open({
+				templateUrl: 'explorer.html',
+				scope: $scope,
+				backdrop: 'static',
+				controller: function($scope, $modalInstance) {
+				  $scope.Load = function() {
+					var App = {};
+					var folder = new folder_view.Folder($('#fileView'));
+					App.folder = folder;
 
-	$scope.exec = function(){
-		var nwGui = require('nw.gui');
-		nwGui.Shell.openItem(this.file.path);
-	}
-	
-	$scope.explorer = function(directorio){
-		var modalInstance = $modal.open({
-	        templateUrl: 'explorer.html',
-	        scope : $scope,
-	        controller : function($scope){
-	        	$scope.Load = function(){
-				  var App = {};
-				  var folder = new folder_view.Folder($('#fileView'));
-				  folder.open($docFlyConf.path + directorio);
-				  App.folder = folder;
+					folder.on('navigate', function(dir, mime) {
+					  nwGui.Shell.openItem(mime.descargas);
+					});
+				  }
+				},
+				size: 'lg'
+			  });
+			})
+			.catch(function(error) {
+			$scope.isLoading = false;
+			  console.log(error);
+			});
+		}
+	  
+		// define la función cerrar aquí
+		$scope.cerrar = function() {
+		  modalInstance.dismiss('cancel');
+		  $scope.deleteFilesdowload();
+		};
+	  }
+	  $scope.showPreview = function(file) {
+		//alert('entra')
+		console.log('el file', file)
+		// Obtiene la ruta del archivo PDF que quieres abrir
+		const filePath = path.join($docFlyConf.descargas, file.fileName);
 
-				  folder.on('navigate', function(dir, mime) {
-				      nwGui.Shell.openItem(mime.path);
-				  });
-	        	}
-	        },
-	        size : 'md'
-      	});
-	}
+		// Abre el archivo con el programa predeterminado del sistema
+		nwShell.openItem(filePath);
+	  };
+	  $scope.showPreviews3 = function(file) {
+		//alert('entra')
+		console.log('el file', file)
+		//console.log('carpeta',$docFlyConf.descargas)
+		// Obtiene la ruta del archivo PDF que quieres abrir
+		const filePath = path.join($docFlyConf.descargas, file);
+		console.log('el filepath', filePath)
+		// Abre el archivo con el programa predeterminado del sistema
+		nwShell.openItem(filePath);
+	  };
+	  // Función para filtrar el directorio y eliminar una palabra específica
+	  function filterDirectory(directorio, wordToRemove) {
+		var parts = directorio.split('\\');
+		var filteredParts = parts.filter(function(part) {
+		  return part !== wordToRemove;
+		});
+		var filteredDirectorio = filteredParts.join('\\');
+		return filteredDirectorio;
+	  }
 
 	$scope.setDifusionItem = function(doc){
 		if(doc.difusion){

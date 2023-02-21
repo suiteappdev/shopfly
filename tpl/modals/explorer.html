@@ -1,3 +1,19 @@
-<div class="modal-body" ng-init="Load()">
-	<ul style="padding : 0px!important" id="fileView"></ul>
-</div>
+	<ul style="padding: 0px!important;" id="fileView">
+	  <li ng-repeat="file in files">
+		<div>
+		  <img ng-click="showPreview(file)" ng-if="file.fileName.endsWith('.pdf')" src="assets/img/pdf.png">
+		  <img ng-click="showPreview(file)" ng-if="file.fileName.endsWith('.doc') || file.fileName.endsWith('.docx')" src="assets/img/word.png">
+		  <img ng-click="showPreview(file)" ng-if="file.fileName.endsWith('.xls') || file.fileName.endsWith('.xlsx')" src="assets/img/excel.png">
+		  <img ng-click="showPreview(file)" ng-if="file.fileName.endsWith('.txt') || file.fileName.endsWith('.txt')" src="assets/img/text.png">
+		  <img ng-click="showPreview(file)" ng-if="file.fileName.endsWith('.png') || file.fileName.endsWith('.png')" src="assets/img/image.png">
+		  <img ng-click="showPreview(file)" ng-if="file.fileName.endsWith('.jpg') || file.fileName.endsWith('.jepg')" src="assets/img/image.png">
+		  <div>
+			<a ng-click="showPreview(file)">{{file.fileName}}</a>
+		  </div>
+		</div>
+	  </li>
+	</ul>
+	<div class="modal-footer text-right">
+		<button type="button" class="btn btn-default" ng-click="cerrar()">Cerrar</button>
+	</div>
+  </div>

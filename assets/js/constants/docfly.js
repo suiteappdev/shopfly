@@ -8,5 +8,8 @@ angular.module('app').constant("$docFlyConf", {
         gmailUser : 'docflyapp@gmail.com',
         gmailPwd : 'Majoca0126*',
         fileKey : "Majoca0126*",
-        scanFolder : 'C:\\scanner'	
+        scanFolder : 'C:\\scanner',	
+        //(local) si se va a escribir en disco o (s3) si se va utilizar en la nube
+        provider: 's3',
+        descargas: "C:\\descargas"
     })

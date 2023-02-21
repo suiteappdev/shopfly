@@ -3,3 +3,5 @@ assets/js/constants/docfly.js
 
 /assets/js/constants/docfly.js
 assets/js/static/global.js
+/node_modules
+node_modules
